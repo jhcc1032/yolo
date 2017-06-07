@@ -9,20 +9,12 @@ public class Member implements Serializable {
 	private String id;
 	private String password;
 	private String auth;
-	public String getAuth() {
-		return auth;
-	}
-
-	public void setAuth(String auth) {
-		this.auth = auth;
-	}
-
 	private String name;
 	private String mgroup;
 	private String email;
-	private String regdate;
+	private String enteryear;
 	private String withdraw;
-
+	
 	public Member() {
 	}
 
@@ -35,7 +27,7 @@ public class Member implements Serializable {
 	
 
 	public Member(int empno, int mno, String id, String password, String auth,
-			String name, String mgroup, String email, String regdate,
+			String name, String mgroup, String email, String enteryear,
 			String withdraw) {
 		super();
 		this.empno = empno;
@@ -46,9 +38,20 @@ public class Member implements Serializable {
 		this.name = name;
 		this.mgroup = mgroup;
 		this.email = email;
-		this.regdate = regdate;
+		this.enteryear = enteryear;
 		this.withdraw = withdraw;
 	}
+	
+	public String getAuth() {
+		return auth;
+	}
+
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
+
+
+	
 
 	public int getEmpno() {
 		return empno;
@@ -106,12 +109,12 @@ public class Member implements Serializable {
 		this.email = email;
 	}
 
-	public String getRegdate() {
-		return regdate;
+	public String getenteryear() {
+		return enteryear;
 	}
 
-	public void setRegdate(String regdate) {
-		this.regdate = regdate;
+	public void setenteryear(String enteryear) {
+		this.enteryear = enteryear;
 	}
 
 	public String getWithdraw() {
@@ -129,7 +132,7 @@ public class Member implements Serializable {
 				.append(mno).append(", id=").append(id).append(", password=")
 				.append(password).append(", name=").append(name)
 				.append(", mgroup=").append(mgroup).append(", email=")
-				.append(email).append(", regdate=").append(regdate)
+				.append(email).append(", enteryear=").append(enteryear)
 				.append(", withdraw=").append(withdraw).append("]");
 		return builder.toString();
 	}

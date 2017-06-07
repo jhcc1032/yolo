@@ -20,6 +20,7 @@ public class MemberController {
 	
 	@ExceptionHandler
 	public ModelAndView handler(Exception e){
+		System.out.println(e.getMessage());
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("msg", e.getMessage());
 		model.addObject("content", "ErrorHandler.jsp");
@@ -42,9 +43,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
-	public String insertMember( Model model, HttpSession session, String id, String pw){
-		memberService.login(id, pw);
-		session.setAttribute("id", id);
+	public String insertMember( Model model, HttpSession session, String id, String password){
+		System.out.println("id : " + id + "  password : " + password +"=====================@controller");
+		if(memberService.login(id, password)) {
+			System.out.println("로그인 성공");
+			session.setAttribute("id", id);
+		} else {
+			System.out.println("로그인 실패");
+		}
 		return "index";
 	}
 	

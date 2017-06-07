@@ -45,17 +45,19 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
-	public boolean login(String id, String passwrod) {
+	public boolean login(String id, String password) {
+		System.out.println("id : " + id + "  password : " + password +"=====================@serviceimpl");
 		Member member = null;
 		try {
 			member = dao.search( id);
+			System.out.println(member);
 		} catch(Exception  s){
 			throw new UpdateException("DB 서버 오류");
 		}
 		if(member == null){
 			throw new UpdateException("해당하는 아이디는 존재하지 않습니다.");
 		}
-		if(passwrod ==null || !passwrod.equals(member.getPassword())){
+		if(password ==null || !password.equals(member.getPassword())){
 			throw new UpdateException("비밀번호가 맞지 않습니다.");
 		}
 		if(member.getWithdraw().equals("Y")){

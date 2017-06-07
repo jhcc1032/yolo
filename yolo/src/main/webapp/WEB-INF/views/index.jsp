@@ -146,7 +146,7 @@ footer {
 			<nav id="menu">
 				<c:choose>
 					<c:when test="${empty id}">
-						<a href="loginform.do">로그인</a>
+						<a href="loginform.do">로그인</a>		
 						<a href="insertMemberForm.do">회원가입</a>
 					</c:when>
 					<c:otherwise>

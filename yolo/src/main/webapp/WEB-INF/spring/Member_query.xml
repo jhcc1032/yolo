@@ -15,7 +15,7 @@
 	</select>
 	
 	<insert id="insert" parameterType="member">
-		insert into member(mno, id, auth, name, mgroup, enteryear, empno, email, pw)
+		insert into member(mno, id, auth, name, mgroup, enteryear, empno, email, password)
 		values( member_mno_seq.nextval
 				, #{id:VARCHAR}
 				, #{auth:VARCHAR}

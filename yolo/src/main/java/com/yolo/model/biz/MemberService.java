@@ -9,7 +9,7 @@ public interface MemberService {
 
 	public Member search(String id);
 	public List<Member> searchAll(PageBean bean);
-	public boolean login(String id, String passwrod);
+	public boolean login(String id, String password);
 	public void withdraw(String id);
 	public void update(Member member);
 	public void add(Member member);
