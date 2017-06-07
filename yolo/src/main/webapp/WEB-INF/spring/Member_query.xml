@@ -21,7 +21,7 @@
 				, #{name:VARCHAR}
 				, #{mgroup:VARCHAR}
 				, sysdate				
-				, #{empno: NUMBER}
+				, #{empno: INTEGER}
 				, #{email:VARCHAR}
 				, #{password:VARCHAR}
 		)

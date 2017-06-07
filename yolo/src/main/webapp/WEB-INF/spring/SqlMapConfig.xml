@@ -9,10 +9,7 @@
 		 Java API에서 자주 사용되는 클래스를 ibatis에서 미리 별칭으로 작성됨. 
 		    => org.apache.ibatis.type.TypeAliasRegistry  참조
 		 -->
-		 <typeAlias type="com.kdn.model.domain.Board" alias="board"/>
-		 <typeAlias type="com.kdn.model.domain.BoardFile" alias="boardfile"/>
-		 <typeAlias type="com.kdn.model.domain.PageBean" alias="pagebean"/>
-		 <typeAlias type="com.kdn.model.domain.Member" alias="member" />
+		 <typeAlias type="com.yolo.model.domain.Member" alias="member" />
 		 
 	</typeAliases>
 	<mappers>
