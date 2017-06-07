@@ -15,12 +15,15 @@
 	</select>
 	
 	<insert id="insert" parameterType="member">
-		insert into member(id, password, name, email, address)
-		values(#{id:VARCHAR}
-				, #{password:VARCHAR}
+		insert into member(member_mno_seq.nextval, id, auth, name, mgroup, enteryear, empno, email, pw)
+		values( #{id:VARCHAR}
+				, #{auth:VARCHAR}
 				, #{name:VARCHAR}
+				, #{mgroup:VARCHAR}
+				, sysdate				
+				, #{empno: NUMBER}
 				, #{email:VARCHAR}
-				, #{address:VARCHAR}
+				, #{password:VARCHAR}
 		)
 	</insert>
 	<update id="update" parameterType="member">
