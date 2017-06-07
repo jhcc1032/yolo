@@ -99,9 +99,10 @@ public class MemberServiceImpl implements MemberService {
 				throw new UpdateException("이미 등록된 아이디 입니다.");
 			}else{
 				dao.add(member);
+				System.out.println(member +" =====serviceimpl");
 			}
 		} catch(Exception  s){
-			throw new UpdateException("DB 서버 오류");
+			throw new UpdateException("DB 서버 오류 @ServiceImpl" + s.getMessage());
 		} 
 	}
 	

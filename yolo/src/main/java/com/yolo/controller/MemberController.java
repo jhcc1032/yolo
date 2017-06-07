@@ -34,6 +34,8 @@ public class MemberController {
 	
 	@RequestMapping(value = "insertMember.do", method = RequestMethod.POST)
 	public String insertMember(Member member, Model model){
+		
+		System.out.println(member);
 		memberService.add(member);
 		model.addAttribute("content", "member/login.jsp");
 		return "index";

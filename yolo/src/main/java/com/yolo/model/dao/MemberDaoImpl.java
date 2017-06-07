@@ -36,6 +36,7 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public void add(Member member) {
 		session.insert("member.insert", member);
+		System.out.println(member +" =========daoimpl");
 	}
 
 	@Override

@@ -9,6 +9,14 @@ public class Member implements Serializable {
 	private String id;
 	private String password;
 	private String auth;
+	public String getAuth() {
+		return auth;
+	}
+
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
+
 	private String name;
 	private String mgroup;
 	private String email;

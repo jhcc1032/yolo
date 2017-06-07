@@ -30,6 +30,9 @@
 	<tr><td class='tbasic'>권한</td>
 	    <td class='tbasic'><input type='text' name='auth'  id='auth'>
 	</tr>
+	<tr><td class='tbasic'>직군</td>
+	    <td class='tbasic'><input type='text' name='mgroup'  id='mgroup'>
+	</tr>
 	<tr>
 	   <td colspan='2' align='center' class='tfoot tspacial'>
 	     <input type="submit" value='전송'>
