@@ -14,13 +14,9 @@
 	<!-- 세션 -->
 
 	<form class="form-horizontal" action="login.do" method="post" id="frm">
-		<!-- method는 우선 값 넘어가는지 확인 위해 우선 get -->
 
 		<table class="table table-striped table-hover ">
-			<!-- <tr class="success">
-<td> 아 이 디 </td> 
-<td> <input type= "text"	name = "id"	value = "" id = "id" /> </td>
-</tr>  -->
+
 
 			<legend align="center" style="font-weight: bold;">로그인</legend>
 			<div class="form-group">
