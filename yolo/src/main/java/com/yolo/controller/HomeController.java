@@ -23,7 +23,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
-		// commit test
+		// commit test!! 
 		return "index";
 	}
 	
