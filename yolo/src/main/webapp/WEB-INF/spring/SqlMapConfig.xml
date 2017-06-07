@@ -10,7 +10,8 @@
 		    => org.apache.ibatis.type.TypeAliasRegistry  참조
 		 -->
 		 <typeAlias type="com.yolo.model.domain.Member" alias="member" />
-		 
+		 <typeAlias type="com.yolo.model.domain.PageBean" alias="pagebean" />
+		 <typeAlias type="com.yolo.model.domain.ClassInfo" alias="classinfo" />
 	</typeAliases>
 	<mappers>
 	<!-- sql 쿼리를 작성한 xml 파일 경로 설정 
