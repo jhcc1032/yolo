@@ -27,8 +27,8 @@
 	<tr><td class='tbasic'>이메일</td>
 	    <td class='tbasic'><input type='text' name='email'  id='email'>
 	</tr>
-	<tr><td class='tbasic'>주 &nbsp;소</td>
-	    <td class='tbasic'><input type='text' name='address'  id='address'>
+	<tr><td class='tbasic'>권한</td>
+	    <td class='tbasic'><input type='text' name='auth'  id='auth'>
 	</tr>
 	<tr>
 	   <td colspan='2' align='center' class='tfoot tspacial'>
