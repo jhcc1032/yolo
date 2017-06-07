@@ -64,6 +64,16 @@ public class MemberController {
 		System.out.println("id : " + id + "  password : " + password +"=====================@controller");
 		if(memberService.login(id, password)) {
 			System.out.println("로그인 성공");
+			Member member = memberService.search(id);
+			String role = "";
+			if(member.getAuth().equals("1")) {
+				role = "교육생";
+			} else if(member.getAuth().equals("2")) {
+				role = "강사";
+			} else if(member.getAuth().equals("3")) {
+				role = "관리자";
+			}
+			model.addAttribute("role", role);
 			session.setAttribute("id", id);
 		} else {
 			System.out.println("로그인 실패");
@@ -91,7 +101,7 @@ public class MemberController {
 	}
 	@RequestMapping(value = "myPage.do" , method = RequestMethod.GET)
 	public String myPage(Model model, HttpSession session) {
-		String id = session.getAttribute("id").toString();
+		String id = session.getAttribute("id").toString();	
 		model.addAttribute("member", memberService.search(id));
 		model.addAttribute("content", "member/memberUpdateForm.jsp");
 		

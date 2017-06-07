@@ -74,7 +74,6 @@ body {
 }
 
 #mainContent {
-	background-color: green;
 	display: table-cell;
 	width: 80%;
 	margin: 0 auto;
@@ -119,10 +118,10 @@ footer {
 		<div id="welcome">
 			<c:choose>
 					<c:when test="${empty id}">
-						환영합니다.
+						로그인 해주세요
 					</c:when>
 					<c:otherwise>
-						${id}님 환영합니다.
+						${id}(${role})님 환영합니다.
 					</c:otherwise>
 				</c:choose>
 		</div>
@@ -152,9 +151,23 @@ footer {
 						<a href="insertMemberForm.do">회원가입</a>
 					</c:when>
 					<c:otherwise>
-						<a href="logout.do">로그아웃</a><
-						<a href="memberUpdateForm.do?id=${id}">회원정보수정</a>
-						<a href="myPage.do">myPage</a><
+					<c:choose>
+						<c:when test="${role == '교육생'}">
+							<a href="#">교육생용</a>
+							<a href="#">공부해라</a>
+						</c:when>
+						<c:when test="${role == '강사'}">
+							<a href="#">강사용</a>
+							<a href="#">수업합시다</a>
+						</c:when>
+						<c:when test="${role == '관리자'}">
+							<a href="#">관리자용</a>
+							<a href="#">마스터</a>
+						</c:when>
+					</c:choose>
+					<a href="logout.do">로그아웃</a>
+					<a href="memberUpdateForm.do">회원정보수정</a>
+					<a href="myPage.do">myPage</a>
 					</c:otherwise>
 				</c:choose>
 			</nav>
@@ -165,17 +178,7 @@ footer {
 					<jsp:include page="${content}" />
 				</c:when>
 				<c:otherwise>
-					<div class="btn-group">
-						<a class="btn dropdown-toggle" data-toggle="dropdown">
-							<i class="icon-th-large"></i>
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu">
-							<li>1</li>
-							<li>2</li>
-							<li>3</li>
-						</ul>
-					</div>
+					<h2>mainContent</h2>
 				</c:otherwise>
 			</c:choose>
 		</article>

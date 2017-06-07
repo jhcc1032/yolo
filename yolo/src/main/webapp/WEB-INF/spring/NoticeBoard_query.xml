@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+	
+<!--여러 도메인을 위한 쿼리 xml를 작성할 때  도메인을 식별하기 위해 
+    namespace 부여 
+=> sqlSession.쿼리메서드("식별자", paramdata);
+    식별자 =>  namespace.id
+  ex)sqlSession.selectOne("noticeboard.search", paramdata);    
+-->	
+<mapper namespace="noticeboard">
+	<!-- 
+		resultMap 
+			column명과 속성명이 다를 경우 매칭
+			join시
+	 -->
+	 <resultMap type="noticeboardfile" id="filemap">
+	 	<!-- primary key 인경우 id 태그로 설정 -->
+	 	<id column="fileno" property="no" />
+	 	<!-- primary key가 아닌 다른 column -->
+	 	<result column="rfilename" property="rfileName" />
+	 	<result column="sfilename" property="sfileName" />
+	 	<result column="bno" property="bno" />
+	 </resultMap>
+	 
+	 <resultMap type="noticeboard" id="noticeboardmap">
+	 	<id column="no" property="no"/>
+	 	<result column="id" property="id"/>
+	 	<result column="title" property="title"/>
+	 	<result column="regdate" property="regdate"/>
+	 	<result column="contents" property="contents"/>
+	 	<!-- join data 처리
+	 		1 : 1	association tag
+	 		1 : N	collection tag
+	 		property 객체에 매핑되는 속성명
+	 		ofType join에 매핑되는 실제 타입
+	 		resultMap join에 매핑되는 resultMap id
+	 	 -->
+	 	<collection property="files" ofType="noticeboardfile" resultMap="noticeboardmap" />
+	 </resultMap>
+
+	<select id="search" parameterType="int" resultMap="noticeboardmap">
+		select b.no no, id, title, contents ,regdate, bf.no fileno, rfilename, sfilename            
+		from   noticeboardfile bf,                               
+		      (select  no, id, title, contents             
+		              , to_char(regdate,'yy-mm-dd') regdate
+		       from    noticeboard                               
+		       where   no = #{no} ) b                          
+		where b.no = bf.bno(+)                             
+	</select>
+	<select id="searchAll" parameterType="pagebean" resultType="noticeboard">
+		select no, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate from noticeboard
+		<where>
+			<if test="word != null">
+				<choose>
+					<when test="key == 'id'">
+						id = #{word}	
+					</when>
+					<when test="key == 'title'">
+						title like '%'||#{word}||'%'	
+					</when>
+					<when test="key == 'contents'">
+						contents like '%'||#{word}||'%'	
+					</when>
+				</choose>
+			</if>
+		</where>
+		order by no desc
+	</select>
+	<select id="getCount" parameterType="pagebean" resultType="int">
+		select count(*) from noticeboard
+		<where>
+			<if test="word != null">
+				<choose>
+					<when test="key == 'id'">
+						id = #{word}	
+					</when>
+					<when test="key == 'title'">
+						title like '%'||#{word}||'%'	
+					</when>
+					<when test="key == 'contents'">
+						title like '%'||#{word}||'%'	
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	<select id="getnoticeboardNo" resultType="int">
+		select noticeboard_no.nextval from dual
+	</select>
+	
+	<insert id="insert" parameterType="noticeboard">
+		insert into noticeboard(no, id, title, contents, regdate) values(
+			#{no:INTEGER}
+			, #{id:VARCHAR}
+			, #{title:VARCHAR}
+			, #{contents:VARCHAR}
+			, sysdate
+			
+		)
+	</insert>
+	<insert id="insertFile" parameterType="noticeboardfile">
+		insert into noticeboardfile(no, rfilename, sfilename, bno)
+		values(noticeboardfile_no.nextval, #{rfilename:VARCHAR}, #{sfilename:VARCHAR}, #{bno:INTEGER})
+	</insert>
+	<update id="update" parameterType="noticeboard">
+		update noticeboard set id=#{id:VARCHAR}
+								, title=#{title:VARCHAR}
+								, contents=#{contents:VARCHAR}
+								, regdate=sysdate
+		where no=#{no:INTEGER}			
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from noticeboard where no=#{no}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
