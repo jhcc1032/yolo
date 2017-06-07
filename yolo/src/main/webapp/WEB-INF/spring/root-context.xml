@@ -1,8 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	<!-- component 등록하기 위해 scan 설정  -->
+	<context:component-scan base-package="com.yolo.model.biz" />
+	<context:component-scan base-package="com.yolo.model.dao" />
+	
+	<!-- properties 파일 인식을 위한 설정 -->
+	<context:property-placeholder  location="/WEB-INF/spring/jdbc.properties"/>
+	
+	<!-- Connection Pool을 위한 DataSource 설정 -->
+	<bean  id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"  destroy-method="close">
+		<property name="driverClassName"  	value="${jdbc.driver}" />
+		<property name="url"  				value="${jdbc.url}" />
+		<property name="username"  			value="${jdbc.user}" />
+		<property name="password"  			value="${jdbc.password}" />
+		<property name="maxActive"  		value="${jdbc.maxPoolSize}" />
+	</bean>
+	
+	<!-- 트랜잭선 설정 -->
+	<bean  id="transactionManager"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource"  ref="dataSource" />
+	</bean>
+	
+	<!-- AOP를 이용해서 트랜잭션 설정 -->
+	<tx:advice  id="txAdvice"  transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert*"  propagation="REQUIRED"/>
+			<tx:method name="delete*"  propagation="REQUIRED"/>
+			<tx:method name="update*"  propagation="REQUIRED"/>
+			<tx:method name="search*"  read-only="true"/>
+		</tx:attributes>		
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* com.spring.model.biz.*Service*.*(..))" id="servicePc"/>
+		<aop:advisor advice-ref="txAdvice"  pointcut-ref="servicePc"/>
+	</aop:config>
+	
+	
+	<!-- MyBatis 설정  -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource"  ref="dataSource"/>
+		<!-- MyBatis 기본 설정 XML 등록 -->
+		<property name="configLocation"  value="/WEB-INF/spring/SqlMapConfig.xml"/>
+		<!-- query를 위한 xml 등록 -->
+		<property name="mapperLocations">
+			<list>
+				<value>/WEB-INF/spring/Member_query.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean  id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>	
 </beans>
