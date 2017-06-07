@@ -101,12 +101,10 @@ footer {
 	padding-right: 10px;
 }
 </style>
+<script type="text/javascript" src="/yolo/resources/js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="/yolo/resources/js/bootstrap.js"></script>
-<script type="text/javascript" src="/yolo/resources/js/jquery-1.10.1.js"></script>
-<script type="text/javascript" src="/yolo/resources/js/jquery-1.6.4.js"></script>
 <script type="text/javascript" src="/yolo/resources/js/npm.js"></script>
 <script type="text/javascript" src="/yolo/resources/js/progress.js"></script>
-<script type="text/javascript" src="/yolo/resources/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	
 </script>
