@@ -74,4 +74,12 @@ public class MemberController {
 		session.removeAttribute("id");
 		return "index";
 	}
+	@RequestMapping(value = "myPage.do" , method = RequestMethod.GET)
+	public String myPage(Model model, HttpSession session) {
+		String id = session.getAttribute("id").toString();
+		model.addAttribute("member", memberService.search(id));
+		model.addAttribute("content", "member/memberUpdateForm.jsp");
+		
+		return "index";
+	}
 }
