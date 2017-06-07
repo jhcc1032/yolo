@@ -42,6 +42,23 @@ public class MemberController {
 		return "index";
 	}
 	
+	@RequestMapping(value = "memberUpdateForm.do", method = RequestMethod.GET)
+	public String updateMemberForm(Model model, HttpSession session){
+		String id = session.getAttribute("id").toString();
+		Member m = memberService.search(id);
+		model.addAttribute("member" ,m);
+		model.addAttribute("content", "member/updateMember.jsp");
+		return "index";
+	}
+	
+	@RequestMapping(value = "updateMember.do", method = RequestMethod.POST)
+	public String updateMember(Member member){
+	
+		System.out.println(member);
+		memberService.update(member);
+		return "index";
+	}
+	
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public String insertMember( Model model, HttpSession session, String id, String password){
 		System.out.println("id : " + id + "  password : " + password +"=====================@controller");
@@ -51,6 +68,14 @@ public class MemberController {
 		} else {
 			System.out.println("로그인 실패");
 		}
+		return "index";
+	}
+	
+	@RequestMapping(value = "delete.do", method = RequestMethod.GET)
+	public String delete(HttpSession session){
+		String id = (String)session.getAttribute("id");
+		memberService.withdraw(id);
+		session.removeAttribute("id");
 		return "index";
 	}
 	

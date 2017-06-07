@@ -41,7 +41,8 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public void update(String id) {
-		session.update("member.update", id);
+		session.update("member.delete", id);
+		
 	}
 
 	@Override
