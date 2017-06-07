@@ -12,5 +12,4 @@ public class NoticeBoardController {
 		model.addObject("content", "ErrorHandler.jsp");
 		return model;
 	}
-	
 }
