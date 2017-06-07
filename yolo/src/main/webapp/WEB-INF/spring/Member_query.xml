@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+	
+<!--여러 도메인을 위한 쿼리 xml를 작성할 때  도메인을 식별하기 위해 
+    namespace 부여 
+=> sqlSession.쿼리메서드("식별자", paramdata);
+    식별자 =>  namespace.id
+  ex)sqlSession.selectOne("board.search", paramdata);    
+-->	
+<mapper namespace="member">
+	<select id="search" parameterType="string" resultType="member">
+		select * from member where id=#{id}
+	</select>
+	
+	<insert id="insert" parameterType="member">
+		insert into member(mno, id, auth, name, mgroup, enteryear, empno, email, password)
+		values( member_mno_seq.nextval
+				, #{id:VARCHAR}
+				, #{auth:VARCHAR}
+				, #{name:VARCHAR}
+				, #{mgroup:VARCHAR}
+				, sysdate				
+				, #{empno: INTEGER}
+				, #{email:VARCHAR}
+				, #{password:VARCHAR}
+		)
+	</insert>
+	<update id="update" parameterType="member">
+		update member set password=#{password:VARCHAR}, name=#{name:VARCHAR}, email=#{email:VARCHAR}, address=#{address:VARCHAR}
+		where id=#{id:VARCHAR} 
+	</update>
+	<update id="delete" parameterType="string">
+		update member set withdraw = 'Y'
+		where id=#{id:VARCHAR}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

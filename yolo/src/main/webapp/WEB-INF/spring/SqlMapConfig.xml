@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases> <!-- 작성할 줄 알아야 함 -->
+		<!-- MyBatis Query를 위한 Xml에서 resultType, parametertype 으로 
+		 사용할  VO 클래스에 대한 별칭 설정
+		   
+		 Java API에서 자주 사용되는 클래스를 ibatis에서 미리 별칭으로 작성됨. 
+		    => org.apache.ibatis.type.TypeAliasRegistry  참조
+		 -->
+		 <typeAlias type="com.yolo.model.domain.Member" alias="member" />
+		 
+	</typeAliases>
+	<mappers>
+	<!-- sql 쿼리를 작성한 xml 파일 경로 설정 
+	   => 요즘 트랜드가 SqlSessionFactoryBean에 속성정보로 설정한다. 
+	 -->
+	</mappers>
+</configuration>
