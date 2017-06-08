@@ -22,16 +22,16 @@
 	}
 	function updateBoard(){
 		var frm = document.getElementById("updatefrm");
-		frm.action="updateNoticeBoard.do";
+		frm.action="updateHomeworkBoard.do";
 		frm.submit();
 	}
 	function deleteBoard(){
 		var frm = document.getElementById("frm");
-		frm.action="deleteNoticeBoard.do";
+		frm.action="deleteHomeworkBoard.do";
 		frm.submit();
 	}
 	function listBoard(){
-		location.href="listNoticeBoard.do?<%=request.getQueryString()%>";
+		location.href="listHomeworkBoard.do?<%=request.getQueryString()%>";
 	}
 	function resetBoard(){
 		var frm = document.getElementById("updatefrm");

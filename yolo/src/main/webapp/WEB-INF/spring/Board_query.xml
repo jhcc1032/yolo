@@ -15,16 +15,16 @@
 			column명과 속성명이 다를 경우 매칭
 			join시
 	 -->
-	 <resultMap type="boardfile" id="filemap">
+	 <resultMap type="noticeboardfile" id="filemap">
 	 	<!-- primary key 인경우 id 태그로 설정 -->
 	 	<id column="fileno" property="no" />
 	 	<!-- primary key가 아닌 다른 column -->
-	 	<result column="rfilename" property="rfileName" />
+	 	<result column="filename" property="rfileName" />
 	 	<result column="sfilename" property="sfileName" />
 	 	<result column="bno" property="bno" />
 	 </resultMap>
 	 
-	 <resultMap type="board" id="boardmap">
+	 <resultMap type="notice" id="noticemap">
 	 	<id column="no" property="no"/>
 	 	<result column="id" property="id"/>
 	 	<result column="title" property="title"/>
@@ -37,17 +37,17 @@
 	 		ofType join에 매핑되는 실제 타입
 	 		resultMap join에 매핑되는 resultMap id
 	 	 -->
-	 	<collection property="files" ofType="boardfile" resultMap="boardmap" />
+	 	<collection property="files" ofType="noticeboardfile" resultMap="noticemap" />
 	 </resultMap>
 
-	<select id="search" parameterType="int" resultMap="boardmap">
-		select b.no no, id, title, contents ,regdate, bf.no fileno, rfilename, sfilename            
-		from   boardfile bf,                               
+	<select id="search" parameterType="int" resultMap="noticemap">
+		select n.no no, id, title, contents ,regdate, nu.no fileno, filename, sfilename            
+		from   noticeupload nu,                               
 		      (select  no, id, title, contents             
 		              , to_char(regdate,'yy-mm-dd') regdate
-		       from    board                               
-		       where   no = #{no} ) b                          
-		where b.no = bf.bno(+)                             
+		       from    notice                               
+		       where   no = #{no} ) n
+		where n.no = nu.bno(+)                            
 	</select>
 	<select id="searchAll" parameterType="pagebean" resultType="board">
 		select no, id, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate from board

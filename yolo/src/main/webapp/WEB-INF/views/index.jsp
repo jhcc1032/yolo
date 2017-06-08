@@ -132,9 +132,9 @@ footer {
 				</div>
 				<div class="navbar-collapse collapse" id="navbar-main">
 					<ul class="nav navbar-nav">
-						<li><a href="#">공지사항</a></li>
-						<li><a href="#">과제게시판</a></li>
-						<li><a href="#">Q&A게시판</a></li>
+						<li><a href="listNoticeBoard.do">공지사항</a></li>
+						<li><a href="listHomeworkBoard.do">과제게시판</a></li>
+						<li><a href="listQnaBoard.do">Q&A게시판</a></li>
 					</ul>
 									
 				</div>
