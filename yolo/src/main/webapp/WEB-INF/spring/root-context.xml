@@ -58,6 +58,7 @@
 				<value>/WEB-INF/spring/Member_query.xml</value>
 				<value>/WEB-INF/spring/NoticeBoard_query.xml</value>
 				<value>/WEB-INF/spring/HomeworkBoard_query.xml</value>
+				<value>/WEB-INF/spring/QnaBoard_query.xml</value>
 			</list>
 		</property>
 	</bean>
