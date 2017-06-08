@@ -14,13 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yolo.model.biz.HomeworkBoardService;
 import com.yolo.model.biz.NoticeBoardService;
+import com.yolo.model.domain.HomeworkBoard;
 import com.yolo.model.domain.NoticeBoard;
 import com.yolo.model.domain.PageBean;
 import com.yolo.util.LoginCheck;
 
 @Controller
-public class NoticeBoardController {
+public class HomeworkBoardController {
 	
 	/**
 	 * error 처리
@@ -36,51 +38,51 @@ public class NoticeBoardController {
 	}
 	
 	@Autowired
-	private NoticeBoardService  boardService;
+	private HomeworkBoardService  boardService;
 	
-	@RequestMapping(value="listNoticeBoard.do", method=RequestMethod.GET)
+	@RequestMapping(value="listHomeworkBoard.do", method=RequestMethod.GET)
 	public String listBoard(PageBean bean, Model model ){
-		List<NoticeBoard> list = boardService.searchAll(bean);
+		List<HomeworkBoard> list = boardService.searchAll(bean);
 		model.addAttribute("list", list);
-		model.addAttribute("content", "notice/listBoard.jsp");
+		model.addAttribute("content", "homework/listBoard.jsp");
 		return "index";
 	}
-	@RequestMapping(value="searchNoticeBoard.do", method=RequestMethod.GET)
+	@RequestMapping(value="searchHomeworkBoard.do", method=RequestMethod.GET)
 	public String searchBoard(int no, Model model ){
 		System.out.println(boardService.search(no));
 		model.addAttribute("board", boardService.search(no));
-		model.addAttribute("content", "notice/searchBoard.jsp");
+		model.addAttribute("content", "homework/searchBoard.jsp");
 		return "index";
 	}
 	
-	@RequestMapping(value="insertNoticeBoard.do", method=RequestMethod.POST)
-	public String insertBoard(NoticeBoard board, HttpServletRequest request){
+	@RequestMapping(value="insertHomeworkBoard.do", method=RequestMethod.POST)
+	public String insertBoard(HomeworkBoard board, HttpServletRequest request){
 		
 		String dir = request.getRealPath("upload/");
 		boardService.add(board, dir);
-		return "redirect:listNoticeBoard.do";
+		return "redirect:listHomeworkBoard.do";
 	}
 	
-	@RequestMapping(value="insertNoticeBoardForm.do", method=RequestMethod.GET)
+	@RequestMapping(value="insertHomeworkBoardForm.do", method=RequestMethod.GET)
 	public String insertBoardForm(Model model, HttpSession session) {
-		if(LoginCheck.check(model, session, "insertNoticeBoardForm.do")) {
-			model.addAttribute("content", "notice/insertBoard.jsp");
+		if(LoginCheck.check(model, session, "insertHomeworkBoardForm.do")) {
+			model.addAttribute("content", "homework/insertBoard.jsp");
 		} else {
 			model.addAttribute("content", "member/login.jsp");
 		}
 		return "index";
 	}
 	
-	@RequestMapping(value="updateNoticeBoard.do", method=RequestMethod.GET)
+	@RequestMapping(value="updateHomeworkBoard.do", method=RequestMethod.GET)
 	public String updateNoticeBoard(int no, String content, String returnurl, Model model) {
-		NoticeBoard board = boardService.search(no);
+		HomeworkBoard board = boardService.search(no);
 		board.setContents(content);
 		boardService.update(board);
 		
-		return "redirect:searchBoard.do?"+returnurl;
+		return "redirect:searchHomeworkBoard.do?"+returnurl;
 	}
 	
-	@RequestMapping(value="deleteNoticeBoard.do", method=RequestMethod.GET)
+	@RequestMapping(value="deleteHomeworkBoard.do", method=RequestMethod.GET)
 	public String deleteNoticeBoard(int no) {
 		System.out.println(no+"======================");
 		boardService.remove(no);
