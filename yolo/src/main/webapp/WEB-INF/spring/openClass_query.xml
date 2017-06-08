@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+	
+<!--여러 도메인을 위한 쿼리 xml를 작성할 때  도메인을 식별하기 위해 
+    namespace 부여 
+=> sqlSession.쿼리메서드("식별자", paramdata);
+    식별자 =>  namespace.id
+  ex)sqlSession.selectOne("board.search", paramdata);    
+-->	
+<mapper namespace="openclassinfo">
+	<select id="search" parameterType="int" resultType="openclassinfo">
+		select createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode from createclass
+		where createcode = #{createcode}
+	</select>
+	
+	<select id="searchAll" parameterType="pagebean" resultType="openclassinfo">
+		select createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode from createclass
+		<where>
+			<if test="word != null">
+				<choose>
+					<when test="key == 'code'">
+						createcode = #{word}	
+					</when>
+					<when test="key == 'title'">
+						title like '%'||#{word}||'%'	
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<select id="getCount" parameterType="pagebean" resultType="int">
+		select count(*) from createclass
+		<where>
+			<if test="word != null">
+				<choose>
+					<when test="key == 'code'">
+						createcode = #{word}	
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="openclassinfo">
+		insert into createclass(createcode, createdate, ccode)
+		values(#{createcode:INTEGER},
+			   #{createdate:VARCHAR},
+			   #{ccode:INTEGER}
+			   )
+	</insert>
+	
+	<update id="update" parameterType="openclassinfo">
+		update createclass set createcode=#{createcode:INTEGER},
+						 	   createdate=#{createdate:VARCHAR},
+						 	   ccode=#{ccode:INTEGER}
+		where createcode = #{createcode}						 
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from createclass
+		where createcode=#{createcode:INTEGER}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
