@@ -132,9 +132,9 @@ footer {
 				</div>
 				<div class="navbar-collapse collapse" id="navbar-main">
 					<ul class="nav navbar-nav">
-						<li><a href="#">공지사항</a></li>
-						<li><a href="#">과제게시판</a></li>
-						<li><a href="#">Q&A게시판</a></li>
+						<li><a href="listNoticeBoard.do">공지사항</a></li>
+						<li><a href="listHomeworkBoard.do">과제게시판</a></li>
+						<li><a href="listQnaBoard.do">Q&A게시판</a></li>
 					</ul>
 									
 				</div>
@@ -151,25 +151,24 @@ footer {
 						<a href="insertMemberForm.do">회원가입</a>
 					</c:when>
 					<c:otherwise>
-						<a href="registerForm.do">과목 등록 및 조회</a>
-						<a href="openClassForm.do">과목 개설 및 조회</a>
-						<c:choose>
-							<c:when test="${role == '교육생'}">
-								<a href="#">교육생용</a>
-								<a href="#">공부해라</a>
-							</c:when>
-							<c:when test="${role == '강사'}">
-								<a href="#">강사용</a>
-								<a href="#">수업합시다</a>
-							</c:when>
-							<c:when test="${role == '관리자'}">
-								<a href="#">관리자용</a>
-								<a href="#">마스터</a>
-							</c:when>
-						</c:choose>
-						<a href="logout.do">로그아웃</a>
-						<a href="memberUpdateForm.do">회원정보수정</a>
-						<a href="myPage.do">myPage</a>
+					<c:choose>
+						<c:when test="${role == '교육생'}">
+							<a href="#">교육생용</a>
+							<a href="#">공부해라</a>
+						</c:when>
+						<c:when test="${role == '강사'}">
+							<a href="#">강사용</a>
+							<a href="#">수업합시다</a>
+						</c:when>
+						<c:when test="${role == '관리자'}">
+							<a href="#">관리자용</a>
+							<a href="#">마스터</a>
+							<a href="allMemberList.do">모든회원정보</a>
+						</c:when>
+					</c:choose>
+					<a href="logout.do">로그아웃</a>
+					<a href="memberUpdateForm.do">회원정보수정</a>
+					<a href="myPage.do">myPage</a>
 					</c:otherwise>
 				</c:choose>
 			</nav>

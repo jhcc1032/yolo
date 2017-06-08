@@ -14,7 +14,7 @@
 		//input 양식의 hidden으로 선언된 page에 요청된 페이지 정보 셋팅 
 		document.getElementById("pageNo").value=cpage;
 		var frm = document.getElementById("frm");
-		frm.action="listNoticeBoard.do";
+		frm.action="listQnaBoard.do";
 		frm.submit();
 	}
 	//게시글 번호나 타이틀을 클릭하면 해당 게시글 요청을 위한 메서드 
@@ -22,7 +22,7 @@
 		//input 양식의 hidden으로 선언된 no(게시글 번호)에 요청된 게시글 번호를 셋팅
 		document.getElementById("no").value = no;
 		var frm = document.getElementById("frm");
-		frm.action="searchBoard.do";
+		frm.action="searchQnaBoard.do";
 		frm.submit();
 	}
 </script>
@@ -45,7 +45,7 @@
 	  	  </select>
 	  	  <input type="text" id="word" name="word" value="${pageBean.word}"/>
 	  	  <a href="#" onclick="pagelist(1)">검색</a> &nbsp;&nbsp;&nbsp;
-	  	  <a href="insertNoticeBoardForm.do" >글쓰기</a>
+	  	  <a href="insertQnaBoardForm.do" >글쓰기</a>
 	  	 </td>
 	  	</tr>
 	  	<tr align="center">
@@ -62,6 +62,7 @@
 			<div class="bottom"><center>${pageBean.pagelink } </center></div>
 		</form>
 	</div>
+	
 </body>
 </html>
 

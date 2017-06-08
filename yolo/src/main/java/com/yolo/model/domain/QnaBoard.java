@@ -3,42 +3,36 @@ package com.yolo.model.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
-public class NoticeBoard implements Serializable{
+public class QnaBoard implements Serializable{
 	private int no;
 	private String id;
 	private String title;
 	private String regdate;
 	private String contents;
 	
-	private MultipartFile[] fileup;
+	private List<QnaBoardReply> replys;
 	
-	public MultipartFile[] getFileup() {
-		return fileup;
-	}
-	public void setFileup(MultipartFile[] fileup) {
-		this.fileup = fileup;
-	}
-	private List<NoticeBoardFile>  files;    //조인 정보
-	public NoticeBoard(){}
-	public NoticeBoard(int no, String title) {
+	public QnaBoard(){}
+	public QnaBoard(int no, String title) {
 		this.no = no;
 		this.title = title;
 	}
-	public NoticeBoard(int no, String title, String regdate, String contents) {
+	
+	public QnaBoard(int no, String title, String regdate, String contents) {
 		this.no = no;
 		this.title = title;
 		this.regdate = regdate;
 		this.contents = contents;
 	}
-	public NoticeBoard(int no, String title, String regdate, String contents, List<NoticeBoardFile> files) {
+	public QnaBoard(int no, String id, String title, String regdate, String contents, List<QnaBoardReply> replys) {
 		this.no = no;
+		this.id = id;
 		this.title = title;
 		this.regdate = regdate;
 		this.contents = contents;
-		this.files = files;
+		this.replys = replys;
 	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -46,7 +40,7 @@ public class NoticeBoard implements Serializable{
 				.append(", title=").append(title)
 				.append(", regdate=").append(regdate).append(", contents=")
 				.append(contents).append(", files=")
-				.append(files).append("]");
+				.append(replys).append("]");
 		return builder.toString();
 	}
 	public int getNo() {
@@ -79,12 +73,13 @@ public class NoticeBoard implements Serializable{
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public List<NoticeBoardFile> getFiles() {
-		return files;
+	public List<QnaBoardReply> getReplys() {
+		return replys;
 	}
-	public void setFiles(List<NoticeBoardFile> files) {
-		this.files = files;
+	public void setReplys(List<QnaBoardReply> replys) {
+		this.replys = replys;
 	}
+	
 	
 	
 }

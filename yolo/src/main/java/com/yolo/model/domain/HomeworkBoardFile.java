@@ -1,27 +1,28 @@
 package com.yolo.model.domain;
 
 import java.io.Serializable;
-public class NoticeBoardFile implements Serializable {
+public class HomeworkBoardFile implements Serializable {
 	private int upno;
 	private String rfileName;
 	private String sfileName;
+	private String contents;
 	private int bno;
-	public NoticeBoardFile(){}
-	public NoticeBoardFile(int no, String rfileName, String sfileName, int bno) {
+	public HomeworkBoardFile(){}
+	public HomeworkBoardFile(int no, String rfileName, String sfileName, int bno) {
 		super();
 		this.upno = no;
 		this.rfileName = rfileName;
 		this.sfileName = sfileName;
 		this.bno = bno;
 	}
-	public NoticeBoardFile(String rfileName, String sfileName) {
+	public HomeworkBoardFile(String rfileName, String sfileName) {
 		super();
 		this.rfileName = rfileName;
 		this.sfileName = sfileName;
 	}
 	@Override
 	public String toString() {
-		return  new StringBuilder().append("NoticeBoardFile [upno=")
+		return  new StringBuilder().append("HomeworkBoardFile [upno=")
 				.append(upno).append(", rfileName=")
 				.append(rfileName).append(", fileName=")
 				.append(sfileName).append(", bno=")
@@ -43,8 +44,14 @@ public class NoticeBoardFile implements Serializable {
 	public String getSfileName() {
 		return sfileName;
 	}
-	public void setFileName(String sfileName) {
+	public void setSfileName(String sfileName) {
 		this.sfileName = sfileName;
+	}
+	public String getContents() {
+		return contents;
+	}
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 	public int getBno() {
 		return bno;

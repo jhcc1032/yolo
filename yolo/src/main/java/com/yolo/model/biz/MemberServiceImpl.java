@@ -52,6 +52,7 @@ public class MemberServiceImpl implements MemberService {
 			member = dao.search( id);
 			System.out.println(member);
 		} catch(Exception  s){
+			s.printStackTrace();
 			throw new UpdateException("DB 서버 오류");
 		}
 		if(member == null){
@@ -76,6 +77,7 @@ public class MemberServiceImpl implements MemberService {
 				dao.update(id);
 			}
 		} catch(Exception  s){
+			s.printStackTrace();
 			throw new UpdateException("DB 서버 오류");
 		}
 	}

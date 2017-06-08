@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class NoticeBoard implements Serializable{
+public class HomeworkBoard implements Serializable{
 	private int no;
 	private String id;
+	private String pw;
 	private String title;
 	private String regdate;
 	private String contents;
@@ -20,20 +21,29 @@ public class NoticeBoard implements Serializable{
 	public void setFileup(MultipartFile[] fileup) {
 		this.fileup = fileup;
 	}
-	private List<NoticeBoardFile>  files;    //조인 정보
-	public NoticeBoard(){}
-	public NoticeBoard(int no, String title) {
+	private List<HomeworkBoardFile>  files;    //조인 정보
+	public HomeworkBoard(){}
+	public HomeworkBoard(int no, String title) {
 		this.no = no;
 		this.title = title;
 	}
-	public NoticeBoard(int no, String title, String regdate, String contents) {
+	public HomeworkBoard(int no, String title, String regdate, String contents) {
 		this.no = no;
 		this.title = title;
 		this.regdate = regdate;
 		this.contents = contents;
 	}
-	public NoticeBoard(int no, String title, String regdate, String contents, List<NoticeBoardFile> files) {
+	public HomeworkBoard(int no, String title, String regdate, String contents, List<HomeworkBoardFile> files) {
 		this.no = no;
+		this.title = title;
+		this.regdate = regdate;
+		this.contents = contents;
+		this.files = files;
+	}
+	public HomeworkBoard(int no, String id, String pw, String title, String regdate, String contents, List<HomeworkBoardFile> files) {
+		this.no = no;
+		this.id = id;
+		this.pw = pw;
 		this.title = title;
 		this.regdate = regdate;
 		this.contents = contents;
@@ -61,6 +71,12 @@ public class NoticeBoard implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
+	public String getPw() {
+		return pw;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -79,10 +95,10 @@ public class NoticeBoard implements Serializable{
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public List<NoticeBoardFile> getFiles() {
+	public List<HomeworkBoardFile> getFiles() {
 		return files;
 	}
-	public void setFiles(List<NoticeBoardFile> files) {
+	public void setFiles(List<HomeworkBoardFile> files) {
 		this.files = files;
 	}
 	

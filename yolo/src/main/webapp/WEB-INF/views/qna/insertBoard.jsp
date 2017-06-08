@@ -27,7 +27,7 @@ function removeForm(count){
 </script>
 </head>
 <body>
-<form method="post" action="insertNoticeBoard.do" enctype="multipart/form-data" >
+<form method="post" action="insertHomeworkBoard.do" enctype="multipart/form-data" >
 	<table align="center" width="300">
 			<tr><th colspan="2"> 게시글 작성 </th></tr>
 			<tr height="50"><td><label for="title">제목</label></td>
@@ -35,6 +35,9 @@ function removeForm(count){
 			</tr>
 			<tr height="50"><td><label for="title">아이디</label></td>
 			    <td><input type="text" name="id" id="id"/></td>
+			</tr>
+			<tr height="50"><td><label for="title">비밀번호</label></td>
+			    <td><input type="text" name="pw" id="pw"/></td>
 			</tr>
 			<tr height="50" ><td><label for="fileup">업로드할 파일</label></td>
 			    <td>
