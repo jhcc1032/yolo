@@ -4,43 +4,66 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--여러 도메인을 위한 쿼리 xml를 작성할 때 도메인을 식별하기 위해 namespace 부여 => sqlSession.쿼리메서드("식별자", 
-	paramdata); 식별자 => namespace.id ex)sqlSession.selectOne("noticeboard.search", 
+	paramdata); 식별자 => namespace.id ex)sqlSession.selectOne("qnaboard.search", 
 	paramdata); -->
-<mapper namespace="noticeboard">
+<mapper namespace="qnaboard">
 	<!-- resultMap column명과 속성명이 다를 경우 매칭 join시 -->
-	<resultMap type="noticeboardfile" id="filemap">
-		<!-- primary key 인경우 id 태그로 설정 -->
+	<!-- <resultMap type="qnaboardfile" id="filemap">
 		<id column="upno" property="upno" />
-		<!-- primary key가 아닌 다른 column -->
 		<result column="filename" property="rfileName" />
 		<result column="sfilename" property="sfileName" />
 		<result column="no" property="bno" />
 	</resultMap>
 
-	<resultMap type="noticeboard" id="noticemap">
+	<resultMap type="qnaboard" id="qnamap">
 		<id column="no" property="no" />
 		<result column="id" property="id" />
 		<result column="title" property="title" />
 		<result column="regdate" property="regdate" />
 		<result column="contents" property="contents" />
-		<!-- join data 처리 1 : 1 association tag 1 : N collection tag property 객체에 
-			매핑되는 속성명 ofType join에 매핑되는 실제 타입 resultMap join에 매핑되는 resultMap id -->
-		<collection property="files" ofType="noticeboardfile"
+		<collection property="files" ofType="qnaboardfile"
 			resultMap="filemap" />
-	</resultMap>
+	</resultMap>  -->
 
-	<select id="search" parameterType="int" resultMap="noticemap">
+<!-- 	<select id="search" parameterType="int" resultMap="qnamap">
 		select n.no no, id, title, contents ,regdate, nu.no fileno, filename, sfilename
-		from noticeupload nu,
+		from qnaupload nu,
 		(select no, id, title, contents
 		, to_char(regdate,'yy-mm-dd') regdate
-		from notice
+		from qna
 		where no = #{no} ) n
 		where n.no = nu.no(+)
+	</select> -->
+	
+	<resultMap type="qnareply" id="replymap">
+		<id column="rno" property="rno" />
+		<result column="contents" property="contents" />
+		<result column="no" property="no" />
+		<result column="writer" property="writer" />
+	</resultMap>
+	
+	<resultMap type="qnaboard" id="qnamap">
+		<id column="no" property="no" />
+		<result column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="regdate" property="regdate" />
+		<result column="contents" property="contents" />
+		<collection property="replys" ofType="qnareply" resultMap="replymap" />
+	</resultMap>
+	
+	<select id="search" parameterType="int" resultMap="qnamap">
+		SELECT rno, R.CONTENTS CONTENTS, writer
+		FROM QNA q, QNAREPLY r
+		WHERE R.NO=#{no}; 
 	</select>
-	<select id="searchAll" parameterType="pagebean" resultType="noticeboard">
+	
+	
+	
+	
+	
+	<select id="searchAll" parameterType="pagebean" resultType="qnaboard">
 		select no, id, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate
-		from notice
+		from qna
 		<where>
 			<if test="word != null">
 				<choose>
@@ -59,7 +82,7 @@
 		order by no desc
 	</select>
 	<select id="getCount" parameterType="pagebean" resultType="int">
-		select count(*) from notice
+		select count(*) from qna
 		<where>
 			<if test="word != null">
 				<choose>
@@ -76,13 +99,13 @@
 			</if>
 		</where>
 	</select>
-	<select id="getNoticeBoardNo" resultType="int">
+	<select id="getqnaBoardNo" resultType="int">
 		select
-		notice_no_seq.nextval from dual
+		qna_no_seq.nextval from dual
 	</select>
 
-	<insert id="insert" parameterType="noticeboard">
-		insert into notice(no, id,
+	<insert id="insert" parameterType="qnaboard">
+		insert into qna(no, id,
 		title, contents, regdate) values(
 		#{no:INTEGER}
 		, #{id:VARCHAR}
@@ -91,18 +114,18 @@
 		, sysdate
 		)
 	</insert>
-	<insert id="insertFile" parameterType="noticeboardfile">
+	<!-- <insert id="insertFile" parameterType="qnaboardfile">
 		insert into
-		noticeupload(upno, filename, sfilename, no)
-		values(noticeupload_upno_seq.nextval, #{rfileName:VARCHAR},
+		qnaupload(upno, filename, sfilename, no)
+		values(qnaupload_upno_seq.nextval, #{rfileName:VARCHAR},
 		#{sfileName:VARCHAR}, #{bno:INTEGER})
-	</insert>
-	<update id="update" parameterType="noticeboard"> update notice 
+	</insert> -->
+	<update id="update" parameterType="qnaboard"> update qna 
 		set id=#{id:VARCHAR} , title=#{title:VARCHAR} , contents=#{contents:VARCHAR} 
 		, regdate=sysdate where no=#{no:INTEGER} </update> 
 		
 	<delete id="delete" parameterType="int"> 
-		delete from notice where no=#{no} 
+		delete from qna where no=#{no} 
 	</delete>
 </mapper>
 
