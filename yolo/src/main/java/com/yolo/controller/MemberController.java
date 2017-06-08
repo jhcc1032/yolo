@@ -1,5 +1,7 @@
 package com.yolo.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yolo.model.biz.MemberService;
 import com.yolo.model.domain.Member;
+import com.yolo.model.domain.PageBean;
 
 @Controller
 public class MemberController {
@@ -25,6 +28,17 @@ public class MemberController {
 		model.addObject("msg", e.getMessage());
 		model.addObject("content", "ErrorHandler.jsp");
 		return model;
+	}
+	
+	@RequestMapping(value="allMemberList.do", method=RequestMethod.GET)
+	public String listBoard(PageBean bean, Model model, String key, String word){
+		bean.setKey(key);
+		bean.setWord(word);
+		List<Member> list = memberService.searchAll(bean);
+		System.out.println(bean);
+		model.addAttribute("list", list);
+		model.addAttribute("content", "member/memberlist.jsp");
+		return "index";
 	}
 	
 	@RequestMapping(value = "insertMemberForm.do", method = RequestMethod.GET)
@@ -45,6 +59,13 @@ public class MemberController {
 	@RequestMapping(value = "memberUpdateForm.do", method = RequestMethod.GET)
 	public String updateMemberForm(Model model, HttpSession session){
 		String id = session.getAttribute("id").toString();
+		Member m = memberService.search(id);
+		model.addAttribute("member" ,m);
+		model.addAttribute("content", "member/updateMember.jsp");
+		return "index";
+	}
+	@RequestMapping(value = "update.do", method = RequestMethod.GET)
+	public String update(Model model, String id){
 		Member m = memberService.search(id);
 		model.addAttribute("member" ,m);
 		model.addAttribute("content", "member/updateMember.jsp");
@@ -86,6 +107,13 @@ public class MemberController {
 		String id = (String)session.getAttribute("id");
 		memberService.withdraw(id);
 		session.removeAttribute("id");
+		return "index";
+	}
+	
+	@RequestMapping(value = "kick.do", method = RequestMethod.GET)
+	public String kick(String id){
+		System.out.println(id);
+		memberService.withdraw(id);
 		return "index";
 	}
 	

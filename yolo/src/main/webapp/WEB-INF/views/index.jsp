@@ -163,6 +163,7 @@ footer {
 						<c:when test="${role == '관리자'}">
 							<a href="#">관리자용</a>
 							<a href="#">마스터</a>
+							<a href="allMemberList.do">모든회원정보</a>
 						</c:when>
 					</c:choose>
 					<a href="logout.do">로그아웃</a>
