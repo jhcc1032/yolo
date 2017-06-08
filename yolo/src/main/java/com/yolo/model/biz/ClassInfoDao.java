@@ -9,9 +9,10 @@ import com.yolo.model.domain.Member;
 import com.yolo.model.domain.PageBean;
 
 public interface ClassInfoDao {
-	public ClassInfo search(String id);
+	public ClassInfo search(int ccode);
 	public List<ClassInfo> searchAll(PageBean bean) ;
 	public int getCount(PageBean bean);
-	public void add(ClassInfo member);
-	public void update(ClassInfo member);
+	public void add(ClassInfo classinfo);
+	public void update(ClassInfo classinfo);
+	public void remove(int ccode);
 }

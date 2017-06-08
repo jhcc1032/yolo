@@ -7,7 +7,7 @@
     namespace 부여 
 => sqlSession.쿼리메서드("식별자", paramdata);
     식별자 =>  namespace.id
-  ex)sqlSession.selectOne("board.search", paramdata);    
+  ex)sqlSession.selectOne("noticeboard.search", paramdata);    
 -->	
 <mapper namespace="noticeboard">
 	<!-- 
@@ -15,7 +15,7 @@
 			column명과 속성명이 다를 경우 매칭
 			join시
 	 -->
-	 <resultMap type="boardfile" id="filemap">
+	 <resultMap type="noticeboardfile" id="filemap">
 	 	<!-- primary key 인경우 id 태그로 설정 -->
 	 	<id column="fileno" property="no" />
 	 	<!-- primary key가 아닌 다른 column -->
@@ -24,7 +24,7 @@
 	 	<result column="bno" property="bno" />
 	 </resultMap>
 	 
-	 <resultMap type="board" id="boardmap">
+	 <resultMap type="noticeboard" id="noticeboardmap">
 	 	<id column="no" property="no"/>
 	 	<result column="id" property="id"/>
 	 	<result column="title" property="title"/>
@@ -37,20 +37,20 @@
 	 		ofType join에 매핑되는 실제 타입
 	 		resultMap join에 매핑되는 resultMap id
 	 	 -->
-	 	<collection property="files" ofType="boardfile" resultMap="boardmap" />
+	 	<collection property="files" ofType="noticeboardfile" resultMap="noticeboardmap" />
 	 </resultMap>
 
-	<select id="search" parameterType="int" resultMap="boardmap">
+	<select id="search" parameterType="int" resultMap="noticeboardmap">
 		select b.no no, id, title, contents ,regdate, bf.no fileno, rfilename, sfilename            
-		from   boardfile bf,                               
+		from   noticeboardfile bf,                               
 		      (select  no, id, title, contents             
 		              , to_char(regdate,'yy-mm-dd') regdate
-		       from    board                               
+		       from    noticeboard                               
 		       where   no = #{no} ) b                          
 		where b.no = bf.bno(+)                             
 	</select>
-	<select id="searchAll" parameterType="pagebean" resultType="board">
-		select no, id, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate from board
+	<select id="searchAll" parameterType="pagebean" resultType="noticeboard">
+		select no, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate from noticeboard
 		<where>
 			<if test="word != null">
 				<choose>
@@ -69,7 +69,7 @@
 		order by no desc
 	</select>
 	<select id="getCount" parameterType="pagebean" resultType="int">
-		select count(*) from board
+		select count(*) from noticeboard
 		<where>
 			<if test="word != null">
 				<choose>
@@ -86,12 +86,12 @@
 			</if>
 		</where>
 	</select>
-	<select id="getBoardNo" resultType="int">
-		select board_no.nextval from dual
+	<select id="getnoticeboardNo" resultType="int">
+		select noticeboard_no.nextval from dual
 	</select>
 	
-	<insert id="insert" parameterType="board">
-		insert into board(no, id, title, contents, regdate) values(
+	<insert id="insert" parameterType="noticeboard">
+		insert into noticeboard(no, id, title, contents, regdate) values(
 			#{no:INTEGER}
 			, #{id:VARCHAR}
 			, #{title:VARCHAR}
@@ -100,19 +100,19 @@
 			
 		)
 	</insert>
-	<insert id="insertFile" parameterType="boardfile">
-		insert into boardfile(no, rfilename, sfilename, bno)
-		values(boardfile_no.nextval, #{rfilename:VARCHAR}, #{sfilename:VARCHAR}, #{bno:INTEGER})
+	<insert id="insertFile" parameterType="noticeboardfile">
+		insert into noticeboardfile(no, rfilename, sfilename, bno)
+		values(noticeboardfile_no.nextval, #{rfilename:VARCHAR}, #{sfilename:VARCHAR}, #{bno:INTEGER})
 	</insert>
-	<update id="update" parameterType="board">
-		update board set id=#{id:VARCHAR}
+	<update id="update" parameterType="noticeboard">
+		update noticeboard set id=#{id:VARCHAR}
 								, title=#{title:VARCHAR}
 								, contents=#{contents:VARCHAR}
 								, regdate=sysdate
 		where no=#{no:INTEGER}			
 	</update>
 	<delete id="delete" parameterType="int">
-		delete from board where no=#{no}
+		delete from noticeboard where no=#{no}
 	</delete>
 </mapper>
 

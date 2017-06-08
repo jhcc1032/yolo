@@ -20,14 +20,14 @@ public class ClassInfoDaoImpl implements ClassInfoDao{
 	private SqlSessionTemplate session;
 	
 	@Override
-	public ClassInfo search(String id) {
-		return session.selectOne("classinfo.search", id);
+	public ClassInfo search(int ccode) {
+		return session.selectOne("classinfo.search", ccode);
 	}
 
 	@Override
 	public List<ClassInfo> searchAll(PageBean bean) {
-		RowBounds rows = new RowBounds(bean.getStart()-1, bean.getInterval());
-		return session.selectList("classinfo.searchAll", bean, rows);
+		// RowBounds rows = new RowBounds(bean.getStart()-1, bean.getInterval());
+		return session.selectList("classinfo.searchAll");
 	}
 
 	@Override
@@ -43,6 +43,11 @@ public class ClassInfoDaoImpl implements ClassInfoDao{
 	@Override
 	public void update(ClassInfo classinfo) {
 		session.update("classinfo.update", classinfo);
+	}
+
+	@Override
+	public void remove(int ccode) {
+		session.delete("classinfo.delete", ccode);
 	}
 
 }

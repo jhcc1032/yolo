@@ -28,7 +28,7 @@
 		)
 	</insert>
 	<update id="update" parameterType="member">
-		update member set password=#{password:VARCHAR}, name=#{name:VARCHAR}, email=#{email:VARCHAR}, address=#{address:VARCHAR}
+		update member set password=#{password:VARCHAR}, auth=#{auth:VARCHAR}, name=#{name:VARCHAR}, email=#{email:VARCHAR}, mgroup=#{mgroup:VARCHAR} 
 		where id=#{id:VARCHAR} 
 	</update>
 	<update id="delete" parameterType="string">

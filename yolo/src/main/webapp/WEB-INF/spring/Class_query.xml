@@ -12,7 +12,7 @@
 <mapper namespace="classinfo">
 	<select id="search" parameterType="int" resultType="classinfo">
 		select * from class
-		where id = #{id}
+		where ccode = #{ccode}
 	</select>
 	
 	<select id="searchAll" parameterType="pagebean" resultType="classinfo">
@@ -21,7 +21,7 @@
 			<if test="word != null">
 				<choose>
 					<when test="key == 'code'">
-						id = #{word}	
+						ccode = #{word}	
 					</when>
 					<when test="key == 'title'">
 						title like '%'||#{word}||'%'	
@@ -37,7 +37,7 @@
 			<if test="word != null">
 				<choose>
 					<when test="key == 'code'">
-						id = #{word}	
+						ccode = #{word}	
 					</when>
 					<when test="key == 'title'">
 						title like '%'||#{word}||'%'	
@@ -49,24 +49,25 @@
 
 	<insert id="insert" parameterType="classinfo">
 		insert into class(ccode, ctitle, chour, cscore)
-		values(#{ccode:VARCHAR},
+		values(#{ccode:INTEGER},
 			   #{ctitle:VARCHAR},
 			   #{chour:INTEGER},
 			   #{cscore:INTEGER})
 	</insert>
 	
 	<update id="update" parameterType="classinfo">
-		update class set ccode=#{ccode:VARCHAR},
+		update class set ccode=#{ccode:INTEGER},
 						 ctitle=#{ctitle:VARCHAR},
 						 chour=#{chour:INTEGER},
 						 cscore=#{cscore:INTEGER}
 		where ccode = #{ccode}						 
 	</update>
 	
+	<delete id="delete" parameterType="int">
+		delete from class
+		where ccode=#{code:INTEGER}
+	</delete>
 </mapper>
-
-
-
 
 
 

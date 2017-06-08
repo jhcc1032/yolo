@@ -6,20 +6,31 @@
 <meta charset="UTF-8">
 <title>파일 업로드</title>
 <link href="../css/basic.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+function button_event(){
+	if(confirm("정말 수정하시겠습니까?") == true){
+		document.frm.submit();
+	}else{
+		return;
+	}
+}
+
+</script>
 </head>
+
 <body>
-<form method="post" action="insertMember.do" >
+<form method="post" action="updateMember.do" id="frm" name="frm">
 <table  align='center' >
-	<tr><td class="caption" colspan='2'>회원가입</td></tr>
-	<tr><td class='tbasic'>사 &nbsp;번</td>
-	    <td class='tbasic'><input type='text' name='empno'  id='empno'></td>
+	<tr><td class="caption" colspan='2'>회원정보수정</td></tr>
+	
+	
+	<tr><td class='tbasic'>아 이 디</td>
+	    <td class='tbasic'><input type='hidden' name='id' value='${member.id}'>${member.id}</td>
 	</tr>
-	<tr><td class='tbasic'>이 &nbsp;름</td>
+	<tr><td class='tbasic'>이 름</td>
 	    <td class='tbasic'><input type='text' name='name'  id='name'></td>
 	</tr>
-	<tr><td class='tbasic'>아 이 디</td>
-	    <td class='tbasic'><input type='text' name='id'  id='id'></td>
-	</tr>
+	
 	<tr><td class='tbasic'>비밀번호</td>
 	    <td class='tbasic'><input type='password' name='password'  id='password'></td>
 	</tr>
@@ -41,7 +52,7 @@
 	</tr>
 	<tr>
 	   <td colspan='2' align='center' class='tfoot tspacial'>
-	     <input type="submit" value='전송'>
+	     <input type="button" onclick="Javascript:button_event();" value='수정'>
 		 <input type="reset" value='취소'>
 	   </td>
 	</tr>

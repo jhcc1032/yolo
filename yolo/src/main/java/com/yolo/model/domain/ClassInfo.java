@@ -3,22 +3,21 @@ package com.yolo.model.domain;
 import java.io.Serializable;
 
 public class ClassInfo implements Serializable{
-	private String ccode;		// 과목코드
+	private int ccode;		// 과목코드
 	private String ctitle;		// 과목
 	private int chour;			// 수업시간
 	private int cscore;			// 학점(ex. 1주 or 2주 과정)
 	public ClassInfo(){}
-	public ClassInfo(String ccode, String ctitle, int chour, int cscore) {
-		super();
+	public ClassInfo(int ccode, String ctitle, int chour, int cscore) {
 		this.ccode = ccode;
 		this.ctitle = ctitle;
 		this.chour = chour;
 		this.cscore = cscore;
 	}
-	public String getCcode() {
+	public int getCcode() {
 		return ccode;
 	}
-	public void setCcode(String ccode) {
+	public void setCcode(int ccode) {
 		this.ccode = ccode;
 	}
 	public String getCtitle() {

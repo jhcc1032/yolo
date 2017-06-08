@@ -15,12 +15,11 @@
 
 	<form class="form-horizontal" action="login.do" method="post" id="frm">
 
-		<table class="table table-striped table-hover ">
+		<table class="table table-striped table-hover " >
 
-
-			<legend align="center" style="font-weight: bold;">로그인</legend>
+			<legend style="font-weight: bold;">로그인</legend>
 			<div class="form-group">
-				<label for="inputEmail" class="col-lg-2 control-label">아 이 디</label>
+				<label for="inputEmail" class="col-lg-2 control-label ">아 이 디</label>
 				<div class="col-lg-10">
 					<input type="text" style="width: 40%;" class="form-control" id="id"
 						name="id" value="" placeholder="id">

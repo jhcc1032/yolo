@@ -40,6 +40,23 @@ public class MemberController {
 		return "index";
 	}
 	
+	@RequestMapping(value = "memberUpdateForm.do", method = RequestMethod.GET)
+	public String updateMemberForm(Model model, HttpSession session){
+		String id = session.getAttribute("id").toString();
+		Member m = memberService.search(id);
+		model.addAttribute("member" ,m);
+		model.addAttribute("content", "member/updateMember.jsp");
+		return "index";
+	}
+	
+	@RequestMapping(value = "updateMember.do", method = RequestMethod.POST)
+	public String updateMember(Member member){
+	
+		System.out.println(member);
+		memberService.update(member);
+		return "index";
+	}
+	
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public String insertMember( Model model, HttpSession session, String id, String password){
 		if(memberService.login(id, password)) {
@@ -61,6 +78,14 @@ public class MemberController {
 		return "index";
 	}
 	
+	@RequestMapping(value = "delete.do", method = RequestMethod.GET)
+	public String delete(HttpSession session){
+		String id = (String)session.getAttribute("id");
+		memberService.withdraw(id);
+		session.removeAttribute("id");
+		return "index";
+	}
+	
 	@RequestMapping(value = "loginform.do", method = RequestMethod.GET)
 	public String login( Model model){
 		model.addAttribute("content", "member/login.jsp");
@@ -73,7 +98,7 @@ public class MemberController {
 	}
 	@RequestMapping(value = "myPage.do" , method = RequestMethod.GET)
 	public String myPage(Model model, HttpSession session) {
-		String id = session.getAttribute("id").toString();
+		String id = session.getAttribute("id").toString();	
 		model.addAttribute("member", memberService.search(id));
 		model.addAttribute("content", "member/memberUpdateForm.jsp");
 		
