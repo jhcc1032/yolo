@@ -50,8 +50,6 @@ public class MemberController {
 	
 	@RequestMapping(value = "insertMember.do", method = RequestMethod.POST)
 	public String insertMember(Member member, Model model){
-		
-		System.out.println(member);
 		memberService.add(member);
 		model.addAttribute("content", "member/login.jsp");
 		return "index";
@@ -83,7 +81,6 @@ public class MemberController {
 	
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public String insertMember( Model model, HttpSession session, String id, String password){
-		System.out.println("id : " + id + "  password : " + password +"=====================@controller");
 		if(memberService.login(id, password)) {
 			System.out.println("로그인 성공");
 			Member member = memberService.search(id);

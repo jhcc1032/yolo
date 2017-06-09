@@ -24,8 +24,6 @@ public class Member implements Serializable {
 		this.password = password;
 	}
 
-	
-
 	public Member(int empno, int mno, String id, String password, String auth,
 			String name, String mgroup, String email, String enteryear,
 			String withdraw) {
@@ -49,9 +47,6 @@ public class Member implements Serializable {
 	public void setAuth(String auth) {
 		this.auth = auth;
 	}
-
-
-	
 
 	public int getEmpno() {
 		return empno;

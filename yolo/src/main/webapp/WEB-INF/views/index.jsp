@@ -164,6 +164,8 @@ footer {
 							<a href="#">관리자용</a>
 							<a href="#">마스터</a>
 							<a href="allMemberList.do">모든회원정보</a>
+							<a href="registerForm.do">과목 등록 및 조회</a>
+							<a href="openClassForm.do">과목 개설 및 조회</a>
 						</c:when>
 					</c:choose>
 					<a href="logout.do">로그아웃</a>

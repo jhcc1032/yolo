@@ -111,29 +111,5 @@
 			</table>
 		</form>
 	</div>
-	<div id="reply">
-		<table width="500" border="3" align="center" bordercolor="gray">
-			<tr height="30"><td colspan="3" align="center" bgcolor="gray">
-				<font color="white">Comment</font></td></tr>
-			<form action="#">
-				<input type="hidden" name="no" value="${board.no}" />
-				<tr><td align="center" width="80" bgcolor="gray">
-					<font color="white">ID</font></td>
-					<td colsapn="2" align="center">Content</td></tr>
-				<tr><td align="center" bgcolor="gray"><font color="white"><%= session.getAttribute("id") %></font></td>
-				<input type="hidden" name="id" value="${member.id}" />
-				<td colspan="2"><textarea name="content" cols="50" rows="3"></textarea></td>
-				<input type="reset" value="reset" />
-			</form>
-				<tr><td align="center" width="80" bgcolor="gray">
-					<font color="white">작성자데쓰</font></td>
-					<td>내용입니당</td></tr>
-			<c:forEach items="${replys}" var="reply">
-				<tr><td align="center" width="80" bgcolor="gray">
-					<font color="white">${reply.writer}</font></td>
-					<td>${reply.contents}</td></tr>
-			</c:forEach>
-		</table>
-	</div>
 </body>
 </html>

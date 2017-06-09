@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+	
+<!--여러 도메인을 위한 쿼리 xml를 작성할 때  도메인을 식별하기 위해 
+    namespace 부여 
+=> sqlSession.쿼리메서드("식별자", paramdata);
+    식별자 =>  namespace.id
+  ex)sqlSession.selectOne("board.search", paramdata);    
+-->	
+<mapper namespace="classinfo">
+	<select id="search" parameterType="int" resultType="classinfo">
+		select * from class
+		where ccode = #{ccode}
+	</select>
+	
+	<select id="searchAll" parameterType="pagebean" resultType="classinfo">
+		select * from class
+		<where>
+			<if test="word != null">
+				<choose>
+					<when test="key == 'code'">
+						ccode = #{word}	
+					</when>
+					<when test="key == 'title'">
+						title like '%'||#{word}||'%'	
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<select id="getCount" parameterType="pagebean" resultType="int">
+		select count(*) from class
+		<where>
+			<if test="word != null">
+				<choose>
+					<when test="key == 'code'">
+						ccode = #{word}	
+					</when>
+					<when test="key == 'title'">
+						title like '%'||#{word}||'%'	
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="classinfo">
+		insert into class(ccode, ctitle, chour, cscore)
+		values(#{ccode:INTEGER},
+			   #{ctitle:VARCHAR},
+			   #{chour:INTEGER},
+			   #{cscore:INTEGER})
+	</insert>
+	
+	<update id="update" parameterType="classinfo">
+		update class set ccode=#{ccode:INTEGER},
+						 ctitle=#{ctitle:VARCHAR},
+						 chour=#{chour:INTEGER},
+						 cscore=#{cscore:INTEGER}
+		where ccode = #{ccode}						 
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from class
+		where ccode=#{code:INTEGER}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
