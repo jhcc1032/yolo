@@ -44,6 +44,10 @@
 		select rno, contents, writer, to_char(regdate, 'yyyy-mm-dd') regdate, no
 		from homeworkreply where no = ${no}
 	</select>
+	<insert id="insertReply" parameterType="homeworkboardreply">
+		insert into homeworkreply(rno, contents, writer, regdate, no)
+		values(homeworkreply_rno_seq.nextval, #{contents:VARCHAR}, #{writer:VARCHAR}, #{regdate:VARCHAR}, #{no:INTEGER})
+	</insert>
 	<select id="searchAll" parameterType="pagebean" resultType="homeworkboard">
 		select no, id, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate
 		from homework

@@ -27,4 +27,7 @@ public interface HomeworkBoardDao {
 	public void removeFiles(int bno);
 	
 	public List<HomeworkBoardReply> selectReplys(int no);
+	
+	public void addReply(HomeworkBoardReply reply);
+	
 }

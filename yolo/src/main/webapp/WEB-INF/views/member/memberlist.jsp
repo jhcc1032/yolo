@@ -8,77 +8,88 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="/yolo/resources/css/bootstrap.css" rel="stylesheet"
+	type="text/css" />
 <style type="text/css">
 #table {
 	padding-top: 300px;
 }
+
+th, td {
+	text-align: center;
+}
+
+#drop {
+	margin-left: 660px;
+}
+
+#memberlist {
+	margin-left: 30px;
+}
+
+body {
+	margin: 0 auto;
+}
 </style>
-<script type="text/javascript">
-	function selectEvent(selectObj) {
-		pageBean.getKey("auth");
-		pageBean.setWord(selectObj.value);
-		frm.action = "allMemberList.do";
-		frm.submit();
-	}
-	$(function() {
-		$('#word').change(function(){
-			
-			var key = pageBean.getKey("auth");
-			var word = pageBean.setWord(this.value);
-			$.get( "allMemberList.do?key="+key+"&word="+word);
-			
-			
-			/* frm.action = "allMemberList.do?key="+key+"&word="+word;
-			frm.submit(); */
-		});
-	
 
-	});
-	
-	function deleteMember() {
-		var name = document.getElementById("butt").getAttribute('name');
-		alert(name);
-		
-
-
-	}
-</script>
 </head>
 <body>
-	<form id="frm">
-		<select name="word" id="word">
-			<option value="">모두</option>
-			<option value="1">강사</option>
-			<option value="2">교육생</option>
-		</select>
+	<div id="memberlist">
+		<form id="frm">
+			<div id="drop">
+				<ul class="nav nav-pills">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#" aria-expanded="false"> 선택 <span
+							class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="allMemberList.do">모두</a></li>
+							<li><a href="allMemberList.do?key=auth&word=2">강사</a></li>
+							<li><a href="allMemberList.do?key=auth&word=1">교육생</a></li>
+						</ul></li>
+				</ul>
+			</div>
+			<table class="table table-striped table-hover ">
+				<thead>
+					<tr class="warning">
 
-		<table id="table">
-			<tr>
-				<th>이름</th>
-				<th>아이디</th>
-				<th>사번</th>
-				<th>직군</th>
-				<th>입사일자</th>
-				<th>이메일</th>
-				<th>권한</th>
-				<th>수정</th>
-				<th>강퇴</th>
-			</tr>
-			<c:forEach var="member" items="${list}">
-				<tr>
-					<td>${member.name }</td>
-					<td>${member.id }</td>
-					<td>${member.empno }</td>
-					<td>${member.mgroup }</td>
-					<td>${member.enteryear }</td>
-					<td>${member.email }</td>
-					<td>${member.auth }</td>
-					<td><a href="update.do?id=${member.id}">수정</a></td>
-					<td><a href="kick.do?id=${member.id}">kick!!</a></td>
-				</tr>
-			</c:forEach>
-
-		</table>
-	</form>
+						<th>이름</th>
+						<th>아이디</th>
+						<th>사번</th>
+						<th>직군</th>
+						<th>이메일</th>
+						<th>권한</th>
+						<th>수정</th>
+						<th>강퇴</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="member" items="${list}">
+						<tr>
+							<td>${member.name }</td>
+							<td>${member.id }</td>
+							<td>${member.empno }</td>
+							<td>${member.mgroup }</td>
+							<td>${member.email }</td>
+							<td><c:choose>
+									<c:when test="${member.auth == '1'}">
+										교육생
+									</c:when>
+									<c:when test="${member.auth == '2'}">
+										강사
+									</c:when>
+									<c:when test="${member.auth == '3'}">
+										관리자
+									</c:when>
+								</c:choose></td>
+							<td><a href="update.do?id=${member.id}"
+								class="btn btn-warning">수정</a></td>
+							<td><a href="kick.do?id=${member.id}" class="btn btn-danger">KICK</a></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</form>
+	</div>
 </body>
 </html>

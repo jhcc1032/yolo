@@ -34,6 +34,7 @@ public class MemberController {
 	public String listBoard(PageBean bean, Model model, String key, String word){
 		bean.setKey(key);
 		bean.setWord(word);
+		System.out.println(bean);
 		List<Member> list = memberService.searchAll(bean);
 		System.out.println(bean);
 		model.addAttribute("list", list);
@@ -91,8 +92,8 @@ public class MemberController {
 			} else if(member.getAuth().equals("3")) {
 				role = "관리자";
 			}
-			session.setAttribute("role", role);
 			session.setAttribute("id", id);
+			session.setAttribute("role", role);
 		} else {
 			System.out.println("로그인 실패");
 		}
@@ -111,7 +112,7 @@ public class MemberController {
 	public String kick(String id){
 		System.out.println(id);
 		memberService.withdraw(id);
-		return "index";
+		return "redirect:allMemberList.do";
 	}
 	
 	@RequestMapping(value = "loginform.do", method = RequestMethod.GET)

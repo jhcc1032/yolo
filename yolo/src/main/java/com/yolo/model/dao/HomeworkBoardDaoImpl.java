@@ -72,4 +72,10 @@ public class HomeworkBoardDaoImpl implements HomeworkBoardDao {
 		
 	}
 
+	@Override
+	public void addReply(HomeworkBoardReply reply) {
+		session.insert("homeworkboard.insertReply", reply);
+		
+	}
+
 }
