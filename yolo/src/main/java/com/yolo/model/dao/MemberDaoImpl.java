@@ -25,7 +25,7 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public List<Member> searchAll(PageBean bean) {
 		RowBounds rows = new RowBounds(bean.getStart()-1, bean.getInterval());
-		return session.selectList("member.searchAll", bean, rows);
+		return session.selectList("member.searchAll", bean);
 	}
 
 	@Override

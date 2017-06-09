@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html">
 <html>
 <head>
-<meta  charset="UTF-8">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
+<<<<<<< HEAD
 function button_event(){
 	location.href="delete.do";
 	
@@ -13,16 +14,33 @@ function button_event(){
 		return true;
 	}else{
 		return false;
+=======
+	function button_event() {
+		if (confirm("정말 탈퇴하시겠습니까?")) {
+			return true;
+		} else {
+			return false;
+		}
+>>>>>>> branch 'master' of https://github.com/jhc1032/yolo.git
 	}
+<<<<<<< HEAD
 }
 
 function goupdatePage() {
 	location.href="memberUpdateForm.do";
 	}
 
+=======
+>>>>>>> branch 'master' of https://github.com/jhc1032/yolo.git
 </script>
+<style type="text/css">
+th {
+	text-align: center;
+}
+</style>
 </head>
 <body>
+<<<<<<< HEAD
 	<%
 		String id = (String) session.getAttribute("id");
 	%>
@@ -43,6 +61,44 @@ function goupdatePage() {
 		<tr class="danger"><td> <a href ="delete.do" onclick="return button_event()">회원탈퇴</a> </td></tr> -->
 		
 				
+=======
+	
+	<table class="table table-striped table-hover ">
+		<thead>
+			<tr class="warning">
+				<th colspan="2"><h3>회원정보</h3></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>아이디</td>
+				<td>${member.id}</td>
+			</tr>
+			<tr>
+				<td>이 름</td>
+				<td>${member.name}</td>
+			</tr>
+			<tr>
+				<td>직군</td>
+				<td>${member.mgroup}</td>
+			</tr>
+			<tr>
+				<td>입사일자</td>
+				<td>${member.enteryear}</td>
+			</tr>
+			<tr>
+				<td>사번</td>
+				<td>${member.empno}</td>
+			</tr>
+			<tr>
+				<td>이메일</td>
+				<td>${member.email}</td>
+			</tr>
+		</tbody>
+>>>>>>> branch 'master' of https://github.com/jhc1032/yolo.git
 	</table>
+	<a href="memberUpdateForm.do" class="btn btn-primary btn-sm">수정</a>
+	<a href="delete.do" class="btn btn-primary btn-sm"
+		onclick="return button_event()">탈퇴</a>
 </body>
 </html>

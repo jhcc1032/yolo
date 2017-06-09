@@ -31,7 +31,7 @@
 			<div class="form-group">
 				<label for="inputPassword" class="col-lg-2 control-label">비밀번호</label>
 				<div class="col-lg-10">
-					<input type="text" style="width: 40%;" class="form-control"
+					<input type="password" style="width: 40%;" class="form-control"
 						name="password" id="password" placeholder="Password">
 				</div>
 			</div>

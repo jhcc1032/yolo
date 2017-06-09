@@ -41,6 +41,7 @@ public class MemberServiceImpl implements MemberService {
 			int count = dao.getCount(bean);
 			return dao.searchAll(bean);
 		} catch(Exception  s){
+			s.printStackTrace();
 			throw new UpdateException("DB 서버 오류");
 		}
 	}
