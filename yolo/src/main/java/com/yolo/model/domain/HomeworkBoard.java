@@ -12,6 +12,7 @@ public class HomeworkBoard implements Serializable{
 	private String title;
 	private String regdate;
 	private String contents;
+	private List<HomeworkBoardReply> replys;
 	
 	private MultipartFile[] fileup;
 	
@@ -33,14 +34,15 @@ public class HomeworkBoard implements Serializable{
 		this.regdate = regdate;
 		this.contents = contents;
 	}
-	public HomeworkBoard(int no, String title, String regdate, String contents, List<HomeworkBoardFile> files) {
+	public HomeworkBoard(int no, String title, String regdate, String contents, List<HomeworkBoardFile> files, List<HomeworkBoardReply> replys) {
 		this.no = no;
 		this.title = title;
 		this.regdate = regdate;
 		this.contents = contents;
 		this.files = files;
+		this.replys = replys;
 	}
-	public HomeworkBoard(int no, String id, String pw, String title, String regdate, String contents, List<HomeworkBoardFile> files) {
+	public HomeworkBoard(int no, String id, String pw, String title, String regdate, String contents, List<HomeworkBoardFile> files, List<HomeworkBoardReply> replys) {
 		this.no = no;
 		this.id = id;
 		this.pw = pw;
@@ -48,6 +50,7 @@ public class HomeworkBoard implements Serializable{
 		this.regdate = regdate;
 		this.contents = contents;
 		this.files = files;
+		this.replys = replys;
 	}
 	@Override
 	public String toString() {
@@ -100,6 +103,12 @@ public class HomeworkBoard implements Serializable{
 	}
 	public void setFiles(List<HomeworkBoardFile> files) {
 		this.files = files;
+	}
+	public List<HomeworkBoardReply> getReplys() {
+		return replys;
+	}
+	public void setReplys(List<HomeworkBoardReply> replys) {
+		this.replys = replys;
 	}
 	
 	
