@@ -154,7 +154,7 @@ footer {
 					<c:choose>
 						<c:when test="${role == '교육생'}">
 							<a href="#">교육생용</a>
-							<a href="#">공부해라</a>
+							<a href="openRegisterCourseForm.do">수강신청</a>
 						</c:when>
 						<c:when test="${role == '강사'}">
 							<a href="#">강사용</a>

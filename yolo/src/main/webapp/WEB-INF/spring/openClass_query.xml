@@ -63,6 +63,12 @@
 		delete from createclass
 		where createcode=#{createcode:INTEGER}
 	</delete>
+	
+	<!-- 추가 -->
+	<select id="searchbyccode" parameterType="int" resultType="openclassinfo">
+		select createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode from createclass
+		where ccode = #{ccode}
+	</select>
 </mapper>
 
 

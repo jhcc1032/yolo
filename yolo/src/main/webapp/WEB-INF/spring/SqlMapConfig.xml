@@ -10,6 +10,7 @@
 		    => org.apache.ibatis.type.TypeAliasRegistry  참조
 		 -->
 		 <typeAlias type="com.yolo.model.domain.Member" alias="member" />
+		 <typeAlias type="com.yolo.model.domain.Course" alias="course" />
 		 <typeAlias type="com.yolo.model.domain.ClassInfo" alias="classinfo" />
 		 <typeAlias type="com.yolo.model.domain.OpenClassInfo" alias="openclassinfo" />
 		 <typeAlias type="com.yolo.model.domain.PageBean" alias="pagebean" />
@@ -17,6 +18,8 @@
 		 <typeAlias type="com.yolo.model.domain.NoticeBoardFile" alias="noticeboardfile" />
 		 <typeAlias type="com.yolo.model.domain.HomeworkBoard" alias="homeworkboard" />
 		 <typeAlias type="com.yolo.model.domain.HomeworkBoardFile" alias="homeworkboardfile" />
+		 
+		 
 		 <!-- <typeAlias type="com.yolo.model.domain.QnaBoard" alias="qnaboard" />
 		 <typeAlias type="com.yolo.model.domain.QnaBoardReply" alias="qnaboardreply" /> -->
 	</typeAliases>

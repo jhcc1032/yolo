@@ -12,4 +12,9 @@ public interface OpenClassInfoService {
 	public void add(OpenClassInfo openclassinfo);
 	public void update(OpenClassInfo openclassinfo);
 	public void remove(int createcode);
+	
+	//추가
+	public OpenClassInfo searchByCcode(int ccode);
+
+	
 }

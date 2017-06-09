@@ -38,7 +38,7 @@ public class ClassInfoServiceImpl implements ClassInfoService {
 
 	public List<ClassInfo> searchAll(PageBean bean) {
 		try {
-			int count = dao.getCount(bean);	
+			int count = dao.getCount(bean);
 			return dao.searchAll(bean);
 		} catch(Exception  s){
 			throw new UpdateException("DB 서버 오류");
