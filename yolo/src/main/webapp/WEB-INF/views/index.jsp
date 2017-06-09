@@ -8,8 +8,9 @@
 <meta charset="UTF-8">
 <title>KDN Board Project</title>
 
-<link href="/yolo/resources/css/bootstrap.css" rel="stylesheet"
-	type="text/css" />
+<link href="/yolo/resources/css/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="/yolo/resources/css/bootstrap.css" rel="stylesheet" type="text/css" />
+
 <style type="text/css">
 body {
 	margin: 0 auto;
@@ -102,6 +103,7 @@ footer {
 	padding-right: 10px;
 }
 </style>
+
 <script type="text/javascript" src="/yolo/resources/js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="/yolo/resources/js/bootstrap.js"></script>
 <script type="text/javascript" src="/yolo/resources/js/npm.js"></script>
@@ -162,14 +164,13 @@ footer {
 						</c:when>
 						<c:when test="${role == '관리자'}">
 							<a href="#">관리자용</a>
-							<a href="#">마스터</a>
 							<a href="allMemberList.do">모든회원정보</a>
 							<a href="registerForm.do">과목 등록 및 조회</a>
 							<a href="openClassForm.do">과목 개설 및 조회</a>
 						</c:when>
 					</c:choose>
 					<a href="logout.do">로그아웃</a>
-					<a href="memberUpdateForm.do">회원정보수정</a>
+					<a href="pwcheck.do">회원정보수정</a>
 					<a href="myPage.do">myPage</a>
 					</c:otherwise>
 				</c:choose>
@@ -181,7 +182,7 @@ footer {
 					<jsp:include page="${content}" />
 				</c:when>
 				<c:otherwise>
-					<h2>mainContent</h2>
+					<h4>mainContent</h4>
 				</c:otherwise>
 			</c:choose>
 		</article>

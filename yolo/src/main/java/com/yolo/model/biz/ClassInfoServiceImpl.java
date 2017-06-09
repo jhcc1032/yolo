@@ -63,17 +63,12 @@ public class ClassInfoServiceImpl implements ClassInfoService {
 	public void add(ClassInfo classinfo) {
 		try {
 			System.out.println("service ========" + classinfo);
-			ClassInfo find= dao.search(classinfo.getCcode());
-			System.out.println(find);
-			if(find != null){
-				throw new UpdateException("이미 등록된 과목코드 입니다.");
-			}else{
-				dao.add(classinfo);
-			}
+			dao.add(classinfo);
 		} catch(Exception  s){
 			throw new UpdateException("DB 서버 오류" + s.getMessage());
 		} 
 	}
+	
 	public void remove(int ccode) {
 		try {
 			dao.remove(ccode);
