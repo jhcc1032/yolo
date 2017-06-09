@@ -34,10 +34,10 @@
 		enteryear, email, auth from member
 
 		<where>
-			withdraw='N'
+			
 			<if test=" word != null">
 				<choose>
-					<when test=" key == 'auth' "> auth = #{word} </when>
+					<when test=" key == 'auth' ">withdraw='N' and auth = #{word} </when>
 				</choose>
 			</if>
 		</where>
