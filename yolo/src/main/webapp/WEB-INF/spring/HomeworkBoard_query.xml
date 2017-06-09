@@ -40,6 +40,10 @@
 		) h
 		where h.no = hu.no(+)
 	</select>
+	<select id="searchReply" parameterType="int" resultType="homeworkboardreply">
+		select rno, contents, writer, to_char(regdate, 'yyyy-mm-dd') regdate, no
+		from homeworkreply where no = ${no}
+	</select>
 	<select id="searchAll" parameterType="pagebean" resultType="homeworkboard">
 		select no, id, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate
 		from homework

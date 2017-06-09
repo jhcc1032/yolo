@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.yolo.model.domain.HomeworkBoard;
 import com.yolo.model.domain.HomeworkBoardFile;
+import com.yolo.model.domain.HomeworkBoardReply;
 import com.yolo.model.domain.PageBean;
 
 public interface HomeworkBoardDao {
@@ -24,4 +25,6 @@ public interface HomeworkBoardDao {
 	public void addFiles(List<HomeworkBoardFile> files, int bno);
 
 	public void removeFiles(int bno);
+	
+	public List<HomeworkBoardReply> selectReplys(int no);
 }

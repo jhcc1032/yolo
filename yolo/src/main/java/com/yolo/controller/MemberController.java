@@ -91,7 +91,7 @@ public class MemberController {
 			} else if(member.getAuth().equals("3")) {
 				role = "관리자";
 			}
-			model.addAttribute("role", role);
+			session.setAttribute("role", role);
 			session.setAttribute("id", id);
 		} else {
 			System.out.println("로그인 실패");

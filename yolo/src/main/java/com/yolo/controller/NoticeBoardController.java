@@ -40,6 +40,7 @@ public class NoticeBoardController {
 	
 	@RequestMapping(value="listNoticeBoard.do", method=RequestMethod.GET)
 	public String listBoard(PageBean bean, Model model ){
+		System.out.println(bean);
 		List<NoticeBoard> list = boardService.searchAll(bean);
 		model.addAttribute("list", list);
 		model.addAttribute("content", "notice/listBoard.jsp");

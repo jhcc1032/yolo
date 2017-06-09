@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.yolo.model.biz.HomeworkBoardDao;
 import com.yolo.model.domain.HomeworkBoard;
 import com.yolo.model.domain.HomeworkBoardFile;
+import com.yolo.model.domain.HomeworkBoardReply;
 import com.yolo.model.domain.PageBean;
 
 @Repository("homeworkBoardDao")
@@ -63,6 +64,12 @@ public class HomeworkBoardDaoImpl implements HomeworkBoardDao {
 
 	public void removeFiles(int bno) {
 		session.delete("homeworkboard.delete", bno);
+	}
+
+	@Override
+	public List<HomeworkBoardReply> selectReplys(int no) {
+		return session.selectList("homeworkboard.searchReply", no);
+		
 	}
 
 }
