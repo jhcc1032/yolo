@@ -15,7 +15,11 @@
 	padding-top: 300px;
 }
 
-.btn-group {
+th, td {
+	text-align: center;
+}
+
+#drop {
 	margin-left: 660px;
 }
 
@@ -32,18 +36,22 @@ body {
 <body>
 	<div id="memberlist">
 		<form id="frm">
-			<div class="btn-group">
-				<a href="allMemberList.do" class="btn btn-primary">모두</a> <a href="#"
-					class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-					aria-expanded="false"><span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="allMemberList.do?key=auth&word=2">강사</a></li>
-					<li><a href="allMemberList.do?key=auth&word=1">교육생</a></li>
+			<div id="drop">
+				<ul class="nav nav-pills">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#" aria-expanded="false"> 선택 <span
+							class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="allMemberList.do">모두</a></li>
+							<li><a href="allMemberList.do?key=auth&word=2">강사</a></li>
+							<li><a href="allMemberList.do?key=auth&word=1">교육생</a></li>
+						</ul></li>
 				</ul>
 			</div>
 			<table class="table table-striped table-hover ">
 				<thead>
-					<tr>
+					<tr class="warning">
 
 						<th>이름</th>
 						<th>아이디</th>
@@ -63,7 +71,17 @@ body {
 							<td>${member.empno }</td>
 							<td>${member.mgroup }</td>
 							<td>${member.email }</td>
-							<td>${member.auth }</td>
+							<td><c:choose>
+									<c:when test="${member.auth == '1'}">
+										교육생
+									</c:when>
+									<c:when test="${member.auth == '2'}">
+										강사
+									</c:when>
+									<c:when test="${member.auth == '3'}">
+										관리자
+									</c:when>
+								</c:choose></td>
 							<td><a href="update.do?id=${member.id}"
 								class="btn btn-warning">수정</a></td>
 							<td><a href="kick.do?id=${member.id}" class="btn btn-danger">KICK</a></td>

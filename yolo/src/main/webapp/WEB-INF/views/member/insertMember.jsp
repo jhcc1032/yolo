@@ -7,13 +7,26 @@
 <title>파일 업로드</title>
 <link href="/yolo/resources/css/bootstrap.css" rel="stylesheet"
 	type="text/css" />
+	
+	<style type="text/css">
+	
+	h1 {
+	text-align: center;
+	}
+	#select {
+	
+	text-align: left;
+	}
+	
+	</style>
 </head>
 <body>
 
 	<form class="form-horizontal" method="post" action="insertMember.do">
 		<fieldset>
+			<h1>회원가입</h1>
 			<div class="form-group">
-				<legend>회 원 가 입</legend>
+			
 				<label for="inputEmail" class="col-lg-2 control-label">사
 					&nbsp;번</label>
 				<div class="col-lg-10">
@@ -73,8 +86,6 @@
 						<label> <input type="radio" name="auth"
 							id="optionsRadios1" value="2"> 강사
 						</label>
-					</div>
-					<div class="radio">
 						<label> <input type="radio" name="auth"
 							id="optionsRadios2" value="1"> 교육생
 						</label>
@@ -87,6 +98,7 @@
 				<div class="col-lg-10 col-lg-offset-2">
 					<button type="submit" class="btn btn-primary" value='전송'>전송</button>
 					<button type="reset" class="btn btn-default" value='취소'>취소</button>
+
 				</div>
 			</div>
 		</fieldset>

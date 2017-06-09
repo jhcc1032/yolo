@@ -112,7 +112,7 @@ public class MemberController {
 	public String kick(String id){
 		System.out.println(id);
 		memberService.withdraw(id);
-		return "index";
+		return "redirect:allMemberList.do";
 	}
 	
 	@RequestMapping(value = "loginform.do", method = RequestMethod.GET)
