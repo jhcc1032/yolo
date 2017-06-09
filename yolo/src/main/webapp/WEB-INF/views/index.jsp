@@ -169,7 +169,7 @@ footer {
 						</c:when>
 					</c:choose>
 					<a href="logout.do">로그아웃</a>
-					<a href="memberUpdateForm.do">회원정보수정</a>
+					<a href="pwcheck.do">회원정보수정</a>
 					<a href="myPage.do">myPage</a>
 					</c:otherwise>
 				</c:choose>
