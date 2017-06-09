@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core"%>
- 
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,20 +19,25 @@
 	text-align: center;
 }
 </style>
-<script type="text/javascript">
 
+
+<script type="text/javascript">
 // modal open
 function openModal(){
 	$('#delete_modal').modal('show');
 }
-
-function calldelete(ccode){
-	location.href = "classDelete.do?"+ccode;
-}
-
 </script>
+
 </head>
 <body>
+	<!--  					-->
+	<!--  					-->
+	<!--  					-->
+	<!-- 과목 등록 & 조회 	-->
+	<!--  					-->
+	<!--  					-->
+	<!--  					-->
+	
 	<!-- Tab 선택 -->
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#home " data-toggle="tab">ClassCheck (과목 조회)</a></li>
@@ -39,7 +46,13 @@ function calldelete(ccode){
 	
 	<!-- tab안에 들어가는 내용 -->
 	<div id="myTabContent" class="tab-content">	
-		<!-- 등록 과목 조회 부분 -->
+		<!--  					-->
+		<!--  					-->
+		<!--  					-->
+		<!-- 과목 조회 tab		-->
+		<!--  					-->
+		<!--  					-->
+		<!--  					-->
 		<div class="tab-pane fade active in" id="home">
 			<form method="get" action="classCheck.do">
 				<div style="overflow: scroll; height: 550px;">
@@ -68,9 +81,9 @@ function calldelete(ccode){
 									<td><a href="#">${list.chour}</a></td>
 									<td><a href="#">${list.cscore}</a></td>
 									<td><a href="classUpdateForm.do?ccode=${list.ccode}">Edit</a></td>
-									<%-- <td><a href="classDelete.do?ccode=${list.ccode}">Delete</a></td> --%>
-									<td><a href="#" onclick="openModal()">Delete</a></td>
-										<!-- modal 호출 -->
+									<td><a href="classDelete.do?ccode=${list.ccode}">Delete</a></td>
+									<!-- <td><a href="#" onclick="openModal()">Delete</a></td>
+										modal 호출
 										<div class="modal" id="delete_modal">
 											<div class="modal-dialog">
 												<div class="modal-content">
@@ -88,7 +101,7 @@ function calldelete(ccode){
 												</div>
 											</div>
 										</div>
-									</td>		
+									</td> -->		
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -102,21 +115,35 @@ function calldelete(ccode){
 			</form>
 		</div>
 		
-		<!-- 과목 등록 부분 -->
+		<!--  					-->
+		<!--  					-->
+		<!--  					-->
+		<!-- 과목 등록 tab		-->
+		<!--  					-->
+		<!--  					-->
+		<!--  					-->
 		<div class="tab-pane fade" id="cregister">
 			<form method="get" action="register.do">
 				<div class="form-group has-error">
-					<label class="control-label" for="inputError">Class Code
-						(과목 코드)</label> <input type="text" class="form-control" name='ccode'
-						id='ccode'>
+					<label class="control-label" for="inputError">교육과정 분류</label> 
+					<select class="form-control" name='ccategory' id='ccategory'>
+						<option>전체</option>
+						<option>전산</option>
+						<option>사무</option>
+						<option>통신</option>
+						<option>기타</option>
+					</select>
 				</div>
 				<div class="form-group has-error">
-					<label class="control-label" for="inputError">Class Name
-						(과목 명)</label> <input type="text" class="form-control" name='ctitle'
-						id='ctitle'>
+					<label class="control-label" for="inputError">강사</label> 
+					<input type="text" class="form-control" name='cintructor' id='cintructor'>
 				</div>
 				<div class="form-group has-error">
-					<label class="control-label" for="inputError">Class Hour(과목 총 수업시간:hour)</label> 
+					<label class="control-label" for="inputError">교육과정 명</label> 
+					<input type="text" class="form-control" name='ctitle' id='ctitle'>
+				</div>
+				<div class="form-group has-error">
+					<label class="control-label" for="inputError">교육과정 시간</label> 
 					<select class="form-control" name='chour' id='chour'>
 						<option>8</option>
 						<option>16</option>
@@ -133,9 +160,8 @@ function calldelete(ccode){
 					</select>
 				</div>
 				<div class="form-group has-error">
-					<label class="control-label" for="inputError">Class Credit
-						(과목 배점:weeks)</label> <select class="form-control" name='cscore'
-						id='cscore'>
+					<label class="control-label" for="inputError">교육과정 배점</label> 
+					<select class="form-control" name='cscore' id='cscore'>
 						<option>1</option>
 						<option>2</option>
 						<option>3</option>
@@ -144,8 +170,8 @@ function calldelete(ccode){
 				</div>
 				<div class="form-group">
 					<div class="col-lg-10">
-						<button type="reset" class="btn btn-default">Cancel</button>
-						<button type="submit" class="btn btn-primary" onclick="calldelete(${list.code})">Submit</button>
+						<!-- <button type="reset" class="btn btn-default">Cancel</button> -->
+						<button type="submit" class="btn btn-primary">Submit</button>
 					</div>
 				</div>
 			</form>

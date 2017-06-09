@@ -23,17 +23,17 @@ public class OpenClassInfoServiceImpl implements OpenClassInfoService {
 	@Qualifier("openClassInfoDao")
 	private OpenClassInfoDao dao;
 	
-	public OpenClassInfo search(int ccode) {
-		OpenClassInfo classinfo = null;
+	public OpenClassInfo search(int createcode) {
+		OpenClassInfo openclassinfo = null;
 		try {
-			classinfo = dao.search(ccode);
+			openclassinfo = dao.search(createcode);
 		} catch(Exception  s){
 			throw new UpdateException("DB 서버 오류");
 		} 
-		if(classinfo == null){
+		if(openclassinfo == null){
 			throw new UpdateException("코드에 해당하는 과목을 찾을 수 없습니다.");
 		}else{
-			return classinfo;
+			return openclassinfo;
 		}
 		
 	}
@@ -64,19 +64,13 @@ public class OpenClassInfoServiceImpl implements OpenClassInfoService {
 	
 	public void add(OpenClassInfo openclassinfo) {
 		try {
-			System.out.println("service ========" + openclassinfo);
-			OpenClassInfo find= dao.search(openclassinfo.getCreatecode());
-			System.out.println("service1 ========" + find);
-			System.out.println(find);
-			if(find != null){
-				throw new UpdateException("이미 등록된 과목코드 입니다.");
-			}else{
-				dao.add(openclassinfo);
-			}
+			System.out.println("open service add 1 ========" + openclassinfo);
+			dao.add(openclassinfo);
 		} catch(Exception  s){
 			throw new UpdateException("DB 서버 오류" + s.getMessage());
 		} 
 	}
+	
 	public void remove(int createcode) {
 		try {
 			dao.remove(createcode);

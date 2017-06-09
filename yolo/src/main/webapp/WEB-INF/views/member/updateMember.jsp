@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>파일 업로드</title>
-<link href="../css/basic.css" rel="stylesheet" type="text/css">
+<link href="/yolo/resources/css/bootstrap.css" rel="stylesheet"
+	type="text/css" />
 <script type="text/javascript">
 	function button_event() {
 		if (confirm("정말 수정하시겠습니까?")) {

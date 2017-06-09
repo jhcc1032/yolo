@@ -8,30 +8,57 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 
+<link href="/yolo/resources/css/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/yolo/resources/js/jquery.min.js">
+$(function() {
+    $( "#createdate" ).datepicker({
+
+    });
+});
+</script>
+<script type="text/javascript" src="/yolo/resources/js/jquery-ui.min.js">
+$(function() {
+    $( "#createdate" ).datepicker({
+
+    });
+});
+</script>
+<script>
+$(function() {
+    $( "#createdate" ).datepicker({
+    	//numberOfMonths: [2,2],
+    	changeMonth: true, 
+        changeYear: true,
+        //showButtonPanel: true,
+        nextText: '다음 달',
+        prevText: '이전 달',          
+        //currentText: '오늘 날짜', 
+        closeText: '닫기',
+        dateFormat: "yy-mm-dd"   
+    });
+});
+</script>
+
+<script type="text/javascript">
+function cancel(){
+	location.href="openClassForm.do";
+}
+</script>
+</head>
 <body>
-	<form method="get" action="classOpen.do">
+	<form method="get" action="openClassupdate.do">
 		<div class="form-group has-error">
 			<label class="control-label" for="inputError">Class Code (과목 코드)</label> 
-			<select class="form-control" name='chour' id='chour'>
-				<option>8</option>
-				<option>16</option>
-				<option>24</option>
-				<option>32</option>
-				<option>40</option>
-				<option>48</option>
-				<option>56</option>
-				<option>64</option>
-				<option>72</option>
-				<option>80</option>
-				<option>120</option>
-				<option>160</option>
-			</select>
+			<input type="text" class="form-control" name='ccode' id='ccode' value="${openclassinfo.ccode}" readonly="readonly">
+		</div>
+		<div class="form-group has-error">
+			<label class="control-label" for="inputError">Class Code (과목 명)</label> 
+			<input type="text" class="form-control" value="${classtitle}" readonly="readonly">
 		</div>
 		<div class="form-group has-error">
 			<label class="control-label" for="inputError">Open Code (개설 코드)</label> 
-			<input type="text" class="form-control" name='createcode' id='createcode'>
+			<input type="text" class="form-control" name='createcode' id='createcode' value="${openclassinfo.createcode}" readonly="readonly">
 		</div>
 		<div class="form-group has-error">
 			<label class="control-label" for="inputError">Open Date (개설 날짜)</label> 
@@ -39,8 +66,8 @@
 		</div>
 		<div class="form-group">
 			<div class="col-lg-10">
-				<button type="reset" class="btn btn-default">Cancel</button>
-				<button type="submit" class="btn btn-primary">Open Class</button>
+				<button type="reset" class="btn btn-default" onclick="cancel()">Cancel</button>
+				<button type="submit" class="btn btn-primary">Update</button>
 			</div>
 		</div>
 	</form>
