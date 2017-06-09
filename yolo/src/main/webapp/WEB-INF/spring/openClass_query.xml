@@ -12,7 +12,7 @@
 <mapper namespace="openclassinfo">
 	<select id="search" parameterType="int" resultType="openclassinfo">
 		select createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode from createclass
-		where createcode = #{createcode}
+		where createcode = #{createcode:INTEGER}
 	</select>
 	
 	<select id="searchAll" parameterType="pagebean" resultType="openclassinfo">
@@ -46,7 +46,7 @@
 
 	<insert id="insert" parameterType="openclassinfo">
 		insert into createclass(createcode, createdate, ccode)
-		values(#{createcode:INTEGER},
+		values(CREATECLASS_CREATECODE_SEQ.nextval,
 			   #{createdate:VARCHAR},
 			   #{ccode:INTEGER}
 			   )
@@ -56,7 +56,7 @@
 		update createclass set createcode=#{createcode:INTEGER},
 						 	   createdate=#{createdate:VARCHAR},
 						 	   ccode=#{ccode:INTEGER}
-		where createcode = #{createcode}						 
+		where createcode = #{createcode:INTEGER}						 
 	</update>
 	
 	<delete id="delete" parameterType="int">
