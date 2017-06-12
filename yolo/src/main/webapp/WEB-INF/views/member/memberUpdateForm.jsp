@@ -55,7 +55,7 @@ th {
 			</tr>
 		</tbody>
 	</table>
-	<a href="memberUpdateForm.do" class="btn btn-primary btn-sm">수정</a>
+	<a href="pwcheck.do" class="btn btn-primary btn-sm">수정</a>
 	<a href="delete.do" class="btn btn-primary btn-sm"
 		onclick="return button_event()">탈퇴</a>
 </body>

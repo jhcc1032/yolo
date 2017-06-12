@@ -34,13 +34,12 @@ public class MemberController {
 	public String listBoard(PageBean bean, Model model, String key, String word) {
 		bean.setKey(key);
 		bean.setWord(word);
-		System.out.println(bean);
 		List<Member> list = memberService.searchAll(bean);
-		System.out.println(bean);
 		model.addAttribute("list", list);
 		model.addAttribute("content", "member/memberlist.jsp");
 		return "index";
 	}
+	
 
 	@RequestMapping(value = "insertMemberForm.do", method = RequestMethod.GET)
 	public String insertMemberForm(Model model) {
@@ -55,21 +54,6 @@ public class MemberController {
 		return "index";
 	}
 
-	// @RequestMapping(value = "pwcheck.do", method = RequestMethod.GET)
-	// public String pwcheck(Model model, String password, HttpSession session){
-	//
-	// String id = (String)session.getAttribute("id");
-	// Member m = memberService.search(id);
-	//
-	// if(m.getPassword().equals(password)){
-	// model.addAttribute("member" ,m);
-	// model.addAttribute("content", "member/updateMember.jsp");
-	// } else{
-	//
-	// }
-	//
-	// return "index";
-	// }
 
 	@RequestMapping(value = "pwcheck.do", method = RequestMethod.GET)
 	public String pwcheck(Model model) {
@@ -90,6 +74,7 @@ public class MemberController {
 			model.addAttribute("content", "member/updateMember.jsp");
 		} else {
 
+			System.out.println("비밀번호 틀림");
 		}
 		return "index";
 	}
@@ -141,7 +126,6 @@ public class MemberController {
 
 	@RequestMapping(value = "kick.do", method = RequestMethod.GET)
 	public String kick(String id) {
-		System.out.println(id);
 		memberService.withdraw(id);
 		return "redirect:allMemberList.do";
 	}

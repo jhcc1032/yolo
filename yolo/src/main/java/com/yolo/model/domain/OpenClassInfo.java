@@ -4,12 +4,16 @@ public class OpenClassInfo {
 	private int createcode;
 	private String createdate;
 	private int ccode;
+	private String cid;
+	
 	public OpenClassInfo(){}
-	public OpenClassInfo(int createcode, String createdate, int ccode) {
+	public OpenClassInfo(int createcode, String createdate, int ccode, String cid) {
 		this.createcode = createcode;
 		this.createdate = createdate;
 		this.ccode = ccode;
+		this.cid = cid;
 	}
+	
 	
 	public int getCcode() {
 		return ccode;
@@ -31,10 +35,23 @@ public class OpenClassInfo {
 		this.createdate = createdate;
 	}
 	
+	public String getCid() {
+		return cid;
+	}
+	public void setCid(String cid) {
+		this.cid = cid;
+	}
+	
 	@Override
 	public String toString() {
-		return "OpenClassInfo [createcode=" + createcode + ", createdate="
-				+ createdate + ", ccode=" + ccode + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("OpenClassInfo [createcode=").append(createcode)
+				.append(", createdate=").append(createdate).append(", ccode=")
+				.append(ccode).append(", cid=").append(cid)
+				.append("]");
+		return builder.toString();
 	}
+	
+	
 	
 }

@@ -16,4 +16,5 @@ public interface OpenClassInfoDao {
 	public void add(OpenClassInfo openclassinfo);
 	public void update(OpenClassInfo openclassinfo);
 	public void remove(int createcode);
+	public List<ClassInfo> subject(String cid);
 }

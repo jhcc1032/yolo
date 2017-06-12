@@ -52,4 +52,10 @@ public class OpenClassInfoDaoImpl implements OpenClassInfoDao{
 		session.delete("openclassinfo.delete", createcode);
 	}
 
+	@Override
+	public List<ClassInfo> subject(String cid) {
+		return session.selectList("openclassinfo.subject", cid);
+	}
+
+	
 }

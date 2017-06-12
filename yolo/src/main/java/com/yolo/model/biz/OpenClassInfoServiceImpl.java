@@ -47,6 +47,19 @@ public class OpenClassInfoServiceImpl implements OpenClassInfoService {
 		}
 	}
 	
+	
+	@Override
+	public List<ClassInfo> subject(String cid) {
+		try {
+			System.out.println("service: "+cid);
+			return dao.subject(cid);
+		} catch (Exception s) {
+			s.printStackTrace();
+			throw new UpdateException("DB 서버 오류");
+		}
+		
+	}
+
 	public void update(OpenClassInfo openclassinfo) {
 		try {
 			System.out.println("classUpdate3=====" + openclassinfo);
