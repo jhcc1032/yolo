@@ -84,35 +84,34 @@ textarea {
 				</div>
 			</div>
 			
-				<hr color="red" size="10">
-			<div class="col-lg-10" >		
+			<div class="col-lg-10" align="center">		
 				<div class="form-group has-error frame">
 					<label class="control-label" for="inputError">평가형식</label>
 					<textarea class="form-control" rows="5" id="cevaluation" name="cevaluation"  readonly="readonly">${openclassinfo.cevaluation}</textarea>
 				</div>
 				
-				<hr color="red" size="5"/>
+				<hr color="red" size="2"/>
 				
 				<div class="form-group has-error frame">
 					<label class="control-label" for="inputError">과정소개</label>
 					<textarea  class="form-control" rows="5" id="cintroduction" name="clist"  readonly="readonly">${openclassinfo.cintroduction}</textarea>
 				</div>
 				
-				<hr color="red" size="5"/>
+				<hr color="red" size="2"/>
 				
 				<div class="form-group has-error frame">
 					<label class="control-label" for="inputError">학습목표</label>
 					<textarea  class="form-control" rows="5" id="cgoal" name="cgoal"  readonly="readonly">${openclassinfo.cgoal}</textarea>
 				</div>
 				
-				<hr color="red" size="5"/>
+				<hr color="red" size="2"/>
 				
 				<div class="form-group has-error frame">
 					<label class="control-label" for="inputError">과정목차</label>
 					<textarea  class="form-control" rows="15" id="clist" name="clist"  readonly="readonly">${openclassinfo.clist}</textarea>
 				</div>
 				
-				<hr color="red" size="5"/>
+				<hr color="red" size="2"/>
 				
 				<div class="form-group has-error frame">
 					<label class="control-label" for="inputError">강사소개</label>
