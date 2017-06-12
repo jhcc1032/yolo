@@ -34,12 +34,12 @@ function removeForm(count){
 			    <td><input type="text" name="title" id="title"/></td>
 			</tr>
 			<tr height="50"><td><label for="title">아이디</label></td>
-			    <td><input type="text" name="id" id="id"/></td>
+			    <td><input type="hidden" name="id" id="id" value="<%= session.getAttribute("id") %>"/><%= session.getAttribute("id") %></td>
 			</tr>
 			<tr height="50"><td><label for="title">비밀번호</label></td>
 			    <td><input type="text" name="pw" id="pw"/></td>
 			</tr>
-			<tr height="50" ><td><label for="fileup">업로드할 파일</label></td>
+			<tr height="50" ><td>업로드할 파일</td>
 			    <td>
 			    	<input type="button" name="addFile" id="addFile" value="파일 추가"/>
 			    </td>
