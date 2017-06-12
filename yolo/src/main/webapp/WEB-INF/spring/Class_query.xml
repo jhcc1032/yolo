@@ -50,7 +50,7 @@
 
 	<insert id="insert" parameterType="classinfo">
 		insert into class(ccode, ctitle, chour, cscore)
-		values(CLASS_CCODE_SEQ.nextval,
+		values(CLASS_CCODE_SEQ.nextval+#{ccode:INTEGER},
 			   #{ctitle:VARCHAR},
 			   #{chour:INTEGER},
 			   #{cscore:INTEGER})

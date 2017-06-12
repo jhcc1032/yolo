@@ -34,8 +34,7 @@ public class OpenClassInfoServiceImpl implements OpenClassInfoService {
 			throw new UpdateException("코드에 해당하는 과목을 찾을 수 없습니다.");
 		}else{
 			return openclassinfo;
-		}
-		
+		}	
 	}
 
 	public List<OpenClassInfo> searchAll(PageBean bean) {
@@ -47,11 +46,22 @@ public class OpenClassInfoServiceImpl implements OpenClassInfoService {
 		}
 	}
 	
+	
+	@Override
+	public List<ClassInfo> subject(String cid) {
+		try {
+			System.out.println("service: "+cid);
+			return dao.subject(cid);
+		} catch (Exception s) {
+			s.printStackTrace();
+			throw new UpdateException("DB 서버 오류");
+		}
+		
+	}
+
 	public void update(OpenClassInfo openclassinfo) {
 		try {
-			System.out.println("classUpdate3=====" + openclassinfo);
 			OpenClassInfo find= dao.search(openclassinfo.getCreatecode());
-			System.out.println("classUpdate4=====" + openclassinfo);
 			if(find == null){
 				throw new UpdateException("코드에 해당하는 과목이 없어 수정할 수 없습니다.");
 			}else{
@@ -64,7 +74,6 @@ public class OpenClassInfoServiceImpl implements OpenClassInfoService {
 	
 	public void add(OpenClassInfo openclassinfo) {
 		try {
-			System.out.println("open service add 1 ========" + openclassinfo);
 			dao.add(openclassinfo);
 		} catch(Exception  s){
 			throw new UpdateException("DB 서버 오류" + s.getMessage());
@@ -78,5 +87,22 @@ public class OpenClassInfoServiceImpl implements OpenClassInfoService {
 			e.printStackTrace();
 			throw new UpdateException("과목 삭제 중 오류 발생");
 		} 
+	}
+	
+	//추가
+	public OpenClassInfo searchByCcode(int ccode) {
+		OpenClassInfo classinfo = null;
+		try {
+			classinfo = dao.searchByCcode(ccode);
+		} catch(Exception  s){
+			throw new UpdateException("DB 서버 오류");
+		} 
+		if(classinfo == null){
+			return null;
+			/*throw new UpdateException("ccode에 해당하는 개설과목을 찾을 수 없습니다.");*/			
+		}else{
+			return classinfo;
+		}
+		
 	}
 }
