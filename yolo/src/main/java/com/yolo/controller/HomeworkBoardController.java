@@ -24,6 +24,7 @@ import com.yolo.model.domain.HomeworkBoard;
 import com.yolo.model.domain.HomeworkBoardReply;
 import com.yolo.model.domain.NoticeBoard;
 import com.yolo.model.domain.PageBean;
+import com.yolo.model.domain.UpdateException;
 import com.yolo.util.LoginCheck;
 
 @Controller
@@ -51,6 +52,40 @@ public class HomeworkBoardController {
 		List<HomeworkBoard> list = boardService.searchAll(bean);
 		model.addAttribute("list", list);
 		model.addAttribute("content", "homework/listBoard.jsp");
+		return "index";
+	}
+	
+	@RequestMapping(value="homeworkAuth.do", method=RequestMethod.GET)
+	public String authForm(Model model, int no) {
+		model.addAttribute("no", no);
+		model.addAttribute("content", "homework/homeworkAuth.jsp");
+		return "index";
+	}
+	
+	@RequestMapping(value="auth.do", method=RequestMethod.POST)
+	public String auth(int no, String id, String password, Model model) {
+		
+		try{
+			HomeworkBoard board = boardService.search(no);
+			String authId = board.getId();
+			String authPw = board.getPw();
+			
+			if(id != null && authId != null && password != null && authPw != null) {
+				if(id.equals(authId) && password.equals(authPw)) {
+					model.addAttribute("board", board);
+					model.addAttribute("content", "homework/searchBoard.jsp");
+				}
+				else {
+					System.out.println("게시판 로그인 정보 오류");
+					throw new Exception("게시판 로그인 정보 오류");
+				}
+			} else {
+				throw new Exception("잘못된 데이터입니다.");
+			}
+			
+		} catch(Exception e) {
+			throw new UpdateException(e.getMessage());
+		}
 		return "index";
 	}
 
