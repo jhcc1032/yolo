@@ -51,6 +51,11 @@ public class OpenClassInfoDaoImpl implements OpenClassInfoDao{
 	public void remove(int createcode) {
 		session.delete("openclassinfo.delete", createcode);
 	}
+	
+	//추가
+	public OpenClassInfo searchByCcode(int ccode) {
+		return session.selectOne("openclassinfo.searchbyccode", ccode);
+	}
 
 	@Override
 	public List<ClassInfo> subject(String cid) {

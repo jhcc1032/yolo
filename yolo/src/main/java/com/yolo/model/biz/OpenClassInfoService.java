@@ -13,4 +13,9 @@ public interface OpenClassInfoService {
 	public void update(OpenClassInfo openclassinfo);
 	public void remove(int createcode);
 	public List<ClassInfo> subject(String cid);
+	
+	//추가
+	public OpenClassInfo searchByCcode(int ccode);
+
+	
 }
