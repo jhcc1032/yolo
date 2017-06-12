@@ -6,28 +6,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-<<<<<<< HEAD
-function button_event(){
-	location.href="delete.do";
-	
-	if(confirm("정말 탈퇴하시겠습니까?")){
-		return true;
-	}else{
-		return false;
-=======
+
 	function button_event() {
 		if (confirm("정말 탈퇴하시겠습니까?")) {
 			return true;
 		} else {
 			return false;
 		}
->>>>>>> branch 'master' of https://github.com/jhc1032/yolo.git
 	}
-<<<<<<< HEAD
-}
 
 function goupdatePage() {
 	location.href="memberUpdateForm.do";
+	
 	}
 
 =======
@@ -40,11 +30,11 @@ th {
 </style>
 </head>
 <body>
-<<<<<<< HEAD
 	<%
 		String id = (String) session.getAttribute("id");
 	%>
-	<table class="table table-striped table-hover ">
+	
+	<%-- <table class="table table-striped table-hover ">
 		<tr class="info"><th> 아이디  </th> <td> ${member.id}</td></tr>
 		<tr class="success"><th> 비밀번호  </th> <td> ${member.password}</td></tr>
 		<tr class="danger"><th> 이  름  </th> <td> ${member.name}</td></tr>
@@ -59,9 +49,7 @@ th {
 		<!-- 
 		<tr class="success"><td> <a href ="memberUpdateForm.do" >회원 정보 수정</a> </td></tr>
 		<tr class="danger"><td> <a href ="delete.do" onclick="return button_event()">회원탈퇴</a> </td></tr> -->
-		
-				
-=======
+	</table> --%>
 	
 	<table class="table table-striped table-hover ">
 		<thead>
@@ -95,8 +83,7 @@ th {
 				<td>${member.email}</td>
 			</tr>
 		</tbody>
->>>>>>> branch 'master' of https://github.com/jhc1032/yolo.git
-	</table>
+</table>
 	<a href="memberUpdateForm.do" class="btn btn-primary btn-sm">수정</a>
 	<a href="delete.do" class="btn btn-primary btn-sm"
 		onclick="return button_event()">탈퇴</a>

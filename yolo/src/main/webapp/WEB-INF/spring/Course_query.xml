@@ -47,7 +47,7 @@
 	 
 	<insert id="insert" parameterType="course">
 		insert into course(coursecode, score, createcode, id)
-		values( course_coursecode_seq.nextval,
+		values( course_coursecode_seq.nextval
 				, #{score:INTEGER}
 				, #{createcode:INTEGER}
 				, #{id:VARCHAR}				
@@ -63,6 +63,11 @@
 	<delete id="delete" parameterType="int">
 		delete from course where coursecode = #{coursecode}
 	</delete>
+	
+	<!-- 추가 -->
+	<select id="searchByCreatecode" parameterType = "int" resultType="course" >
+		select * from course where createcode=#{createcode}
+	</select>
 	
 </mapper>
 

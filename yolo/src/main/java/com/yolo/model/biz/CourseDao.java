@@ -14,4 +14,7 @@ public interface CourseDao {
 	public void add(Course course);
 	public void update(Course course) ;
 	public void remove(int coursecode)  ;
+	
+	//추가
+	public Course searchByCreatecode(int createcode);
 }

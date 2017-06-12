@@ -45,5 +45,10 @@ public class CourseDaoImpl implements CourseDao {
 		session.delete("course.delete", coursecode);
 	}
 	
+	//추가
+	public Course searchByCreatecode(int createcode) {
+		return session.selectOne("course.searchByCreatecode", createcode);
+	}
+	
 
 }

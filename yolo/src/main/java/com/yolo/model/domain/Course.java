@@ -5,13 +5,17 @@ public class Course {
 	private int score;
 	private int createcode;
 	private String id;
+	
+	private String ctitle;
+	private int ccode;
+	private int chour;
+	private int cscore;
 
 	public Course() {
 		
 	}
 	
 	public Course(int coursecode, int createcode, String id) {
-		super();
 		this.coursecode = coursecode;
 		this.createcode = createcode;
 		this.id = id;
@@ -20,6 +24,15 @@ public class Course {
 	public Course(int coursecode, int score, int createcode, String id) {
 		this.coursecode = coursecode;
 		this.score = score;
+		this.createcode = createcode;
+		this.id = id;
+	}
+	
+	
+
+
+	public Course(int createcode, String id) {
+		super();
 		this.createcode = createcode;
 		this.id = id;
 	}
@@ -56,10 +69,46 @@ public class Course {
 		this.id = id;
 	}
 
+	public String getCtitle() {
+		return ctitle;
+	}
+
+	public void setCtitle(String ctitle) {
+		this.ctitle = ctitle;
+	}
+	
+
+	public int getCcode() {
+		return ccode;
+	}
+
+	public void setCcode(int ccode) {
+		this.ccode = ccode;
+	}
+
+	public int getChour() {
+		return chour;
+	}
+
+	public void setChour(int chour) {
+		this.chour = chour;
+	}
+
+	public int getCscore() {
+		return cscore;
+	}
+
+	public void setCscore(int cscore) {
+		this.cscore = cscore;
+	}
+
 	@Override
 	public String toString() {
 		return "Course [coursecode=" + coursecode + ", score=" + score
 				+ ", createcode=" + createcode + ", id=" + id + "]";
-	}	
-	
+	}
+	/*
+	public void setCtitle1(String ctitle2) {
+		this.ctitle = ctitle2;
+	}*/
 }
