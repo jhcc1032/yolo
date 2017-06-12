@@ -15,6 +15,7 @@ public class OpenClassInfo {
 	private String cevaluation;		// 평가 형식
 	private String cbook;			// 교재
 	public OpenClassInfo(){}
+
 	public OpenClassInfo(int createcode, String createdate, int ccode,
 			String cid, String ctype, String cinstitution,
 			String cintroduction, String cgoal, String clist,
@@ -34,21 +35,28 @@ public class OpenClassInfo {
 		this.cevaluation = cevaluation;
 		this.cbook = cbook;
 	}
-	public int getCreatecode() {
-		return createcode;
-	}
-	public void setCreatecode(int createcode) {
-		this.createcode = createcode;
-	}
-	public String getCreatedate() {
-		return createdate;
-	}
-	public void setCreatedate(String createdate) {
-		this.createdate = createdate;
-	}
+	
+	
 	public int getCcode() {
 		return ccode;
 	}
+	
+	public int getCreatecode() {
+		return createcode;
+	}
+
+	public void setCreatecode(int createcode) {
+		this.createcode = createcode;
+	}
+
+	public String getCreatedate() {
+		return createdate;
+	}
+
+	public void setCreatedate(String createdate) {
+		this.createdate = createdate;
+	}
+
 	public void setCcode(int ccode) {
 		this.ccode = ccode;
 	}
@@ -112,6 +120,7 @@ public class OpenClassInfo {
 	public void setCbook(String cbook) {
 		this.cbook = cbook;
 	}
+
 	@Override
 	public String toString() {
 		return "OpenClassInfo [createcode=" + createcode + ", createdate="
@@ -121,8 +130,5 @@ public class OpenClassInfo {
 				+ ", cinstructor=" + cinstructor + ", cinstintro=" + cinstintro
 				+ ", cevaluation=" + cevaluation + ", cbook=" + cbook + "]";
 	}
-	
-	
-	
-	
+
 }

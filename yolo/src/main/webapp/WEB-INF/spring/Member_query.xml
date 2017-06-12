@@ -6,10 +6,15 @@
 <!--여러 도메인을 위한 쿼리 xml를 작성할 때 도메인을 식별하기 위해 namespace 부여 => sqlSession.쿼리메서드("식별자", 
 	paramdata); 식별자 => namespace.id ex)sqlSession.selectOne("board.search", paramdata); -->
 <mapper namespace="member">
+
+	
 	<select id="search" parameterType="string" resultType="member">
-		select mno, name, id, password, mgroup, empno, to_char(enteryear, 'yyyy-mm-dd')
+		select
+		mno, name, id, password, mgroup, empno, to_char(enteryear,
+		'yyyy-mm-dd')
 		enteryear, email, auth, withdraw
-		from member where id=#{id}
+		from member where
+		id=#{id}
 	</select>
 
 	<insert id="insert" parameterType="member">
@@ -57,10 +62,14 @@
 		</where>
 	</select>
 
+	
+
+
 	<update id="update" parameterType="member">
 		update member set
 		password=#{password:VARCHAR}, auth=#{auth:VARCHAR},
-		name=#{name:VARCHAR}, email=#{email:VARCHAR}, mgroup=#{mgroup:VARCHAR}
+		name=#{name:VARCHAR}, email=#{email:VARCHAR},
+		mgroup=#{mgroup:VARCHAR}
 		where id=#{id:VARCHAR}
 	</update>
 	<update id="delete" parameterType="string">

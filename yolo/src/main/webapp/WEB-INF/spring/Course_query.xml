@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+	
+<!--여러 도메인을 위한 쿼리 xml를 작성할 때  도메인을 식별하기 위해 
+    namespace 부여 
+=> sqlSession.쿼리메서드("식별자", paramdata);
+    식별자 =>  namespace.id
+  ex)sqlSession.selectOne("board.search", paramdata);    
+-->	
+<mapper namespace="course">
+		
+	
+	<select id="search" parameterType="int" resultType="course">
+		select * from course where coursecode=#{coursecode}
+	</select>
+	
+			
+	<select id="searchAll" parameterType = "pagebean" resultType = "course">
+		select * from course 
+		<where>
+			<if test="word != null">
+				<choose>
+					<!-- <when test="">
+						추가조건 필요?
+					</when> -->
+				</choose>
+			</if>
+		</where>
+		order by coursecode desc
+	</select>
+	
+	<select id="getCount" parameterType = "pagebean" resultType = "int">
+		select count(*) from course 
+		<where>
+			<if test="word != null">
+				<choose>
+					<!-- <when test="">
+						추가조건 필요?
+					</when> -->
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	 
+	<insert id="insert" parameterType="course">
+		insert into course(coursecode, score, createcode, id)
+		values( course_coursecode_seq.nextval
+				, #{score:INTEGER}
+				, #{createcode:INTEGER}
+				, #{id:VARCHAR}				
+		)
+	</insert>
+	 	
+	<update id="update" parameterType="course">
+		update course set score=#{score:INTEGER}, createcode=#{createcode:INTEGER}, id=#{id:VARCHAR}
+		where coursecode=#{coursecode:INTEGER} 
+	</update>
+	
+	
+	<delete id="delete" parameterType="int">
+		delete from course where coursecode = #{coursecode}
+	</delete>
+	
+	<!-- 추가 -->
+	<select id="searchByCreatecode" parameterType = "int" resultType="course" >
+		select * from course where createcode=#{createcode}
+	</select>
+	
+</mapper>
+
+
+

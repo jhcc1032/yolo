@@ -3,6 +3,8 @@ package com.yolo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -172,6 +174,17 @@ public class ClassController {
 		model.addAttribute("classtitle", classtitle);	
 		model.addAttribute("openclassinfo", openclassinfo);
 		model.addAttribute("content", "class/class_open_detailview.jsp");
+		return "index";
+	}
+
+	
+	@RequestMapping(value = "insertGradeForm.do", method = RequestMethod.GET)
+	public String insertGradeForm(Model model, HttpSession session) {
+		String cid = (String)session.getAttribute("id");
+		List<ClassInfo> slist = openclassinfoservice.subject(cid);
+		System.out.println(slist);
+		model.addAttribute("slist", slist);
+		model.addAttribute("content", "member/insertGradeForm.jsp");
 		return "index";
 	}
 }

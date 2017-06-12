@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.yolo.model.domain.HomeworkBoard;
 import com.yolo.model.domain.HomeworkBoardFile;
+import com.yolo.model.domain.HomeworkBoardReply;
 import com.yolo.model.domain.PageBean;
 import com.yolo.model.domain.UpdateException;
 import com.yolo.util.PageUtility;
@@ -86,7 +87,10 @@ public class HomeworkBoardServiceImpl implements HomeworkBoardService {
 	@Override
 	public HomeworkBoard search(int no) {
 		try {
-			return dao.search(no);
+			HomeworkBoard board = dao.search(no);
+			List<HomeworkBoardReply> replys = dao.selectReplys(no);
+			board.setReplys(replys);;
+			return board;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new UpdateException("게시글 검색 중 오류 발생");
@@ -109,4 +113,16 @@ public class HomeworkBoardServiceImpl implements HomeworkBoardService {
 			throw new UpdateException("게시글 검색 중 오류 발생");
 		}
 	}
+
+	@Override
+	public void addReplys(HomeworkBoardReply replys, int no) {
+		try {
+			replys.setNo(no);
+			dao.addReply(replys);
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new UpdateException("댓글 작성 중 오류 발생");
+		}
+	}
+
 }
