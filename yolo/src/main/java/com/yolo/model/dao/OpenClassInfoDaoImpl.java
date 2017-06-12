@@ -57,4 +57,10 @@ public class OpenClassInfoDaoImpl implements OpenClassInfoDao{
 		return session.selectOne("openclassinfo.searchbyccode", ccode);
 	}
 
+	@Override
+	public List<ClassInfo> subject(String cid) {
+		return session.selectList("openclassinfo.subject", cid);
+	}
+
+	
 }
