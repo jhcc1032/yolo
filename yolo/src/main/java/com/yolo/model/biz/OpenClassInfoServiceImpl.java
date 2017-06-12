@@ -43,13 +43,14 @@ public class OpenClassInfoServiceImpl implements OpenClassInfoService {
 			int count = dao.getCount(bean);	
 			return dao.searchAll(bean);
 		} catch(Exception  s){
+			s.printStackTrace();
 			throw new UpdateException("DB 서버 오류");
 		}
 	}
 	
 	
 	@Override
-	public List<ClassInfo> subject(String cid) {
+	public OpenClassInfo subject(String cid) {
 		try {
 			System.out.println("service: "+cid);
 			return dao.subject(cid);

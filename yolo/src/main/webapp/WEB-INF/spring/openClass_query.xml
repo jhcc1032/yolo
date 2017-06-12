@@ -7,28 +7,9 @@
 	paramdata); 식별자 => namespace.id ex)sqlSession.selectOne("board.search", paramdata); -->
 <mapper namespace="openclassinfo">
 
-	<resultMap type="openclassinfo" id="openclassinfomap">
-		<id column="createcode" property="createcode" />
-		<result column="createdate" property="createdate" />
-		<result column="ccode" property="ccode" />
-		<result column="cid" property="cid" />
-		
-	</resultMap>
-	<resultMap type="classinfo" id="classmap">
-		<id column="ccode" property="ccode" />
-		<result column="ctitle" property="ctitle" />
-		<result column="chour" property="chour" />
-		<result column="cscore" property="cscore" />
 
-		<collection property="openClassInfos" resultMap="openclassinfomap" />
-	</resultMap>
-	<select id="subject" parameterType="string" resultMap="classmap">
-		SELECT c.ctitle, cr.createcode 
-		FROM CLASS c, CREATECLASS cr
-		WHERE c.CCODE =
-		cr.CCODE AND cr.CID=#{cid:VARCHAR}
 
-	</select>
+	
 	<select id="search" parameterType="int" resultType="classinfo">
 		select
 		createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode from
@@ -39,7 +20,7 @@
 
 
 	<select id="searchAll" parameterType="pagebean" resultType="openclassinfo">
-		select createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode
+		select createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode, cid
 		from createclass
 		<where>
 			<if test="word != null">
@@ -49,6 +30,9 @@
 					</when>
 					<when test="key == 'title'">
 						title like '%'||#{word}||'%'
+					</when>
+					 <when test="key == 'cid'">
+						cid = #{word}
 					</when>
 				</choose>
 			</if>
@@ -90,10 +74,11 @@
 		where
 		createcode=#{createcode:INTEGER}
 	</delete>
-	
+
 	<!-- 추가 -->
 	<select id="searchbyccode" parameterType="int" resultType="openclassinfo">
-		select createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode from createclass
+		select createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode
+		from createclass
 		where ccode = #{ccode}
 	</select>
 </mapper>

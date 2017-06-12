@@ -162,14 +162,14 @@ footer {
 						<c:when test="${role == '강사'}">
 							<a href="#">강사용</a>
 							<a href="#">수업합시다</a>
-							<a href="insertGradeForm.do">성적입력</a>
+							<a href="insertGradeForm.do?key=cid&word=${id}">성적입력</a>
 						</c:when>
 						<c:when test="${role == '관리자'}">
 							<a href="#">관리자용</a>
 							<a href="allMemberList.do">모든회원정보</a>
 							<a href="registerForm.do">과목 등록 및 조회</a>
 							<a href="openClassForm.do">과목 개설 및 조회</a>
-							<a href="insertGradeForm.do">성적입력</a>
+							<a href="insertGradeForm.do?key=ccode&word=${id}">성적입력</a>
 						</c:when>
 					</c:choose>
 					<a href="logout.do">로그아웃</a>

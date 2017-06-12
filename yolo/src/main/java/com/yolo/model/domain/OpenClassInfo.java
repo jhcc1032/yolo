@@ -1,5 +1,7 @@
 package com.yolo.model.domain;
 
+import java.util.List;
+
 public class OpenClassInfo {
 	private int createcode;
 	private String createdate;
@@ -41,7 +43,6 @@ public class OpenClassInfo {
 	public void setCid(String cid) {
 		this.cid = cid;
 	}
-	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -51,6 +52,7 @@ public class OpenClassInfo {
 				.append("]");
 		return builder.toString();
 	}
+	
 	
 	
 	
