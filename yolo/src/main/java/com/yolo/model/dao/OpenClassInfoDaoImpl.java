@@ -28,7 +28,6 @@ public class OpenClassInfoDaoImpl implements OpenClassInfoDao{
 
 	@Override
 	public List<OpenClassInfo> searchAll(PageBean bean) {
-		// RowBounds rows = new RowBounds(bean.getStart()-1, bean.getInterval());
 		return session.selectList("openclassinfo.searchAll");
 	}
 
@@ -39,6 +38,7 @@ public class OpenClassInfoDaoImpl implements OpenClassInfoDao{
 
 	@Override
 	public void add(OpenClassInfo openclassinfo) {
+		System.out.println("DAOIMOL:" + openclassinfo);
 		session.insert("openclassinfo.insert", openclassinfo);
 	}
 

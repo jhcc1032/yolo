@@ -34,8 +34,7 @@ public class OpenClassInfoServiceImpl implements OpenClassInfoService {
 			throw new UpdateException("코드에 해당하는 과목을 찾을 수 없습니다.");
 		}else{
 			return openclassinfo;
-		}
-		
+		}	
 	}
 
 	public List<OpenClassInfo> searchAll(PageBean bean) {
@@ -49,9 +48,7 @@ public class OpenClassInfoServiceImpl implements OpenClassInfoService {
 	
 	public void update(OpenClassInfo openclassinfo) {
 		try {
-			System.out.println("classUpdate3=====" + openclassinfo);
 			OpenClassInfo find= dao.search(openclassinfo.getCreatecode());
-			System.out.println("classUpdate4=====" + openclassinfo);
 			if(find == null){
 				throw new UpdateException("코드에 해당하는 과목이 없어 수정할 수 없습니다.");
 			}else{
@@ -64,7 +61,6 @@ public class OpenClassInfoServiceImpl implements OpenClassInfoService {
 	
 	public void add(OpenClassInfo openclassinfo) {
 		try {
-			System.out.println("open service add 1 ========" + openclassinfo);
 			dao.add(openclassinfo);
 		} catch(Exception  s){
 			throw new UpdateException("DB 서버 오류" + s.getMessage());

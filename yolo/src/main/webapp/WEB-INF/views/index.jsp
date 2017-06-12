@@ -187,7 +187,7 @@ footer {
 			</c:choose>
 		</article>
 	</article>
-	<footer id="copyright">
+	<footer id="copyright" style="margin-top: 10px;">
 		<table align="center">
 			<jsp:include page="copyright.jsp"/>
 		</table>

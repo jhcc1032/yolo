@@ -11,12 +11,16 @@
 -->	
 <mapper namespace="openclassinfo">
 	<select id="search" parameterType="int" resultType="openclassinfo">
-		select createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode from createclass
+		select CREATECODE, to_char(CREATEDATE,'yyyy-mm-dd') CREATEDATE, CCODE, 
+			   CID, CTYPE, CINSTITUTION, CINTRODUCTION, CGOAL,
+			   CLIST, CINSTRUCTOR, CINSTINTRO, CEVALUATION, CBOOK from createclass
 		where createcode = #{createcode:INTEGER}
 	</select>
 	
 	<select id="searchAll" parameterType="pagebean" resultType="openclassinfo">
-		select createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode from createclass
+		select CREATECODE, to_char(CREATEDATE,'yyyy-mm-dd') CREATEDATE, CCODE, 
+			   CID,CTYPE, CINSTITUTION,CINTRODUCTION, CGOAL,
+			   CLIST, CINSTRUCTOR, CINSTINTRO, CEVALUATION, CBOOK from createclass
 		<where>
 			<if test="word != null">
 				<choose>
@@ -45,18 +49,40 @@
 	</select>
 
 	<insert id="insert" parameterType="openclassinfo">
-		insert into createclass(createcode, createdate, ccode)
+		insert into createclass(CREATECODE, CREATEDATE, CCODE, 
+			   					CID,CTYPE, CINSTITUTION,CINTRODUCTION, CGOAL,
+			   					CLIST, CINSTRUCTOR, CINSTINTRO, CEVALUATION, CBOOK)
 		values(CREATECLASS_CREATECODE_SEQ.nextval,
-			   #{createdate:VARCHAR},
-			   #{ccode:INTEGER}
+			   #{createdate:VARCHAR}, 
+			   #{ccode:INTEGER}, 
+			   #{cid:VARCHAR},
+			   #{ctype:VARCHAR}, 
+			   #{cinstitution:VARCHAR},
+			   #{cintroduction:VARCHAR}, 
+			   #{cgoal:VARCHAR},
+			   #{clist:VARCHAR}, 
+			   #{cinstructor:VARCHAR},
+			   #{cinstintro:VARCHAR}, 
+			   #{cevaluation:VARCHAR}, 
+			   #{cbook:VARCHAR}
 			   )
 	</insert>
 	
 	<update id="update" parameterType="openclassinfo">
-		update createclass set createcode=#{createcode:INTEGER},
-						 	   createdate=#{createdate:VARCHAR},
-						 	   ccode=#{ccode:INTEGER}
-		where createcode = #{createcode:INTEGER}						 
+		update createclass set CREATECODE=#{createcode:INTEGER},
+						 	   CREATEDATE=#{createdate:VARCHAR}, 
+							   CCODE=#{ccode:INTEGER}, 
+							   CID=#{cid:VARCHAR},
+							   CTYPE=#{ctype:VARCHAR}, 
+							   CINSTITUTION=#{cinstitution:VARCHAR},
+							   CINTRODUCTION=#{cintroduction:VARCHAR}, 
+							   CGOAL=#{cgoal:VARCHAR},
+							   CLIST=#{clist:VARCHAR}, 
+							   CINSTRUCTOR=#{cinstructor:VARCHAR},
+							   CINSTINTRO=#{cinstintro:VARCHAR}, 
+							   CEVALUATION=#{cevaluation:VARCHAR}, 
+							   CBOOK=#{cbook:VARCHAR}
+		where CREATECODE = #{createcode:INTEGER}						 
 	</update>
 	
 	<delete id="delete" parameterType="int">

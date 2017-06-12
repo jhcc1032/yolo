@@ -1,5 +1,6 @@
 package com.yolo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -45,7 +46,6 @@ public class ClassController {
 	// 과목 등록화면에서 submit 버튼을 눌럿을 때
 	@RequestMapping(value = "register.do", method = RequestMethod.GET)
 	public String register(Model model, ClassInfo classinfo){
-		System.out.println("register====" + classinfo);
 		classinfoservice.add(classinfo);
 		model.addAttribute("content", "class/class_register.jsp");
 		return "index";
@@ -55,7 +55,6 @@ public class ClassController {
 	@RequestMapping(value = "classCheck.do", method = RequestMethod.GET)
 	public String classCheck(Model model, PageBean bean){
 		List<ClassInfo> classlist = classinfoservice.searchAll(bean);
-		System.out.println("classCheck=====" + classlist);
 		model.addAttribute("classlist", classlist);
 		model.addAttribute("content", "class/class_register.jsp");
 		return "index";
@@ -65,7 +64,6 @@ public class ClassController {
 	@RequestMapping(value = "classUpdateForm.do", method = RequestMethod.GET)
 	public String classUpdateForm(Model model, int ccode){
 		ClassInfo classinfo = classinfoservice.search(ccode);
-		System.out.println("classUpdateForm=====" + classinfo);
 		model.addAttribute("classinfo", classinfo);
 		model.addAttribute("content", "class/class_updateForm.jsp");
 		return "index";
@@ -74,9 +72,7 @@ public class ClassController {
 	// 과목 edit창에서 업데이트 버튼을 클릭했을 때
 	@RequestMapping(value = "classUpdate.do", method = RequestMethod.GET)
 	public String classUpdate(Model model, ClassInfo classinfo){
-		System.out.println("classUpdate1=====" + classinfo);
 		classinfoservice.update(classinfo);
-		System.out.println("classUpdate2=====" + classinfo);
 		model.addAttribute("content", "class/class_register.jsp");
 		return "index";
 	}
@@ -84,7 +80,6 @@ public class ClassController {
 	// 과목 delete 버튼을 클릭했을 때
 	@RequestMapping(value = "classDelete.do", method = RequestMethod.GET)
 	public String classDelete(Model model, int ccode){
-		System.out.println("classDelete=====" + ccode);
 		classinfoservice.remove(ccode);
 		model.addAttribute("content", "class/class_register.jsp");
 		return "index";
@@ -104,12 +99,19 @@ public class ClassController {
 	public String openClassCheck(Model model, PageBean bean){
 		// 개설 과목 조회 데이터
 		List<OpenClassInfo> openclasslist = openclassinfoservice.searchAll(bean);
-		model.addAttribute("openclasslist", openclasslist);
+		
+		List<ClassInfo> classlist = new ArrayList<ClassInfo>();
+		for (OpenClassInfo openClassInfo : openclasslist) {
+			classlist.add(classinfoservice.search(openClassInfo.getCcode()));
+		}
 		
 		// 등록되어 있는 과목 코드를 보여주기 위한 데이터
 		List<ClassInfo> classinfo = classinfoservice.searchAll(bean);
-		model.addAttribute("classinfo", classinfo);
 		
+		
+		model.addAttribute("classinfo", classinfo);
+		model.addAttribute("classlist", classlist);
+		model.addAttribute("openclasslist", openclasslist);
 		model.addAttribute("content", "class/class_open.jsp");
 		return "index";
 	}
@@ -122,17 +124,22 @@ public class ClassController {
 		return "redirect:openClassForm.do";
 	}
 	
-	// 과목 조회에서 edit 버튼을 눌렀을 때
+	// 개설과목 조회에서 edit 버튼을 눌렀을 때
 	@RequestMapping(value = "openClassupdateForm.do", method = RequestMethod.GET)
-	public String openClassupdateForm(Model model, int createcode){
+	public String openClassupdateForm(Model model, int createcode, PageBean bean){
 		// 기존 값을 edit 창에 입력해주기 위한 데이터
 		OpenClassInfo openclassinfo = openclassinfoservice.search(createcode);
 		
 		// 등록되어 있는 과목 코드를 보여주기 위한 데이터
-		ClassInfo classinfo = classinfoservice.search(openclassinfo.getCcode());
-		String classtitle = classinfo.getCtitle();
+		ClassInfo info = classinfoservice.search(openclassinfo.getCcode());
+		String classtitle = info.getCtitle();
 		
-		model.addAttribute("classtitle", classtitle);	
+		// 등록되어 있는 과목 코드를 보여주기 위한 데이터
+		List<ClassInfo> classinfo = classinfoservice.searchAll(bean);
+		model.addAttribute("classinfo", classinfo);
+		
+		model.addAttribute("classtitle", classtitle);
+		model.addAttribute("classinfo", classinfo);
 		model.addAttribute("openclassinfo", openclassinfo);
 		model.addAttribute("content", "class/class_openUpdateForm.jsp");
 		return "index";
@@ -150,5 +157,21 @@ public class ClassController {
 	public String openClassDelete(Model model, int createcode){
 		openclassinfoservice.remove(createcode);
 		return "redirect:openClassForm.do";
+	}
+
+	// 개설 과목 자세히 보기 버튼을 눌렀을 때.
+	@RequestMapping(value = "openClassDetailedView.do", method = RequestMethod.GET)
+	public String openClassDetailedView(Model model, int createcode) {
+		// 해당 값을 추출
+		OpenClassInfo openclassinfo = openclassinfoservice.search(createcode);
+		
+		// 과목 명
+		ClassInfo classinfo = classinfoservice.search(openclassinfo.getCcode());
+		String classtitle = classinfo.getCtitle();
+		
+		model.addAttribute("classtitle", classtitle);	
+		model.addAttribute("openclassinfo", openclassinfo);
+		model.addAttribute("content", "class/class_open_detailview.jsp");
+		return "index";
 	}
 }
