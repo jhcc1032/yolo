@@ -50,7 +50,6 @@ public class OpenClassInfoServiceImpl implements OpenClassInfoService {
 	@Override
 	public List<ClassInfo> subject(String cid) {
 		try {
-			System.out.println("service: "+cid);
 			return dao.subject(cid);
 		} catch (Exception s) {
 			s.printStackTrace();

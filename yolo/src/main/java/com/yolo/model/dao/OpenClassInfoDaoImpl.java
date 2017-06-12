@@ -38,7 +38,6 @@ public class OpenClassInfoDaoImpl implements OpenClassInfoDao{
 
 	@Override
 	public void add(OpenClassInfo openclassinfo) {
-		System.out.println("DAOIMOL:" + openclassinfo);
 		session.insert("openclassinfo.insert", openclassinfo);
 	}
 
@@ -60,7 +59,5 @@ public class OpenClassInfoDaoImpl implements OpenClassInfoDao{
 	@Override
 	public List<ClassInfo> subject(String cid) {
 		return session.selectList("openclassinfo.subject", cid);
-	}
-
-	
+	}	
 }
