@@ -9,36 +9,74 @@
 <script type="text/javascript">
 	$(function() {
 		$("#addQuiz").click(addQuizForm);
+		$("#addHw").click(addHwForm);
 	});
-	var count = 1; //file form index
+
+	var qzcount = 1; //file form index
+	var hwcount = 1; //file form index
+
 	var id;
 	function addQuizForm() {
-		var html = "<div id='quiz_"+id+count+"'><div class='form-group'><label for='quizup' class='col-lg-2 control-label'>Quiz "
-				+ count + "</label><div class='col-lg-10'>"
-		html += "<input type='text' class='form-control' name='quizup_"+count+"' id='quizup_"+count+"' /></div></div></div>";
+		var html = "<div id='quiz_"+qzcount+"'><div class='form-group'><label for='quizup' class='col-lg-2 control-label'>Quiz "
+				+ qzcount + "</label><div class='col-lg-10'>"
+		html += "<input type='text' class='form-control' name='quizup_"+qzcount+"' id='quizup_"+qzcount+"' /></div></div></div>";
 		$("#quizUpForm").append(html);
 
-		count++;
+		qzcount++;
+	}
+	function addHwForm() {
+		var html = "<div id='hw_"+hwcount+"'><div class='form-group'><label for='hwup' class='col-lg-2 control-label'>HW "
+				+ hwcount + "</label><div class='col-lg-10'>"
+		html += "<input type='text' class='form-control' name='hwup_"+hwcount+"' id='hwup_"+hwcount+"' /></div></div></div>";
+		$("#hwUpForm").append(html);
+
+		hwcount++;
 	}
 
-	function openmodal(mid) {
+	function openquizmodal(mid) {
 		id = mid;
-		$(this).removeData();
 		$("#quizmodal").modal();
+
+	}
+
+	function openhwmodal(mid) {
+		id = mid;
+		$("#hwmodal").modal();
 
 	}
 
 	function quizScore() {
 		var score = 0;
-		for (var i = 1; i < count; i++) {
+		for (var i = 1; i < qzcount; i++) {
 			score += parseInt($("#quizup_" + i).val());
 		}
 		$("#quiz_" + id).val(score);
 
 	}
-	function removeForm() {
-		count--;
-		var item = document.getElementById('quiz_' + id + count);
+	function hwScore() {
+		var score = 0;
+		for (var i = 1; i < hwcount; i++) {
+			score += parseInt($("#hwup_" + i).val());
+		}
+		$("#hw_" + id).val(score);
+
+	}
+	function removeqzForm() {
+		if (qzcount > 1) {
+			qzcount--;
+		}
+
+		var item = document.getElementById('quiz_' + qzcount);
+		if (item != null) {
+
+			item.parentNode.removeChild(item);
+		}
+	}
+	function removehwForm() {
+		if (hwcount > 1) {
+			hwcount--;
+		}
+		var item = document.getElementById('hw_' + hwcount);
 		if (item != null) {
 
 			item.parentNode.removeChild(item);
@@ -108,14 +146,16 @@ td {
 									<div class="col-lg-10">
 										<input type="text" class="form-control" id="quiz_${mlist.id }"
 											name="quiz" /> <a href="#"
-											onclick="openmodal('${mlist.id}')" data-toggle="modal"
+											onclick="openquizmodal('${mlist.id}')" data-toggle="modal"
 											class="btn btn-primary btn-sm">입력</a>
 									</div>
 								</div></td>
 							<td><div class="form-group">
 									<div class="col-lg-10">
-										<input type="text" class="form-control" id="homework"
-											name="homework">
+										<input type="text" class="form-control" id="hw_${mlist.id }"
+											name="homework"> <a href="#"
+											onclick="openhwmodal('${mlist.id}')" data-toggle="modal"
+											class="btn btn-primary btn-sm">입력</a>
 									</div>
 								</div></td>
 							<td><div class="form-group">
@@ -152,7 +192,7 @@ td {
 
 							<a href="#addQuiz" id="addQuiz" class="btn btn-primary btn-sm">퀴즈추가</a>
 							<a href='#' class='btn btn-default' id="deletequiz"
-								onclick="removeForm()">삭제</a>
+								onclick="removeqzForm()">삭제</a>
 
 							<form id="frm">
 								<table>
@@ -167,6 +207,41 @@ td {
 								data-dismiss="modal">Close</button>
 							<button type="button" class="btn btn-primary"
 								onclick="quizScore()" data-dismiss="modal">Save</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="modal" id="hwmodal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title">HomeWork Score</h4>
+						</div>
+
+
+						<div class="modal-body">
+
+							<a href="#addHw" id="addHw" class="btn btn-primary btn-sm">과제추가</a>
+							<a href='#' class='btn btn-default' id="deletehw"
+								onclick="removehwForm()">삭제</a>
+
+							<form id="frm">
+								<table>
+									<tr height="50">
+										<td colspan="2" id="hwUpForm"></td>
+									</tr>
+								</table>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" onclick="hwScore()"
+								data-dismiss="modal">Save</button>
 						</div>
 
 					</div>
