@@ -6,10 +6,18 @@ public class Course {
 	private int createcode;
 	private String id;
 	
-	private String ctitle;
-	private int ccode;
-	private int chour;
-	private int cscore;
+	//classinfo
+	private String ctitle;		//과목이름
+	private int ccode;			//과목코드
+	private int chour;			//수업시간
+	private int cscore;			//배점
+	
+	//createclassinfo
+	private String createdate;
+	
+	//create
+	private String progressPercentage;
+	
 
 	public Course() {
 		
@@ -102,13 +110,30 @@ public class Course {
 		this.cscore = cscore;
 	}
 
+	public String getCreatedate() {
+		return createdate;
+	}
+
+	public void setCreatedate(String createdate) {
+		this.createdate = createdate;
+	}
+
+	
+	public String getProgressPercentage() {
+		return progressPercentage;
+	}
+
+	public void setProgressPercentage(String progressPercentage) {
+		this.progressPercentage = progressPercentage;
+	}
+
 	@Override
 	public String toString() {
 		return "Course [coursecode=" + coursecode + ", score=" + score
-				+ ", createcode=" + createcode + ", id=" + id + "]";
+				+ ", createcode=" + createcode + ", id=" + id + ", ctitle="
+				+ ctitle + ", ccode=" + ccode + ", chour=" + chour
+				+ ", cscore=" + cscore + ", createdate=" + createdate
+				+ ", progressPercentage=" + progressPercentage + "]";
 	}
-	/*
-	public void setCtitle1(String ctitle2) {
-		this.ctitle = ctitle2;
-	}*/
+	
 }
