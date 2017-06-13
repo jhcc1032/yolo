@@ -30,6 +30,21 @@
 		<collection property="files" ofType="homeworkboardfile"
 			resultMap="filemap" />
 	</resultMap>
+	<resultMap type="homeworkboardreplyfile" id="replyfilemap">
+		<id column="rupno" property="rupno" />
+		<result column="filename" property="rfileName" />
+		<result column="sfilename" property="sfileName" />
+		<result column="rno" property="rno"/>
+	</resultMap>
+	<resultMap type="homeworkboardreply" id="homeworkreplymap">
+		<id column="rno" property="rno" />
+		<result column="contents" property="contents" />
+		<result column="writer" property="writer" />
+		<result column="regdate" property="regdate" />
+		<result column="no" property="no" />
+		<collection property="files" ofType="homeworkboardreplyfile"
+			resultMap="replyfilemap" />
+	</resultMap>
 
 	<select id="search" parameterType="int" resultMap="homeworkmap">
 		select h.no no, pw, id, title, h.contents contents ,regdate, hu.upno fileno, filename, sfilename
@@ -40,14 +55,17 @@
 		) h
 		where h.no = hu.no(+)
 	</select>
-	<select id="searchReply" parameterType="int" resultType="homeworkboardreply">
-		select rno, contents, writer, to_char(regdate, 'yyyy-mm-dd') regdate, no
-		from homeworkreply where no = ${no}
+	<select id="searchReply" parameterType="int" resultMap="homeworkreplymap">
+		select r.rno, contents, writer, regdate, rupno fileno, filename, sfilename
+		from homeworkreplyupload ru,  
+		( select rno, contents, writer, to_char(regdate, 'yyyy-mm-dd') regdate, no
+			from homeworkreply where no = #{no} ) r
+		where r.rno = ru.rno(+)
 	</select>
-	<insert id="insertReply" parameterType="homeworkboardreply">
-		insert into homeworkreply(rno, contents, writer, regdate, no)
-		values(homeworkreply_rno_seq.nextval, #{contents:VARCHAR}, #{writer:VARCHAR}, #{regdate:VARCHAR}, #{no:INTEGER})
-	</insert>
+	<select id="searchReplyFiles" parameterType="int" resultType="homeworkboardreplyfile">
+		select rupno, filename, sfilename, rno from homeworkreplyupload where rno=#{rno:INTEGER}
+	</select>
+	
 	<select id="searchAll" parameterType="pagebean" resultType="homeworkboard">
 		select no, id, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate
 		from homework
@@ -90,6 +108,9 @@
 		select
 		homework_no_seq.nextval from dual
 	</select>
+	<select id="gethomeworkBoardReplyNo" resultType="int">
+		select homeworkreply_rno_seq.nextval from dual
+	</select>
 
 	<insert id="insert" parameterType="homeworkboard">
 		insert into homework(no, id, pw, title, contents, regdate) 
@@ -102,10 +123,18 @@
 				, sysdate
 		)
 	</insert>
+	<insert id="insertReply" parameterType="homeworkboardreply">
+		insert into homeworkreply(rno, contents, writer, regdate, no)
+		values(#{rno:INTEGER}, #{contents:VARCHAR}, #{writer:VARCHAR}, sysdate, #{no:INTEGER})
+	</insert>
 	<insert id="insertFile" parameterType="homeworkboardfile">
 		insert into homeworkupload(upno, filename, sfilename, contents, no)
 		values(homeworkupload_upno_seq.nextval, #{rfileName:VARCHAR},
 		#{sfileName:VARCHAR}, #{contents:VARCHAR}, #{bno:INTEGER})
+	</insert>
+	<insert id="insertReplyFile" parameterType="homeworkboardreplyfile">
+		insert into homeworkreplyupload(rupno, filename, sfilename, rno)
+		values(homeworkreplyupload_rupno_seq.nextval, #{rfileName:VARCHAR}, #{sfileName:VARCHAR}, #{rno:INTEGER})
 	</insert>
 	<update id="update" parameterType="homeworkboard"> update homework 
 		set id=#{id:VARCHAR} , title=#{title:VARCHAR} , contents=#{contents:VARCHAR}, pw=#{pw:VARCHAR} 

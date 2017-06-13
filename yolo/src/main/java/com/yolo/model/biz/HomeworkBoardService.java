@@ -12,5 +12,5 @@ public interface HomeworkBoardService {
 	public HomeworkBoard search(int no);
 	public void add(HomeworkBoard board, String dir);
 	public List<HomeworkBoard> searchAll(PageBean bean);
-	public void addReplys(HomeworkBoardReply replys, int no);
+	public void addReply(HomeworkBoardReply replys, String dir);
 }

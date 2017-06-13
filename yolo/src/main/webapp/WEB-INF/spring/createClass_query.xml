@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--여러 도메인을 위한 쿼리 xml를 작성할 때 도메인을 식별하기 위해 namespace 부여 => sqlSession.쿼리메서드("식별자", 
+	paramdata); 식별자 => namespace.id ex)sqlSession.selectOne("board.search", paramdata); -->
+<mapper namespace="createclassinfo">
+
+	<select id="search" parameterType="int" resultType="createclassinfo">
+		select CREATECODE, to_char(CREATEDATE,'yyyy-mm-dd') CREATEDATE, CCODE, 
+			   CID, CTYPE, CINSTITUTION, CINTRODUCTION, CGOAL,
+			   CLIST, CINSTRUCTOR, CINSTINTRO, CEVALUATION, CBOOK from createclass
+		where createcode = #{createcode:INTEGER}
+	</select>
+	
+	
+	<select id="searchclass" parameterType="int" resultType="classtotalinfo">
+		select cr.CCODE CCODE, CTITLE, CHOUR, CSCORE, CREATECODE, to_char(CREATEDATE,'yyyy-mm-dd') CREATEDATE,  
+			   CID, CTYPE, CINSTITUTION, CINTRODUCTION, CGOAL,
+			   CLIST, CINSTRUCTOR, CINSTINTRO, CEVALUATION, CBOOK 
+		from createclass cr, class c
+		where cr.ccode=c.ccode and createcode = #{createcode:INTEGER}
+	</select>
+	
+	<select id="searchclassAll" parameterType="pagebean" resultType="classtotalinfo">
+		select cr.CCODE CCODE, CTITLE, CHOUR, CSCORE, CREATECODE, to_char(CREATEDATE,'yyyy-mm-dd') CREATEDATE,  
+			   CID, CTYPE, CINSTITUTION, CINTRODUCTION, CGOAL,
+			   CLIST, CINSTRUCTOR, CINSTINTRO, CEVALUATION, CBOOK 
+		from createclass cr, class c
+		where cr.ccode=c.ccode
+	</select>
+	
+	<resultMap type="createclassinfo" id="createclassinfomap">
+		<id column="createcode" property="createcode" />
+		<result column="createdate" property="createdate" />
+		<result column="ccode" property="ccode" />
+		<result column="cid" property="cid" />
+		
+	</resultMap>
+	
+	<resultMap type="classinfo" id="classmap">
+		<id column="ccode" property="ccode" />
+		<result column="ctitle" property="ctitle" />
+		<result column="chour" property="chour" />
+		<result column="cscore" property="cscore" />
+
+		<collection property="createClassInfos" resultMap="createclassinfomap" />
+	</resultMap>
+	
+	<select id="subject" parameterType="string" resultMap="classmap">
+		SELECT c.ctitle, cr.createcode 
+		FROM CLASS c, CREATECLASS cr
+		WHERE c.CCODE =
+		cr.CCODE AND cr.CID=#{cid:VARCHAR}
+	</select>
+	
+	<select id="searchAll" parameterType="pagebean" resultType="createclassinfo">
+		select CREATECODE, to_char(CREATEDATE,'yyyy-mm-dd') CREATEDATE, CCODE, 
+			   CID,CTYPE, CINSTITUTION,CINTRODUCTION, CGOAL,
+			   CLIST, CINSTRUCTOR, CINSTINTRO, CEVALUATION, CBOOK from createclass
+		<where>
+			<if test="word != null">
+				<choose>
+					<when test="key == 'code'">
+						createcode = #{word}
+					</when>
+					<when test="key == 'title'">
+						title like '%'||#{word}||'%'
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+
+	<select id="getCount" parameterType="pagebean" resultType="int">
+		select count(*) from createclass
+		<where>
+			<if test="word != null">
+				<choose>
+					<when test="key == 'code'">
+						createcode = #{word}
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="createclassinfo">
+		insert into createclass(CREATECODE, CREATEDATE, CCODE, 
+			   					CID,CTYPE, CINSTITUTION,CINTRODUCTION, CGOAL,
+			   					CLIST, CINSTRUCTOR, CINSTINTRO, CEVALUATION, CBOOK)
+		values(CREATECLASS_CREATECODE_SEQ.nextval,
+			   #{createdate:VARCHAR}, 
+			   #{ccode:INTEGER}, 
+			   #{cid:VARCHAR},
+			   #{ctype:VARCHAR}, 
+			   #{cinstitution:VARCHAR},
+			   #{cintroduction:VARCHAR}, 
+			   #{cgoal:VARCHAR},
+			   #{clist:VARCHAR}, 
+			   #{cinstructor:VARCHAR},
+			   #{cinstintro:VARCHAR}, 
+			   #{cevaluation:VARCHAR}, 
+			   #{cbook:VARCHAR}
+			   )
+	</insert>
+
+	<update id="update" parameterType="createclassinfo">
+		update createclass set CREATECODE=#{createcode:INTEGER},
+						 	   CREATEDATE=#{createdate:VARCHAR}, 
+							   CCODE=#{ccode:INTEGER}, 
+							   CID=#{cid:VARCHAR},
+							   CTYPE=#{ctype:VARCHAR}, 
+							   CINSTITUTION=#{cinstitution:VARCHAR},
+							   CINTRODUCTION=#{cintroduction:VARCHAR}, 
+							   CGOAL=#{cgoal:VARCHAR},
+							   CLIST=#{clist:VARCHAR}, 
+							   CINSTRUCTOR=#{cinstructor:VARCHAR},
+							   CINSTINTRO=#{cinstintro:VARCHAR}, 
+							   CEVALUATION=#{cevaluation:VARCHAR}, 
+							   CBOOK=#{cbook:VARCHAR}
+		where CREATECODE = #{createcode:INTEGER}						 
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from createclass
+		where
+		createcode=#{createcode:INTEGER}
+	</delete>
+	
+	<!-- 추가 -->
+	<select id="searchbyccode" parameterType="int" resultType="createclassinfo">
+		select createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode from createclass
+		where ccode = #{ccode}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+

@@ -11,6 +11,7 @@ import com.yolo.model.biz.HomeworkBoardDao;
 import com.yolo.model.domain.HomeworkBoard;
 import com.yolo.model.domain.HomeworkBoardFile;
 import com.yolo.model.domain.HomeworkBoardReply;
+import com.yolo.model.domain.HomeworkBoardReplyFile;
 import com.yolo.model.domain.PageBean;
 
 @Repository("homeworkBoardDao")
@@ -54,12 +55,26 @@ public class HomeworkBoardDaoImpl implements HomeworkBoardDao {
 	public int getHomeworkBoardNo() {
 		return session.selectOne("homeworkboard.gethomeworkBoardNo");
 	}
+	
+	public int getHomeworkBoardReplyNo() {
+		return session.selectOne("homeworkboard.gethomeworkBoardReplyNo");
+	}
 
 	public void addFiles(List<HomeworkBoardFile> files, int bno) {
 		for(HomeworkBoardFile BoardFile : files) {
 			BoardFile.setBno(bno);
 			session.insert("homeworkboard.insertFile", BoardFile);
 		}
+	}
+	public void addReplyFiles(List<HomeworkBoardReplyFile> files, int rno) {
+		System.out.println("============================");
+		System.out.println(files);
+		for(HomeworkBoardReplyFile BoardReplyFile : files) {
+			BoardReplyFile.setRno(rno);
+			session.insert("homeworkboard.insertReplyFile", BoardReplyFile);
+		}
+		System.out.println(files);
+		System.out.println("=============================");
 	}
 
 	public void removeFiles(int bno) {
@@ -70,6 +85,10 @@ public class HomeworkBoardDaoImpl implements HomeworkBoardDao {
 	public List<HomeworkBoardReply> selectReplys(int no) {
 		return session.selectList("homeworkboard.searchReply", no);
 		
+	}
+	
+	public List<HomeworkBoardReplyFile> selectReplyFiles(int rno) {
+		return session.selectList("homeworkboard.searchReplyFiles");
 	}
 
 	@Override

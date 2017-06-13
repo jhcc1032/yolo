@@ -107,7 +107,7 @@ function itemChange() {
 			</div > 
 		
 		
-			<div id = "currentClassInform" style="overflow: scroll; height: 320px;" >
+			<div id = "currentClassInform" style="overflow: scroll; height: 300px;" >
 			<h3 align = center >현재 수강 신청정보</h3>
 				
 				<table class="table table-striped table-hover "  >
