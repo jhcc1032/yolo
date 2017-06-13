@@ -20,7 +20,7 @@
 
 
 	<select id="searchAll" parameterType="pagebean" resultType="openclassinfo">
-		select createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode, cid
+		select createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode
 		from createclass
 		<where>
 			<if test="word != null">
@@ -30,9 +30,6 @@
 					</when>
 					<when test="key == 'title'">
 						title like '%'||#{word}||'%'
-					</when>
-					 <when test="key == 'cid'">
-						cid = #{word}
 					</when>
 				</choose>
 			</if>

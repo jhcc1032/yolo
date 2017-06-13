@@ -154,15 +154,5 @@ public class ClassController {
 		return "redirect:openClassForm.do";
 	}
 	
-	@RequestMapping(value = "insertGradeForm.do", method = RequestMethod.GET)
-	public String insertGradeForm(PageBean bean, Model model) {
-		
 	
-		System.out.println(bean);
-		List<OpenClassInfo> list = openclassinfoservice.searchAll(bean);
-		System.out.println(list);
-		model.addAttribute("clist", list);
-		model.addAttribute("content", "member/insertGradeForm.jsp");
-		return "index";
-	}
 }
