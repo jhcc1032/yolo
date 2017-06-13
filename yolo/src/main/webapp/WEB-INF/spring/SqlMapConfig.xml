@@ -20,6 +20,7 @@
 		 <typeAlias type="com.yolo.model.domain.HomeworkBoardFile" alias="homeworkboardfile" />
 		 <typeAlias type="com.yolo.model.domain.HomeworkBoardReply" alias="homeworkboardreply" />
 		 <typeAlias type="com.yolo.model.domain.SubjectInfo" alias="subjectinfo" />
+		 <typeAlias type="com.yolo.model.domain.SubjectMlist" alias="subjectmlist" />
 		 <!-- <typeAlias type="com.yolo.model.domain.QnaBoard" alias="qnaboard" />
 		 <typeAlias type="com.yolo.model.domain.QnaBoardReply" alias="qnaboardreply" /> -->
 	</typeAliases>

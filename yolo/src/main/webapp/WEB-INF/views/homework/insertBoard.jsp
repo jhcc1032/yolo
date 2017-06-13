@@ -44,7 +44,7 @@ function removeForm(count){
 			    	<input type="button" name="addFile" id="addFile" value="파일 추가"/>
 			    </td>
 			</tr>
-			<tr height="50" ><td colspan="2" id="fileUpForm"> </td>
+			<tr height="50" ><td colspan="2" id="fileUpForm"></td>
 			</tr>
 			<tr><td colspan="2"><label for="contents">내용</label></td></tr>
 			<tr><td colspan="2" align="center">

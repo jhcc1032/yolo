@@ -5,9 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>파일 업로드</title>
-<link href="/yolo/resources/css/bootstrap.css" rel="stylesheet"
-	type="text/css" />
-	
 	<style type="text/css">
 	
 	h1 {
