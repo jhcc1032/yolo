@@ -122,7 +122,7 @@ function itemChange() {
 						<th> 삭제 </th>
 					</tr>		
 					<c:forEach var="courseList" items="${courseList}">
-						<tr>	
+						<tr>
 							<td> ${courseList.ctitle} </td>
 							<td> ${courseList.ccode} </td>
 							<td> ${courseList.chour} </td>

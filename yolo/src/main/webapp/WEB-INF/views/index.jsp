@@ -52,7 +52,7 @@ body {
 }
 
 .sidemenu{
-	position: absolute;
+	position: static;
 	left: 450px;
 	width: 200px;
 }
