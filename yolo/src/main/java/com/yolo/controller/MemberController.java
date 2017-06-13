@@ -109,6 +109,7 @@ public class MemberController {
 				role = "관리자";
 			}
 			session.setAttribute("id", id);
+			session.setAttribute("name", member.getName());
 			session.setAttribute("role", role);
 		} else {
 			System.out.println("로그인 실패");

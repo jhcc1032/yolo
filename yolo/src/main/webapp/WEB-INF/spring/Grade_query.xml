@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--여러 도메인을 위한 쿼리 xml를 작성할 때 도메인을 식별하기 위해 namespace 부여 => sqlSession.쿼리메서드("식별자", 
+	paramdata); 식별자 => namespace.id ex)sqlSession.selectOne("board.search", paramdata); -->
+<mapper namespace="subjectinfo">
+
+
+
+
+	<select id="subjectlist" parameterType="string" resultType="subjectinfo">
+		SELECT
+		ctitle, createcode, cscore
+		FROM CLASS c, CREATECLASS cr
+		WHERE c.CCODE =
+		cr.CCODE AND cr.CID=#{id:VARCHAR}
+	</select>
+	<select id="subject_mlist" parameterType="int" resultType="subjectmlist">
+		SELECT c.id, NAME
+		FROM COURSE c, MEMBER m
+		WHERE c.id=m.ID AND createcode=#{createcode:INTEGER}
+	</select>
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+

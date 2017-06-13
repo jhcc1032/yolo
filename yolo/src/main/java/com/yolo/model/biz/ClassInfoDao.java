@@ -8,12 +8,15 @@ import com.yolo.model.domain.ClassInfo;
 import com.yolo.model.domain.ClassTotalInfo;
 import com.yolo.model.domain.Member;
 import com.yolo.model.domain.PageBean;
+import com.yolo.model.domain.SubjectInfo;
 
 public interface ClassInfoDao {
+	
 	public ClassInfo search(int ccode);
 	public List<ClassInfo> searchAll(PageBean bean);
 	public int getCount(PageBean bean);
 	public void add(ClassInfo classinfo);
 	public void update(ClassInfo classinfo);
 	public void remove(int ccode);
+	
 }

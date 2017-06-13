@@ -16,9 +16,8 @@ body {
 	margin: 0 auto;
 	width: 1000px;
 	padding: 22px 0;
+	background: #F0F0F0;
 }
-
-
 
 #head {
 
@@ -49,12 +48,6 @@ body {
 	width: 100%;
 	display: table;
 	height: 700px;
-}
-
-.sidemenu{
-	position: absolute;
-	left: 450px;
-	width: 200px;
 }
 
 #menu {
@@ -166,18 +159,18 @@ footer {
 					<c:choose>
 						<c:when test="${role == '인턴'}">
 							<div class="panel-heading"><h2 class="panel-title">안녕하세요^^</h2></div>
-							<div class="panel-heading"><h2 class="panel-title">인턴 님</h2></div>
+							<div class="panel-heading"><h2 class="panel-title">${name} 인턴 님</h2></div>
 							<div class="panel-body"><a href="openRegisterCourseForm.do">수강신청</a></div>
 							<div class="panel-body"><a href="#">성적열람</a></div>
 						</c:when>
 						<c:when test="${role == '강사'}">
 							<div class="panel-heading"><h2 class="panel-title">안녕하세요^^</h2></div>
-							<div class="panel-heading"><h2 class="panel-title">강사 님</h2></div>	
-							<div class="panel-body"><a href="insertGradeForm.do">성적입력</a></div>
+							<div class="panel-heading"><h2 class="panel-title">${name} 강사 님</h2></div>	
+							<div class="panel-body"><a href="insertGradeForm.do?createcode=0&cscore=0">성적입력</a></div>
 						</c:when>
 						<c:when test="${role == '관리자'}">
 							<div class="panel-heading"><h2 class="panel-title">안녕하세요^^</h2></div>
-							<div class="panel-heading"><h2 class="panel-title">관리자 님</h2></div>
+							<div class="panel-heading"><h2 class="panel-title">${name} 관리자 님</h2></div>
 							<div class="panel-body"><a href="allMemberList.do">모든회원정보</a></div>
 							<div class="panel-body"><a href="registerForm.do">교육과정 등록</a></div>
 							<div class="panel-body"><a href="createClassForm.do">교육과정 개설</a></div>
@@ -198,7 +191,7 @@ footer {
 					<jsp:include page="${content}" />
 				</c:when>
 				<c:otherwise>
-					<%-- <jsp:include page="home.jsp"/> --%>
+					<jsp:include page="home.jsp"/>
 				</c:otherwise>
 			</c:choose>
 		</article>
