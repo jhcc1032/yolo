@@ -22,8 +22,8 @@
 </head>
 <body>
 	<div class="jumbotron">
-	 	<h1>교육관리시스템</h1>
-		<p>교육생의 원활한 교육을 지원합니다.</p>
+	 	<h1 style="text-align: center;">교육관리시스템</h1>
+		<p style="text-align: center;">교육생의 원활한 교육을 지원합니다.</p>
 	</div>
 </body>
 </html>
