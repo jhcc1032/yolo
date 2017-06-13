@@ -102,7 +102,7 @@ public class MemberController {
 			Member member = memberService.search(id);
 			String role = "";
 			if (member.getAuth().equals("1")) {
-				role = "교육생";
+				role = "인턴";
 			} else if (member.getAuth().equals("2")) {
 				role = "강사";
 			} else if (member.getAuth().equals("3")) {

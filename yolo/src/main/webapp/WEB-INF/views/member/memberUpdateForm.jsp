@@ -20,8 +20,6 @@ function goupdatePage() {
 	
 	}
 
-=======
->>>>>>> branch 'master' of https://github.com/jhc1032/yolo.git
 </script>
 <style type="text/css">
 th {

@@ -16,8 +16,9 @@ body {
 	margin: 0 auto;
 	width: 1000px;
 	padding: 22px 0;
-	background: #F0F0F0;
 }
+
+
 
 #head {
 
@@ -48,6 +49,12 @@ body {
 	width: 100%;
 	display: table;
 	height: 700px;
+}
+
+.sidemenu{
+	position: absolute;
+	left: 450px;
+	width: 200px;
 }
 
 #menu {
@@ -130,7 +137,7 @@ footer {
 		<div class="navbar navbar-default">
 			<div class="container">
 				<div class="navbar-header">
-					<a href="/" class="navbar-brand">YOLO</a>
+					<a href="/" class="navbar-brand">HOME</a>
 				</div>
 				<div class="navbar-collapse collapse" id="navbar-main">
 					<ul class="nav navbar-nav">
@@ -145,39 +152,45 @@ footer {
 		</div>
 	</div>
 	<article id="content">
-		<aside>
-			<nav id="menu">
+		<aside class="sidemenu">
+			<div class="panel panel-danger" style="text-align: center;">		
 				<c:choose>
 					<c:when test="${empty id}">
-						<a href="loginform.do">로그인</a>		
-						<a href="insertMemberForm.do">회원가입</a>
+						<div class="panel-heading">
+							<h2 class="panel-title">안녕하세요</h2>
+						</div>		
+						<div class="panel-body"><a href="loginform.do" class="list-group-item">로그인</a></div>
+						<div class="panel-body"><a href="insertMemberForm.do" class="list-group-item">회원가입</a></div>
 					</c:when>
 					<c:otherwise>
 					<c:choose>
-						<c:when test="${role == '교육생'}">
-							<a href="#">교육생용</a>
-							<a href="openRegisterCourseForm.do">수강신청</a>
-							
+						<c:when test="${role == '인턴'}">
+							<div class="panel-heading"><h2 class="panel-title">안녕하세요^^</h2></div>
+							<div class="panel-heading"><h2 class="panel-title">인턴 님</h2></div>
+							<div class="panel-body"><a href="openRegisterCourseForm.do">수강신청</a></div>
+							<div class="panel-body"><a href="#">성적열람</a></div>
 						</c:when>
 						<c:when test="${role == '강사'}">
-							<a href="#">강사용</a>
-							<a href="#">수업합시다</a>
-							<a href="insertGradeForm.do">성적입력</a>
+							<div class="panel-heading"><h2 class="panel-title">안녕하세요^^</h2></div>
+							<div class="panel-heading"><h2 class="panel-title">강사 님</h2></div>	
+							<div class="panel-body"><a href="insertGradeForm.do">성적입력</a></div>
 						</c:when>
 						<c:when test="${role == '관리자'}">
-							<a href="#">관리자용</a>
-							<a href="allMemberList.do">모든회원정보</a>
-							<a href="registerForm.do">과목 등록 및 조회</a>
-							<a href="openClassForm.do">과목 개설 및 조회</a>
-							<a href="insertGradeForm.do">성적입력</a>
+							<div class="panel-heading"><h2 class="panel-title">안녕하세요^^</h2></div>
+							<div class="panel-heading"><h2 class="panel-title">관리자 님</h2></div>
+							<div class="panel-body"><a href="allMemberList.do">모든회원정보</a></div>
+							<div class="panel-body"><a href="registerForm.do">교육과정 등록</a></div>
+							<div class="panel-body"><a href="createClassForm.do">교육과정 개설</a></div>
+							<div class="panel-body"><a href="insertGradeForm.do">성적입력</a></div>
+							<div class="panel-body"><a href="#">통계</a></div>
 						</c:when>
 					</c:choose>
-					<a href="logout.do">로그아웃</a>
-					<a href="pwcheck.do">회원정보수정</a>
-					<a href="myPage.do">myPage</a>
+					<div class="panel-body"><a href="pwcheck.do">회원정보 수정</a></div>
+					<div class="panel-body"><a href="myPage.do">마이페이지</a></div>
+					<div class="panel-body"><a href="logout.do">로그아웃</a></div>
 					</c:otherwise>
 				</c:choose>
-			</nav>
+			</div>
 		</aside>
 		<article id="mainContent">
 			<c:choose>
@@ -185,7 +198,7 @@ footer {
 					<jsp:include page="${content}" />
 				</c:when>
 				<c:otherwise>
-					<h4>mainContent</h4>
+					<%-- <jsp:include page="home.jsp"/> --%>
 				</c:otherwise>
 			</c:choose>
 		</article>

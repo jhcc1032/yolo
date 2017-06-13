@@ -17,10 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yolo.model.biz.ClassInfoService;
 import com.yolo.model.biz.CourseService;
-import com.yolo.model.biz.OpenClassInfoService;
+import com.yolo.model.biz.CreateClassInfoService;
 import com.yolo.model.domain.ClassInfo;
 import com.yolo.model.domain.Course;
-import com.yolo.model.domain.OpenClassInfo;
+import com.yolo.model.domain.CreateClassInfo;
 import com.yolo.model.domain.PageBean;
 
 @Controller
@@ -30,7 +30,7 @@ public class CourseController {
 	@Autowired
 	private ClassInfoService classInfoService;
 	@Autowired
-	private OpenClassInfoService openClassInfoService;
+	private CreateClassInfoService createClassInfoService;
 	
 	//errorHandler
 	@ExceptionHandler
@@ -49,7 +49,7 @@ public class CourseController {
 		
 		
 		List<ClassInfo> listClass = classInfoService.searchAll(bean);
-		List<OpenClassInfo> listOpenClass = openClassInfoService.searchAll(bean);
+		List<CreateClassInfo> listOpenClass = createClassInfoService.searchAll(bean);
 		
 		//개설된 강의를 추가할 list
 		List<ClassInfo> outputClassList = new ArrayList<ClassInfo>();
@@ -61,16 +61,16 @@ public class CourseController {
 			seletcValue= Integer.parseInt(request.getParameter("selected_value"));	
 		}
 		
-		OpenClassInfo selectedOpenClass = null;
+		CreateClassInfo selectedOpenClass = null;
 		ClassInfo selectedClass = null;		
 		
-		if (openClassInfoService.searchByCcode(seletcValue) != null) {
+		if (createClassInfoService.searchByCcode(seletcValue) != null) {
 			if(classInfoService.search(seletcValue).getCcode() 
-						== openClassInfoService.searchByCcode(seletcValue).getCcode()){
+						== createClassInfoService.searchByCcode(seletcValue).getCcode()){
 					//개설table ccode와 class ccode가 동일하면 (강의가 개설되어있으면)
 					//개설된 강의만 표현하도록 
 				
-				selectedOpenClass = openClassInfoService.searchByCcode(seletcValue);
+				selectedOpenClass = createClassInfoService.searchByCcode(seletcValue);
 				selectedClass = classInfoService.search(seletcValue);
 				
 				model.addAttribute("selectedOpenClass", selectedOpenClass);
@@ -82,7 +82,7 @@ public class CourseController {
 		}
 		
 		//select에 표시할 class목록
-		for (OpenClassInfo openClassInfo : listOpenClass) {
+		for (CreateClassInfo openClassInfo : listOpenClass) {
 			for (ClassInfo classInfo : listClass) {
 				if(classInfo.getCcode() == openClassInfo.getCcode()) {					
 					//추가
@@ -97,7 +97,7 @@ public class CourseController {
 		//현재 수강정보
 		List<Course> courseList = courseService.searchAll(bean);
 		for (Course course : courseList) {
-			for (OpenClassInfo openClassInfo : listOpenClass) {
+			for (CreateClassInfo openClassInfo : listOpenClass) {
 				if (course.getCreatecode() == openClassInfo.getCreatecode())
 					for (ClassInfo classInfo : outputClassList) {
 						if(openClassInfo.getCcode() == classInfo.getCcode()) {

@@ -5,16 +5,33 @@
 
 <!--여러 도메인을 위한 쿼리 xml를 작성할 때 도메인을 식별하기 위해 namespace 부여 => sqlSession.쿼리메서드("식별자", 
 	paramdata); 식별자 => namespace.id ex)sqlSession.selectOne("board.search", paramdata); -->
-<mapper namespace="openclassinfo">
+<mapper namespace="createclassinfo">
 
-	<select id="search" parameterType="int" resultType="openclassinfo">
+	<select id="search" parameterType="int" resultType="createclassinfo">
 		select CREATECODE, to_char(CREATEDATE,'yyyy-mm-dd') CREATEDATE, CCODE, 
 			   CID, CTYPE, CINSTITUTION, CINTRODUCTION, CGOAL,
 			   CLIST, CINSTRUCTOR, CINSTINTRO, CEVALUATION, CBOOK from createclass
 		where createcode = #{createcode:INTEGER}
 	</select>
 	
-	<resultMap type="openclassinfo" id="openclassinfomap">
+	
+	<select id="searchclass" parameterType="int" resultType="classtotalinfo">
+		select cr.CCODE CCODE, CTITLE, CHOUR, CSCORE, CREATECODE, to_char(CREATEDATE,'yyyy-mm-dd') CREATEDATE,  
+			   CID, CTYPE, CINSTITUTION, CINTRODUCTION, CGOAL,
+			   CLIST, CINSTRUCTOR, CINSTINTRO, CEVALUATION, CBOOK 
+		from createclass cr, class c
+		where cr.ccode=c.ccode and createcode = #{createcode:INTEGER}
+	</select>
+	
+	<select id="searchclassAll" parameterType="pagebean" resultType="classtotalinfo">
+		select cr.CCODE CCODE, CTITLE, CHOUR, CSCORE, CREATECODE, to_char(CREATEDATE,'yyyy-mm-dd') CREATEDATE,  
+			   CID, CTYPE, CINSTITUTION, CINTRODUCTION, CGOAL,
+			   CLIST, CINSTRUCTOR, CINSTINTRO, CEVALUATION, CBOOK 
+		from createclass cr, class c
+		where cr.ccode=c.ccode
+	</select>
+	
+	<resultMap type="createclassinfo" id="createclassinfomap">
 		<id column="createcode" property="createcode" />
 		<result column="createdate" property="createdate" />
 		<result column="ccode" property="ccode" />
@@ -28,7 +45,7 @@
 		<result column="chour" property="chour" />
 		<result column="cscore" property="cscore" />
 
-		<collection property="openClassInfos" resultMap="openclassinfomap" />
+		<collection property="createClassInfos" resultMap="createclassinfomap" />
 	</resultMap>
 	
 	<select id="subject" parameterType="string" resultMap="classmap">
@@ -38,7 +55,7 @@
 		cr.CCODE AND cr.CID=#{cid:VARCHAR}
 	</select>
 	
-	<select id="searchAll" parameterType="pagebean" resultType="openclassinfo">
+	<select id="searchAll" parameterType="pagebean" resultType="createclassinfo">
 		select CREATECODE, to_char(CREATEDATE,'yyyy-mm-dd') CREATEDATE, CCODE, 
 			   CID,CTYPE, CINSTITUTION,CINTRODUCTION, CGOAL,
 			   CLIST, CINSTRUCTOR, CINSTINTRO, CEVALUATION, CBOOK from createclass
@@ -69,7 +86,7 @@
 		</where>
 	</select>
 
-	<insert id="insert" parameterType="openclassinfo">
+	<insert id="insert" parameterType="createclassinfo">
 		insert into createclass(CREATECODE, CREATEDATE, CCODE, 
 			   					CID,CTYPE, CINSTITUTION,CINTRODUCTION, CGOAL,
 			   					CLIST, CINSTRUCTOR, CINSTINTRO, CEVALUATION, CBOOK)
@@ -89,7 +106,7 @@
 			   )
 	</insert>
 
-	<update id="update" parameterType="openclassinfo">
+	<update id="update" parameterType="createclassinfo">
 		update createclass set CREATECODE=#{createcode:INTEGER},
 						 	   CREATEDATE=#{createdate:VARCHAR}, 
 							   CCODE=#{ccode:INTEGER}, 
@@ -113,7 +130,7 @@
 	</delete>
 	
 	<!-- 추가 -->
-	<select id="searchbyccode" parameterType="int" resultType="openclassinfo">
+	<select id="searchbyccode" parameterType="int" resultType="createclassinfo">
 		select createcode, to_char(createdate,'yyyy-mm-dd') createdate, ccode from createclass
 		where ccode = #{ccode}
 	</select>

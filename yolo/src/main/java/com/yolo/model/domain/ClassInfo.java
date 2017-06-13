@@ -9,10 +9,10 @@ public class ClassInfo implements Serializable{
 	private int chour;			// 수업시간
 	private int cscore;			// 학점(ex. 1주 or 2주 과정)
 	
-	private OpenClassInfo openClassInfos; 
+	private CreateClassInfo openClassInfos; 
 	
 	public ClassInfo(){}
-	public ClassInfo(int ccode, String ctitle, int chour, int cscore, OpenClassInfo openClassInfos) {
+	public ClassInfo(int ccode, String ctitle, int chour, int cscore, CreateClassInfo openClassInfos) {
 		this.ccode = ccode;
 		this.ctitle = ctitle;
 		this.chour = chour;
@@ -46,10 +46,10 @@ public class ClassInfo implements Serializable{
 	
 	
 	
-	public OpenClassInfo getOpenClassInfos() {
+	public CreateClassInfo getOpenClassInfos() {
 		return openClassInfos;
 	}
-	public void setOpenClassInfos(OpenClassInfo openClassInfos) {
+	public void setOpenClassInfos(CreateClassInfo openClassInfos) {
 		this.openClassInfos = openClassInfos;
 	}
 	@Override

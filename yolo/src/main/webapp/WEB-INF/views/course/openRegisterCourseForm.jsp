@@ -22,13 +22,17 @@ button {
 /* #List {
 	width : 270px;
 	display: inline-block;
-} */
+} */	
 
 #currentClassInform {
 	width : 100%;
 	display: inline-block;
 }
-
+.form-control{
+	width: 500px;
+	margin-left: 150px;
+	text-align: center;
+}
 </style>
 </head>
 
@@ -47,10 +51,10 @@ function itemChange() {
 	<form class="form-horizontal" action="openRegisterCourseForm.do" method="get" id="coursefrm">
 
 		<h3 align = center >수강 가능 과목</h3>
-		<select id="List" class="form-control" name="selected_value" onchange="itemChange()">
+		<select id="List" class="form-control" name="selected_value" onchange="itemChange()" >
 			<option> 수강할 과목을 선택하세요 </option>
 			<c:forEach var="classList" items="${classList}">
-				<option value="${classList.ccode}">${classList.ctitle}</option>
+				<option  value="${classList.ccode}">${classList.ctitle}</option>
 			</c:forEach> 
 		</select>
 			

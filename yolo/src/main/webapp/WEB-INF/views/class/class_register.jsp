@@ -27,9 +27,11 @@
 
 <script type="text/javascript">
 // modal open
-function openModal(){
-	$('#delete_modal').modal('show');
+function openModal(ccode){
+	$('#classcode').val(ccode);
+	$('#deletemodal').modal('show');
 }
+
 </script>
 
 </head>
@@ -44,8 +46,8 @@ function openModal(){
 	
 	<!-- Tab 선택 -->
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="#home " data-toggle="tab">ClassCheck (과목 조회)</a></li>
-		<li><a href="#cregister" data-toggle="tab">Register Class (과목등록)</a></li>
+		<li class="active"><a href="#home " data-toggle="tab">교육과정 조회</a></li>
+		<li><a href="#cregister" data-toggle="tab">교육과정 등록</a></li>
 	</ul>
 	
 	<!-- tab안에 들어가는 내용 -->
@@ -64,24 +66,25 @@ function openModal(){
 						<thead id="thead">
 							<tr style="color: #b94a48;">
 								<th>#</th>
-								<th>과목코드</th>
-								<th>과목 명</th>
-								<th>총 수업 시간(hour)</th>
+								<th>코드</th>
+								<th>교육과정명</th>
+								<th>교육기간(h)</th>
 								<th>학점(weeks)</th>
 								<th>수정</th>
 								<th>삭제</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="list" items="${classlist}">
+							<c:forEach var="list" items="${classinfo}">
 								<tr id="dplist" class="active">
 									<td><a href="#">#</a></td>
 									<td><a href="#">${list.ccode}</a></a></td>
 									<td><a href="#">${list.ctitle}</a></td>
 									<td><a href="#">${list.chour}</a></td>
 									<td><a href="#">${list.cscore}</a></td>
-									<td><a href="classUpdateForm.do?ccode=${list.ccode}">Edit</a></td>
-									<td><a href="classDelete.do?ccode=${list.ccode}">Delete</a></td>	
+									<td><a href="classUpdateForm.do?ccode=${list.ccode}" class="btn btn-primary">수정</a></td>
+									<%-- <td><a href="classDelete.do?ccode=${list.ccode}">Delete</a></td> --%>	
+									<td><a href="#" onclick="openModal(${list.ccode})" class="btn btn-primary">삭제</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -154,6 +157,34 @@ function openModal(){
 					</div>
 				</div>
 			</form>
+		</div>
+	</div>
+
+
+	<!-- 모달 창  -->
+	<!-- 모달 창  -->
+	<!-- 모달 창  -->
+	<!-- 모달 창  -->
+	<!-- 모달 창  -->
+	<!-- 모달 창  -->
+	<div class="modal" id="deletemodal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h2 class="modal-title">정말 삭제하시겠습니까?</h2>
+				</div>
+				<form method="get" action="classDelete.do">
+					<input type="hidden" id="classcode" name="ccode" />
+					<div class="modal-body">
+						<p>등록된 교육과정을 삭제합니다.</p>	
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+						<button type="submit" class="btn btn-primary">삭제</button>
+					</div>
+				</form>	
+			</div>
 		</div>
 	</div>
 </body>
