@@ -1422,8 +1422,8 @@ img {
 hr {
 	margin-top: 20px;
 	margin-bottom: 20px;
-	border: 0;
-	border-top: 1px solid #eeeeee;
+	border: 10;
+	border-top: 1px solid #ff8000;
 }
 
 .sr-only {

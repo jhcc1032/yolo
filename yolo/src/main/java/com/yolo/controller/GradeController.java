@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yolo.model.biz.ClassInfoService;
-import com.yolo.model.biz.OpenClassInfoService;
 import com.yolo.model.biz.SubjectInfoService;
 import com.yolo.model.domain.ClassInfo;
-import com.yolo.model.domain.OpenClassInfo;
 import com.yolo.model.domain.PageBean;
 import com.yolo.model.domain.SubjectInfo;
 import com.yolo.model.domain.SubjectMlist;

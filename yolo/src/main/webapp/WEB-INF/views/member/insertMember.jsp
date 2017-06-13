@@ -5,7 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>파일 업로드</title>
+<<<<<<< HEAD
 	<style type="text/css">
+=======
+<link href="/yolo/resources/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+>>>>>>> branch 'master' of https://github.com/jhc1032/yolo.git
 	
 	h1 {
 	text-align: center;
@@ -15,15 +20,13 @@
 	text-align: left;
 	}
 	
-	</style>
+</style>
 </head>
 <body>
-
 	<form class="form-horizontal" method="post" action="insertMember.do">
 		<fieldset>
 			<h1>회원가입</h1>
 			<div class="form-group">
-			
 				<label for="inputEmail" class="col-lg-2 control-label">사
 					&nbsp;번</label>
 				<div class="col-lg-10">
@@ -89,13 +92,10 @@
 					</div>
 				</div>
 			</div>
-
-
 			<div class="form-group">
 				<div class="col-lg-10 col-lg-offset-2">
 					<button type="submit" class="btn btn-primary" value='전송'>전송</button>
 					<button type="reset" class="btn btn-default" value='취소'>취소</button>
-
 				</div>
 			</div>
 		</fieldset>

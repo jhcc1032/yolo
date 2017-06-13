@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.yolo.model.domain.HomeworkBoard;
 import com.yolo.model.domain.HomeworkBoardFile;
 import com.yolo.model.domain.HomeworkBoardReply;
+import com.yolo.model.domain.HomeworkBoardReplyFile;
 import com.yolo.model.domain.PageBean;
 import com.yolo.model.domain.UpdateException;
 import com.yolo.util.PageUtility;
@@ -53,9 +54,42 @@ public class HomeworkBoardServiceImpl implements HomeworkBoardService {
 					dao.addFiles(fileInfos, bno);
 				}
 			}
-			
-			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new UpdateException("게시글 작성 중 오류 발생");
+		}
+	}
+	
+	public void addReply(HomeworkBoardReply reply, String dir) {
+		try {
+			int rno = dao.getHomeworkBoardReplyNo();
+			reply.setRno(rno);
 
+			dao.addReply(reply);
+			
+			int size = 0;
+			File[] files;
+			
+			MultipartFile[] fileup = reply.getFileup();
+			if(fileup != null) {
+				size = fileup.length;
+				files = new File[size];
+				ArrayList<HomeworkBoardReplyFile> fileInfos = new ArrayList<HomeworkBoardReplyFile>(size);
+				String rfilename = null;
+				String sfilename = null;
+				int index = 0;
+				for(MultipartFile file : fileup) {
+					rfilename = file.getOriginalFilename();
+					sfilename = String.format("%d%s", System.currentTimeMillis(), rfilename);
+					fileInfos.add(new HomeworkBoardReplyFile(rfilename, sfilename));
+					String fileName = String.format("%s/%s", dir, sfilename);
+					files[index] = new File(fileName);
+					file.transferTo(files[index++]);
+				}
+				if (fileInfos != null) {
+					dao.addReplyFiles(fileInfos, rno);
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new UpdateException("게시글 작성 중 오류 발생");
@@ -88,8 +122,20 @@ public class HomeworkBoardServiceImpl implements HomeworkBoardService {
 	public HomeworkBoard search(int no) {
 		try {
 			HomeworkBoard board = dao.search(no);
+			
 			List<HomeworkBoardReply> replys = dao.selectReplys(no);
-			board.setReplys(replys);;
+//			for(HomeworkBoardReply r : replys) {
+//				int rno = r.getRno();
+//				System.out.println("=============r.getRno      =" + r.getRno());
+//				if(dao.selectReplyFiles(rno) != null) {
+//					System.out.println(dao.selectReplyFiles(rno));
+//					r.setFiles(dao.selectReplyFiles(rno));
+//				}
+////				for(HomeworkBoardReplyFile f : r.getFiles()) {
+////					System.out.print(f.getRno() + ", " + f.getRfileName());
+////				}
+//			}
+			board.setReplys(replys);
 			return board;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -114,15 +160,7 @@ public class HomeworkBoardServiceImpl implements HomeworkBoardService {
 		}
 	}
 
-	@Override
-	public void addReplys(HomeworkBoardReply replys, int no) {
-		try {
-			replys.setNo(no);
-			dao.addReply(replys);
-		} catch(Exception e) {
-			e.printStackTrace();
-			throw new UpdateException("댓글 작성 중 오류 발생");
-		}
-	}
+
+	
 
 }

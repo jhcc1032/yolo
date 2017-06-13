@@ -10,49 +10,47 @@ import org.springframework.stereotype.Service;
 
 import com.yolo.model.dao.MemberDaoImpl;
 import com.yolo.model.domain.ClassInfo;
+import com.yolo.model.domain.ClassTotalInfo;
 import com.yolo.model.domain.Member;
-import com.yolo.model.domain.OpenClassInfo;
+import com.yolo.model.domain.CreateClassInfo;
 import com.yolo.model.domain.UpdateException;
 import com.yolo.model.domain.PageBean;
 import com.yolo.util.DBUtil;
 
-@Service("openClassInfoService")
-public class OpenClassInfoServiceImpl implements OpenClassInfoService {
+@Service("createClassInfoService")
+public class CreateClassInfoServiceImpl implements CreateClassInfoService {
 	
 	@Autowired
-	@Qualifier("openClassInfoDao")
-	private OpenClassInfoDao dao;
+	@Qualifier("createClassInfoDao")
+	private CreateClassInfoDao dao;
 	
-	public OpenClassInfo search(int createcode) {
-		OpenClassInfo openclassinfo = null;
+	public CreateClassInfo search(int createcode) {
+		CreateClassInfo createclassinfo = null;
 		try {
-			openclassinfo = dao.search(createcode);
+			createclassinfo = dao.search(createcode);
 		} catch(Exception  s){
 			throw new UpdateException("DB 서버 오류");
 		} 
-		if(openclassinfo == null){
+		if(createclassinfo == null){
 			throw new UpdateException("코드에 해당하는 과목을 찾을 수 없습니다.");
 		}else{
-			return openclassinfo;
-		}
-		
+			return createclassinfo;
+		}	
 	}
 
-	public List<OpenClassInfo> searchAll(PageBean bean) {
+	public List<CreateClassInfo> searchAll(PageBean bean) {
 		try {
 			int count = dao.getCount(bean);	
 			return dao.searchAll(bean);
 		} catch(Exception  s){
-			s.printStackTrace();
 			throw new UpdateException("DB 서버 오류");
 		}
 	}
 	
 	
 	@Override
-	public OpenClassInfo subject(String cid) {
+	public List<ClassInfo> subject(String cid) {
 		try {
-			System.out.println("service: "+cid);
 			return dao.subject(cid);
 		} catch (Exception s) {
 			s.printStackTrace();
@@ -61,25 +59,22 @@ public class OpenClassInfoServiceImpl implements OpenClassInfoService {
 		
 	}
 
-	public void update(OpenClassInfo openclassinfo) {
+	public void update(CreateClassInfo createclassinfo) {
 		try {
-			System.out.println("classUpdate3=====" + openclassinfo);
-			OpenClassInfo find= dao.search(openclassinfo.getCreatecode());
-			System.out.println("classUpdate4=====" + openclassinfo);
+			CreateClassInfo find= dao.search(createclassinfo.getCreatecode());
 			if(find == null){
 				throw new UpdateException("코드에 해당하는 과목이 없어 수정할 수 없습니다.");
 			}else{
-				dao.update(openclassinfo);
+				dao.update(createclassinfo);
 			}
 		} catch(Exception  s){
 			throw new UpdateException("DB 서버 오류");
 		}
 	}
 	
-	public void add(OpenClassInfo openclassinfo) {
+	public void add(CreateClassInfo createclassinfo) {
 		try {
-			System.out.println("open service add 1 ========" + openclassinfo);
-			dao.add(openclassinfo);
+			dao.add(createclassinfo);
 		} catch(Exception  s){
 			throw new UpdateException("DB 서버 오류" + s.getMessage());
 		} 
@@ -95,20 +90,37 @@ public class OpenClassInfoServiceImpl implements OpenClassInfoService {
 	}
 	
 	//추가
-	public OpenClassInfo searchByCcode(int ccode) {
-		OpenClassInfo classinfo = null;
+	public CreateClassInfo searchByCcode(int ccode) {
+		CreateClassInfo classinfo = null;
 		try {
-			System.out.println(ccode);
 			classinfo = dao.searchByCcode(ccode);
-			System.out.println(classinfo);
 		} catch(Exception  s){
 			throw new UpdateException("DB 서버 오류");
 		} 
 		if(classinfo == null){
-			throw new UpdateException("ccode에 해당하는 개설과목을 찾을 수 없습니다.");
+			return null;
+			/*throw new UpdateException("ccode에 해당하는 개설과목을 찾을 수 없습니다.");*/			
 		}else{
 			return classinfo;
 		}
 		
+	}
+
+	@Override
+	public ClassTotalInfo searchClassInfo(int createcode) {
+		try {
+			return dao.searchClassInfo(createcode);
+		} catch(Exception  s){
+			throw new UpdateException("DB 서버 오류");
+		}
+	}
+	
+	@Override
+	public List<ClassTotalInfo> searchClassInfo(PageBean bean) {
+		try {
+			return dao.searchClassInfo(bean);
+		} catch(Exception  s){
+			throw new UpdateException("DB 서버 오류");
+		}
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.yolo.model.biz.ClassInfoDao;
 import com.yolo.model.biz.MemberDao;
 import com.yolo.model.domain.ClassInfo;
+import com.yolo.model.domain.ClassTotalInfo;
 import com.yolo.model.domain.Member;
 import com.yolo.model.domain.PageBean;
 
@@ -49,5 +50,4 @@ public class ClassInfoDaoImpl implements ClassInfoDao{
 	public void remove(int ccode) {
 		session.delete("classinfo.delete", ccode);
 	}
-
 }

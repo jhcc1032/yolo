@@ -1,5 +1,6 @@
 package com.yolo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yolo.model.biz.ClassInfoService;
-import com.yolo.model.biz.OpenClassInfoService;
+import com.yolo.model.biz.CreateClassInfoService;
 import com.yolo.model.domain.ClassInfo;
-import com.yolo.model.domain.OpenClassInfo;
+import com.yolo.model.domain.ClassTotalInfo;
+import com.yolo.model.domain.CreateClassInfo;
 import com.yolo.model.domain.PageBean;
 
 @Controller
@@ -26,7 +28,7 @@ public class ClassController {
 	private ClassInfoService classinfoservice;
 	
 	@Autowired
-	private OpenClassInfoService openclassinfoservice;
+	private CreateClassInfoService createclassinfoservice;
 	
 	@ExceptionHandler
 	public ModelAndView handler(Exception e){
@@ -37,9 +39,20 @@ public class ClassController {
 		return model;
 	}
 	
+	
+	/*
+	 * 
+	 * 여기부터는 과목 등록 파트.
+	 * 
+	 * 
+	 * 
+	 * 
+	 * */
+	
 	// 왼쪽 메뉴에서 과목 등록을 눌렀을 때
 	@RequestMapping(value = "registerForm.do", method = RequestMethod.GET)
 	public String registerForm(Model model){
+		// 등록 JSP로 이동
 		model.addAttribute("content", "class/class_register.jsp");
 		return "index";
 	}
@@ -47,18 +60,20 @@ public class ClassController {
 	// 과목 등록화면에서 submit 버튼을 눌럿을 때
 	@RequestMapping(value = "register.do", method = RequestMethod.GET)
 	public String register(Model model, ClassInfo classinfo){
-		System.out.println("register====" + classinfo);
+		// 과목 등록
 		classinfoservice.add(classinfo);
-		model.addAttribute("content", "class/class_register.jsp");
-		return "index";
+		
+		//model.addAttribute("content", "class/class_register.jsp");
+		return "redirect:classCheck.do";
 	}
 	
 	// 과목 조회에서 check 버튼을 눌렀을 때
 	@RequestMapping(value = "classCheck.do", method = RequestMethod.GET)
 	public String classCheck(Model model, PageBean bean){
-		List<ClassInfo> classlist = classinfoservice.searchAll(bean);
-		System.out.println("classCheck=====" + classlist);
-		model.addAttribute("classlist", classlist);
+		// 전체 등록과목 데이터를 보여주기 위해 추출.
+		List<ClassInfo> classinfo = classinfoservice.searchAll(bean);
+		
+		model.addAttribute("classinfo", classinfo);
 		model.addAttribute("content", "class/class_register.jsp");
 		return "index";
 	}
@@ -66,8 +81,9 @@ public class ClassController {
 	// 과목 edit 버튼을 클릭했을 때
 	@RequestMapping(value = "classUpdateForm.do", method = RequestMethod.GET)
 	public String classUpdateForm(Model model, int ccode){
+		// 해당 데이터를 edit 창에 보여주기 위해 추출.
 		ClassInfo classinfo = classinfoservice.search(ccode);
-		System.out.println("classUpdateForm=====" + classinfo);
+
 		model.addAttribute("classinfo", classinfo);
 		model.addAttribute("content", "class/class_updateForm.jsp");
 		return "index";
@@ -76,83 +92,108 @@ public class ClassController {
 	// 과목 edit창에서 업데이트 버튼을 클릭했을 때
 	@RequestMapping(value = "classUpdate.do", method = RequestMethod.GET)
 	public String classUpdate(Model model, ClassInfo classinfo){
-		System.out.println("classUpdate1=====" + classinfo);
+		// 해당 과목 업데이트
 		classinfoservice.update(classinfo);
-		System.out.println("classUpdate2=====" + classinfo);
-		model.addAttribute("content", "class/class_register.jsp");
-		return "index";
+		
+		//model.addAttribute("content", "class/class_register.jsp");
+		return "redirect:classCheck.do";
 	}
 	
 	// 과목 delete 버튼을 클릭했을 때
 	@RequestMapping(value = "classDelete.do", method = RequestMethod.GET)
 	public String classDelete(Model model, int ccode){
-		System.out.println("classDelete=====" + ccode);
+		// 등록되어 잇는 과목 삭제
 		classinfoservice.remove(ccode);
-		model.addAttribute("content", "class/class_register.jsp");
-		return "index";
+		
+		//model.addAttribute("content", "class/class_register.jsp");
+		return "redirect:classCheck.do";
 	}
+
+	/*
+	 * 
+	 * 여기부터는 등록되어 있는 과목 개설 파트.
+	 * 
+	 * 
+	 * 
+	 * 
+	 * */
 	
 	// 왼쪽 메뉴에서 과목 개설을 눌렀을 때
-	@RequestMapping(value = "openClassForm.do", method = RequestMethod.GET)
-	public String classOpenForm(Model model, PageBean bean){
+	@RequestMapping(value = "createClassForm.do", method = RequestMethod.GET)
+	public String createClassForm(Model model, PageBean bean){
+		// 등록되어 있는 과목 코드를 보여주기 위해 추출.
 		List<ClassInfo> classinfo = classinfoservice.searchAll(bean);
+				
 		model.addAttribute("classinfo", classinfo);
-		model.addAttribute("content", "class/class_open.jsp");
+		model.addAttribute("content", "class/create_class_register.jsp");
 		return "index";
 	}
 	
 	// 개설 과목 조회에서 check 버튼을 눌렀을 때
-	@RequestMapping(value = "openClassCheck.do", method = RequestMethod.GET)
-	public String openClassCheck(Model model, PageBean bean){
-		// 개설 과목 조회 데이터
-		List<OpenClassInfo> openclasslist = openclassinfoservice.searchAll(bean);
-		model.addAttribute("openclasslist", openclasslist);
+	@RequestMapping(value = "createClassCheck.do", method = RequestMethod.GET)
+	public String createClassCheck(Model model, PageBean bean){	
+		// 등록되어 있는 과목 코드를 보여주기 위해 추출.
+		List<ClassInfo> classinfo = classinfoservice.searchAll(bean);		
+		// 개설 교육과정 정보를 추출
+		List<ClassTotalInfo> classtotalinfo = createclassinfoservice.searchClassInfo(bean);
 		
-		// 등록되어 있는 과목 코드를 보여주기 위한 데이터
-		List<ClassInfo> classinfo = classinfoservice.searchAll(bean);
 		model.addAttribute("classinfo", classinfo);
-		
-		model.addAttribute("content", "class/class_open.jsp");
+		model.addAttribute("classtotalinfo", classtotalinfo);
+		model.addAttribute("content", "class/create_class_register.jsp");
 		return "index";
 	}
 	
 	// 과목 개설에서 submit 버튼을 눌렀을 때
-	@RequestMapping(value = "openClassRegister.do", method = RequestMethod.GET)
-	public String openClassRegister(Model model, OpenClassInfo openclassinfo){
+	@RequestMapping(value = "createClassRegister.do", method = RequestMethod.GET)
+	public String createClassRegister(Model model, CreateClassInfo createclassinfo){
 		// 과목 개설을 위한 add
-		openclassinfoservice.add(openclassinfo);
-		return "redirect:openClassForm.do";
+		createclassinfoservice.add(createclassinfo);
+		
+		return "redirect:createClassCheck.do";
 	}
 	
-	// 과목 조회에서 edit 버튼을 눌렀을 때
-	@RequestMapping(value = "openClassupdateForm.do", method = RequestMethod.GET)
-	public String openClassupdateForm(Model model, int createcode){
-		// 기존 값을 edit 창에 입력해주기 위한 데이터
-		OpenClassInfo openclassinfo = openclassinfoservice.search(createcode);
+	// 개설과목 조회에서 edit 버튼을 눌렀을 때
+	@RequestMapping(value = "createClassUpdateForm.do", method = RequestMethod.GET)
+	public String createClassUpdateForm(Model model, int createcode, PageBean bean){
+		// 저장 데이터를 edit 창에 보여주기 위해 추출
+		CreateClassInfo createclassinfo = createclassinfoservice.search(createcode);
+		// 등록되어 있는 과목 코드를 보여주기 위해 추출.
+		List<ClassInfo> classinfo = classinfoservice.searchAll(bean);
 		
-		// 등록되어 있는 과목 코드를 보여주기 위한 데이터
-		ClassInfo classinfo = classinfoservice.search(openclassinfo.getCcode());
-		String classtitle = classinfo.getCtitle();
-		
-		model.addAttribute("classtitle", classtitle);	
-		model.addAttribute("openclassinfo", openclassinfo);
-		model.addAttribute("content", "class/class_openUpdateForm.jsp");
+		model.addAttribute("classinfo", classinfo);	
+		model.addAttribute("createclassinfo", createclassinfo);
+		model.addAttribute("content", "class/create_class_updateForm.jsp");
 		return "index";
 	}
 	
 	// 개설 과목 edit 창에서 update 버튼을 눌렀을 때
-	@RequestMapping(value = "openClassupdate.do", method = RequestMethod.GET)
-	public String openClassupdate(Model model, OpenClassInfo openclassinfo){
-		openclassinfoservice.update(openclassinfo);
-		return "redirect:openClassForm.do";
+	@RequestMapping(value = "createClassUpdate.do", method = RequestMethod.GET)
+	public String createClassUpdate(Model model, CreateClassInfo createclassinfo){
+		// 개설 과목 업데이트
+		createclassinfoservice.update(createclassinfo);
+		
+		return "redirect:createClassCheck.do";
 	}
 	
 	// 개설 과목 delete 버튼을 눌렀을 때
-	@RequestMapping(value = "openClassDelete.do", method = RequestMethod.GET)
-	public String openClassDelete(Model model, int createcode){
-		openclassinfoservice.remove(createcode);
-		return "redirect:openClassForm.do";
+	@RequestMapping(value = "createClassDelete.do", method = RequestMethod.GET)
+	public String createClassDelete(Model model, int createcode){
+		// 개설 과목 삭제
+		createclassinfoservice.remove(createcode);
+		
+		return "redirect:createClassCheck.do";
 	}
-	
-	
+
+	// 개설 과목 자세히 보기 버튼을 눌렀을 때.
+	@RequestMapping(value = "createClassDetailedView.do", method = RequestMethod.GET)
+	public String createClassDetailedView(Model model, int createcode) {
+		// 해당 개설 과목의 자세한 정보를 보여주기 위해 통합데이터를 추출.
+		ClassTotalInfo classtotalinfo = createclassinfoservice.searchClassInfo(createcode);	
+
+		model.addAttribute("classtotalinfo", classtotalinfo);
+		model.addAttribute("content", "class/create_class_detailview.jsp");
+		return "index";
+	}
+
+
 }

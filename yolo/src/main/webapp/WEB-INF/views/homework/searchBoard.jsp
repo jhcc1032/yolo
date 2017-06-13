@@ -38,6 +38,23 @@
 		frm.title.value="";
 		frm.content.value="";
 	}
+	$(function(){
+		$("#addFile").click(addFileForm);
+	});
+	var count=0;   //file form index
+	function addFileForm(){
+		var html="<div id='item_"+count+"'>"
+		html+="<input type='file' name='fileup' />";
+		html+="<input type='button' value='삭제' onclick='removeForm("+count+")'/></div>";
+		count++;
+		//html=$("#content").html()+html;
+		//$("#content").html(html);
+		$("#fileUpForm").append(html);
+	}
+	function removeForm(count){
+		var item = document.getElementById('item_'+count);
+		if(item !=null) item.parentNode.removeChild(item);
+	}
 </script>
 </head>
 <body onload="init()">
@@ -48,7 +65,7 @@
 	 	<form id="frm"  >
 	 	    <input type ="hidden" name="no"  id="no" value="${board.no }" />
 	 	    <input type ="hidden" name="query"  id="query" />
-			<table border="1" align="center">
+			<table border="1" align="center" width="250px">
 				<tbody>
 					<tr><td><label for="title">제목</label></td>
 					    <td>${board.title}</td>
@@ -58,7 +75,7 @@
 							<td>업로드 파일</td>
 							<td>
 								<c:forEach var="file" items="${ board.files }">
-									<a href="filedown.do?sfilename=${file.sfileName}">${file.rfileName}</a><br />
+									<a href="filedown.do?sfilename=${file.sfileName}&rfilename=${file.rfileName}">${file.rfileName}</a><br />
 								</c:forEach>
 							</td>
 						</tr>					
@@ -81,6 +98,49 @@
 				</tfoot>
 			</table>
 		</form>
+	</div>
+	<br/><br/>
+	<h4 align="center">과제</h4>
+	<div id="replys">
+		<form method="post" action="insertHomeworkBoardReply.do" enctype="multipart/form-data" >
+			<input type="hidden" name="no" id="no" value="${board.no}" />
+			<input type="hidden" name="id" id="id" value="<%= session.getAttribute("id") %>" />
+			<input type="hidden" name="returnurl" value="<%=request.getQueryString()%>" />
+			<table align="center" width="250" border="1">
+					<tr height="50"><td>작성자</td>
+					    <td><%= session.getAttribute("id") %></td>
+					</tr>
+					<tr><td colspan="2"><label for="contents">내용</label></td></tr>
+					<tr><td colspan="2" align="center">
+					    <textarea name="contents" id="contents" cols="30" rows="3"></textarea>
+					</td></tr>
+					<tr><td colspan="2"><input type="button" name="addFile" id="addFile" value="파일 추가"/></td></tr>
+					<tr height="25" ><td colspan="2" id="fileUpForm"></td></tr>
+					<tr><td colspan="2" align="center">
+						<input type="submit" value="작성"/>
+						<input type="reset" value="취소"/>
+					</td></tr>
+			</table>
+		</form>
+		<table border="1" align="center" width="250px">
+			<c:forEach var="reply" items="${ board.replys }">
+				<tr><td colspan="2">&nbsp;글쓴이:${reply.writer}&nbsp;&nbsp; 게시일:${reply.regdate}</td></tr>
+				<tr><td colspan="2"  valign="top"  height="80px">
+					<pre>${reply.contents}</pre>							
+					</td>
+				</tr>
+				<c:if test="${ not empty reply.files }">
+					<tr>
+						<td>업로드 파일</td>
+						<td>
+							<c:forEach var="file" items="${ reply.files }">
+								<a href="filedown.do?sfilename=${file.sfileName}&rfilename=${file.rfileName}">${file.rfileName}</a><br />
+							</c:forEach>
+						</td>
+					</tr>					
+				</c:if>
+			</c:forEach>
+		</table>
 	</div>
 	<div class="main" id="writeBoard" style="display:none">
 	 	<form  id="updatefrm">
