@@ -12,7 +12,8 @@
 		 <typeAlias type="com.yolo.model.domain.Member" alias="member" />
 		 <typeAlias type="com.yolo.model.domain.Course" alias="course" />
 		 <typeAlias type="com.yolo.model.domain.ClassInfo" alias="classinfo" />
-		 <typeAlias type="com.yolo.model.domain.OpenClassInfo" alias="openclassinfo" />
+		 <typeAlias type="com.yolo.model.domain.CreateClassInfo" alias="createclassinfo" />
+		 <typeAlias type="com.yolo.model.domain.ClassTotalInfo" alias="classtotalinfo" />
 		 <typeAlias type="com.yolo.model.domain.PageBean" alias="pagebean" />
 		 <typeAlias type="com.yolo.model.domain.NoticeBoard" alias="noticeboard" />
 		 <typeAlias type="com.yolo.model.domain.NoticeBoardFile" alias="noticeboardfile" />

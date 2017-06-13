@@ -24,51 +24,42 @@
 }
 </style>
 
-<link href="/yolo/resources/css/jquery-ui.css" rel="stylesheet"
-	type="text/css" />
-<script type="text/javascript" src="/yolo/resources/js/jquery.min.js">
-	$(function() {
-		$("#createdate").datepicker({
-
-		});
-	});
-</script>
-<script type="text/javascript" src="/yolo/resources/js/jquery-ui.min.js">
-	$(function() {
-		$("#createdate").datepicker({
-
-		});
-	});
-</script>
-<script>
-	$(function() {
-		$("#createdate").datepicker({
-			//numberOfMonths: [2,2],
-			changeMonth : true,
-			changeYear : true,
-			//showButtonPanel: true,
-			nextText : '다음 달',
-			prevText : '이전 달',
-			//currentText: '오늘 날짜', 
-			closeText : '닫기',
-			dateFormat : "yy-mm-dd"
-		});
-	});
-</script>
+<link href="/yolo/resources/css/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/yolo/resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="/yolo/resources/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
+	// 충돌 방지
+	$.noConflict();
+	jQuery( document ).ready(function($){
+		$(function() {
+			$("#createdate").datepicker({
+				//numberOfMonths: [2,2],
+				changeMonth : true,
+				changeYear : true,
+				//showButtonPanel: true,
+				nextText : '다음 달',
+				prevText : '이전 달',
+				//currentText: '오늘 날짜', 
+				closeText : '닫기',
+				dateFormat : "yy-mm-dd"
+			});
+		});
+	});
+
 	// modal open
-	function openModal() {
+	function openModal(createcode){
+		$('#createclasscode').val(createcode);
 		$('.modal').modal('show');
 	}
 </script>
+
 </head>
 <body>
 
 	<!-- Tab 선택 -->
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="#home " data-toggle="tab">Open
-				Class Check(개설 조회)</a></li>
-		<li><a href="#openclass" data-toggle="tab">Open Class (과목 개설)</a></li>
+		<li class="active"><a href="#home " data-toggle="tab">교육과정 조회</a></li>
+		<li><a href="#openclass" data-toggle="tab">교육과정 개설</a></li>
 	</ul>
 
 	<!-- tab안에 들어가는 내용 -->
@@ -81,36 +72,35 @@
 		<!--  							-->
 		<!--  							-->
 		<div class="tab-pane fade active in" id="home">
-			<form method="get" action="openClassCheck.do">
+			<form method="get" action="createClassCheck.do">
 				<div style="overflow: scroll; height: 550px;">
 					<table class="table table-striped table-hover ">
 						<thead id="thead">
 							<tr style="color: #b94a48;">
 								<th>#</th>
-								<th>개설코드</th>
-								<th>과목코드(과목명)</th>	
-								<th>교육기관</th>
+								<th>교육과정명</th>	
+								<!-- <th>교육기관</th> -->
 								<th>교육유형</th>
 								<th>강사명</th>			
 								<th>개설날짜</th>
-								<th>자세히보기</th>
+								<th>상세보기</th>
 								<th>수정</th>
 								<th>삭제</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="openclasslist" items="${openclasslist}">
+							<c:forEach var="classtotallist" items="${classtotalinfo}">
 								<tr id="dplist" class="active">
 									<td><a href="#">#</a></td>
-									<td><a href="#">${openclasslist.createcode}</a></td>
-									<td><a href="#">${openclasslist.ccode}</a></td>
-									<td><a href="#">${openclasslist.cinstitution}</a></td>
-									<td><a href="#">${openclasslist.ctype}</a></td>
-									<td><a href="#">${openclasslist.cinstructor}</a></td>					
-									<td><a href="#">${openclasslist.createdate}</a></td>
-									<td><a href="openClassDetailedView.do?createcode=${openclasslist.createcode}">자세히보기</a></td>
-									<td><a href="openClassupdateForm.do?createcode=${openclasslist.createcode}">수정</a></td>
-									<td><a href="openClassDelete.do?createcode=${openclasslist.createcode}">삭제</a></td>
+									<td><a href="#">${classtotallist.ctitle}</a></td>
+									<%-- <td><a href="#">${classtotallist.cinstitution}</a></td> --%>
+									<td><a href="#">${classtotallist.ctype}</a></td>
+									<td><a href="#">${classtotallist.cinstructor}</a></td>					
+									<td><a href="#">${classtotallist.createdate}</a></td>
+									<td><a href="createClassDetailedView.do?createcode=${classtotallist.createcode}" class="btn btn-primary">상세</a></td>
+									<td><a href="createClassUpdateForm.do?createcode=${classtotallist.createcode}" class="btn btn-primary">수정</a></td>
+									<td><a href="#" onclick="openModal(${classtotallist.createcode})" class="btn btn-primary">삭제</a></td>
+									<!-- <td><a data-toggle="modal" href="#createclassdeletemodal" class="btn btn-primary">삭제</a></td> -->
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -132,14 +122,14 @@
 		<!--  							-->
 		<!--  							-->
 		<div class="tab-pane fade" id="openclass">
-			<form method="get" action="openClassRegister.do">
+			<form method="get" action="createClassRegister.do">
 				<div class="col-lg-10" >
 					<div class="form-group has-error">
 						<label class="control-label" for="inputError">교육유형</label>
 						<div>
 							<div class="radio">
 								<label> 
-									<input type="radio" name="ctype" id="ctype" value="전체" checked="option1">전체
+									<input type="radio" name="ctype" id="ctype" value="전체" checked="checked">전체
 								</label> 
 								<label> 
 									<input type="radio" name="ctype" id="ctype" value="인턴">인턴교육
@@ -150,15 +140,15 @@
 							</div>
 						</div>
 					</div>
-					<div class="form-group has-error" style="width: 270px;">
-						<label class="control-label" for="inputError">과목 코드</label> 
+					<div class="form-group has-error" style="width: 400px;">
+						<label class="control-label" for="inputError">교육과정(코드)</label> 
 							<select class="form-control" name='ccode' id='ccode'>
 							<!--  이곳에 등록된 과목코드를 추출해서 select창에 보여줄 수 있어야 함. -->
 							<c:choose>
 								<c:when test="${!empty classinfo}">
 									<c:forEach var="list" items="${classinfo}">
-										<option value="${list.ccode}">${list.ccode}
-											(${list.ctitle})</option>
+										<option value="${list.ccode}">
+											${list.ctitle}(${list.ccode})</option>
 									</c:forEach>
 								</c:when>
 								<c:otherwise>
@@ -169,7 +159,7 @@
 					</div>
 					<div class="form-group has-error frame">
 						<label class="control-label" for="inputError">개설 날짜</label> 
-						<input type="text" class="form-control" name='createdate' id='createdate'>
+						<input type="text" class="form-control" name='createdate' id='createdate' >
 					</div>
 					<div class="form-group has-error frame">
 						<label class="control-label" for="inputError">교육기관</label> 
@@ -221,6 +211,33 @@
 					</div>
 				</div>
 			</form>
+		</div>
+	</div>
+	
+	<!-- 모달 창  -->
+	<!-- 모달 창  -->
+	<!-- 모달 창  -->
+	<!-- 모달 창  -->
+	<!-- 모달 창  -->
+	<!-- 모달 창  -->
+	<div class="modal" >
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h2 class="modal-title">정말 삭제하시겠습니까?</h2>
+				</div>
+				<form method="get" action="createClassDelete.do">
+					<input type="hidden" id="createclasscode" name="createcode" />
+					<div class="modal-body">
+						<p>개설된 교육과정을 삭제합니다.</p>	
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+						<button type="submit" class="btn btn-primary">삭제</button>
+					</div>
+				</form>	
+			</div>
 		</div>
 	</div>
 </body>
