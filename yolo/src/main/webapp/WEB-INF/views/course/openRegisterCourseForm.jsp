@@ -21,10 +21,10 @@ button {
 	align : right;
 }
 
-/* #List {
-	width : 270px;
-	display: inline-block;
-} */
+ #List {
+	width : 400px;
+	
+} 
 
 #currentClassInform {
 	width : 100%;
@@ -66,7 +66,7 @@ function itemChange() {
 				<div class="form-group has-error" style="margin-left: 0px;">
 		
 					<h3 align = center >수강 가능 과목</h3>
-					<select id="List" class="form-control" name="selected_value" onchange="itemChange()">
+					<select id="List" class="form-control" name="selected_value" onchange="itemChange()" >
 						<option> 수강할 과목을 선택하세요 </option>
 						<c:forEach var="classList" items="${classList}">
 							<option value="${classList.ccode}">${classList.ctitle}</option>

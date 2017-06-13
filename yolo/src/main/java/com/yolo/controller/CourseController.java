@@ -60,7 +60,6 @@ public class CourseController {
 		List<ClassInfo> outputClassList = new ArrayList<ClassInfo>();
 						
 		int seletcValue = 0;
-		
 		if (request.getParameter("selected_value") != null) {
 			//select에서 받아온 ccode값
 			seletcValue= Integer.parseInt(request.getParameter("selected_value"));	
@@ -96,14 +95,13 @@ public class CourseController {
 			}	
 		}
 		
-		
-		
 		model.addAttribute("classList", outputClassList);		
 		model.addAttribute("content", "course/openRegisterCourseForm.jsp");
 		
 		try {
+			//날짜 시간 차이 계산 (progressbar)
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			Date beginDate;/* = formatter.parse("2017-06-13");*/
+			Date beginDate;
 			
 			Calendar calendar = Calendar.getInstance();
 			Date date = calendar.getTime();
@@ -155,7 +153,6 @@ public class CourseController {
 		
 		return "index";
 	}
-	
 	
 	
 	//select에서 선택한 수강정보중 선택된 수강정보를 수강신청 버튼 눌렀을때
