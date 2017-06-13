@@ -122,7 +122,7 @@ footer {
 </head>
 <body>
 	<div id="head">
-		<div id="logo"><a href="#"><img src="/yolo/resources/images/logo.gif"
+		<div id="logo"><a href="home.do"><img src="/yolo/resources/images/logo.gif"
 			style="height: 40px"></a></div>
 		<div id="welcome">
 			<c:choose>
@@ -137,7 +137,7 @@ footer {
 		<div class="navbar navbar-default">
 			<div class="container">
 				<div class="navbar-header">
-					<a href="/" class="navbar-brand">HOME</a>
+					<a href="home.do" class="navbar-brand">HOME</a>
 				</div>
 				<div class="navbar-collapse collapse" id="navbar-main">
 					<ul class="nav navbar-nav">
@@ -148,7 +148,7 @@ footer {
 									
 				</div>
 				
-			</div>
+			</div>	
 		</div>
 	</div>
 	<article id="content">

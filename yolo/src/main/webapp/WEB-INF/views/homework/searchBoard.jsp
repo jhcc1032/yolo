@@ -51,7 +51,7 @@
 	function resetBoard(){
 		var frm = document.getElementById("updatefrm");
 		frm.title.value="";
-		frm.content.value="";
+		frm.contents.value="";
 	}
 	$(function(){
 		$("#addFile").click(addFileForm);
@@ -79,6 +79,17 @@
 		height: 500px;
 		overflow: scroll;
 	}
+	
+	#viewBoard {
+		width: 80%;
+		align: center;
+		margin-left: 80px;
+	}
+	#replys {
+		width: 80%;
+		align: center;
+		margin-left: 80px;
+	}
 </style>
 </head>
 <body onload="init(${board.dueDate})">
@@ -95,14 +106,14 @@
 					    <td colspan="3"><h4>${board.title}</h4></td>
 					</tr>
 					<tr>
-						<td style="text-align:cetner">Writer</td>
+						<th style="text-align:cetner">Writer</th>
 						<td>${board.id}</td>
-						<td style="width:100px;">Date</td>
+						<th style="width:100px;">Date</th>
 						<td>${board.regdate}</td>
 					</tr>
 					<c:if test="${ not empty board.files }">
 						<tr>
-							<td style="text-align:cetner">Upload File</td>
+							<th style="text-align:cetner">Upload File</th>
 							<td colspan="3">
 								<c:forEach var="file" items="${ board.files }">
 									<a href="filedown.do?sfilename=${file.sfileName}&rfilename=${file.rfileName}">${file.rfileName}</a><br />
@@ -111,16 +122,16 @@
 						</tr>					
 					</c:if>
 					<tr><td colspan="4" height="50" ></td></tr>
-					<tr><td colspan="4" height="400">
+					<tr><td colspan="4" height="250">
 						${board.contents }							
 						</td></tr>
 				</tbody>
 				<tfoot>
 					<tr><td colspan="4" align="center">
-						<a href="#" onclick="listBoard('frm')">List</a>
+						<input type="button" value="List" onclick="listBoard()" class="btn btn-default btn-sm" />
 						<c:if test="${board.id == id }">
-							<a href="#" onclick="updateForm()">Modify</a>
-							<a href="#" onclick="deleteBoard()">Delete</a>
+							<input type="button" onclick="updateForm()" value="Modify" class="btn btn-primary btn-sm" />
+							<input type="button" value="Delete" onclick="deleteBoard()" class="btn btn-default btn-sm" />
 						</c:if>
 						</td>
 					</tr>
@@ -164,55 +175,19 @@
 			</table>
 		</form>
 		<div id="replylist">
-		<%-- <table align="center" class="table table-striped">
-			<c:forEach var="reply" items="${board.replys}">
-				<tr>
-					<th>${reply.writer}</th>
-				</tr>
-				<tr>
-					<td>${reply.contents}</td>							
-				</tr>
-					<c:if test="${not empty role}">
-						<c:if test="${role != '교육생' }">
-							<c:if test="${ not empty reply.files}">
-								<tr>
-									<td>Uploaded File</td>
-									<td>
-										<c:forEach var="file" items="${ reply.files }">
-											<a href="filedown.do?sfilename=${file.sfileName}&rfilename=${file.rfileName}">${file.rfileName}</a><br />
-										</c:forEach>
-									</td>
-								</tr>
-							</c:if>
-						</c:if>
-					</c:if>
-						
-					<c:if test="${reply.writer == id }">
-						<c:if test="${ not empty reply.files}">
-							<tr>
-								<td>Uploaded File</td>
-								<td>
-									<c:forEach var="file" items="${ reply.files }">
-										<a href="filedown.do?sfilename=${file.sfileName}&rfilename=${file.rfileName}">${file.rfileName}</a><br />
-									</c:forEach>
-								</td>
-							</tr>
-						</c:if>
-					</c:if>
-			</c:forEach>
-			
-		</table> --%>
 		<c:forEach var="reply" items="${board.replys}">
 			<div class="list-group">
 	    		<h5 class="list-group-item-heading" style="font-weight:bold">${reply.writer}</h5>
 		    	<p class="list-group-item-text">${reply.contents}</p>
+		    	<span class="list-group-item-text">${reply.regdate}</span>
 		    	<c:if test="${reply.writer == id }">
 					<c:if test="${ not empty reply.files}">
 						<c:forEach var="file" items="${ reply.files }">
-							<p style="text-align:right;padding-right:30px">Files: <a href="filedown.do?sfilename=${file.sfileName}&rfilename=${file.rfileName}">${file.rfileName}</a></p>
+							<span style="text-align:right;padding-right:30px">Files: <a href="filedown.do?sfilename=${file.sfileName}&rfilename=${file.rfileName}">${file.rfileName}</a></span>
 						</c:forEach>
 					</c:if>
 				</c:if>
+				
 				<br/>
 			</div>
 		
@@ -221,7 +196,7 @@
 		</div>
 	</div>
 	<div class="main" id="writeBoard" style="display:none">
-	 	<form  id="updatefrm" class="form-horizontal">
+	 	<form  id="updatefrm" class="form-horizontal" method="get" action="updateHomeworkBoard.do">
 	 	    <input type ="hidden" name="no"  id="no"  value="${board.no}"/>
 	 	    <input type ="hidden" name="id"  id="id"  value="${board.id}"/>
 	 	    <input type="hidden" name="returnurl" id="returnurl" value="<%=request.getQueryString()%>"/>
@@ -243,9 +218,10 @@
 			</div>
 			<div class="form-group">
 				<div class="col-lg-10 col-lg-offset-2">
-					<a href="#" onclick="updateBoard()"> Modfiy </a> 
-					<a href="#" onclick="resetBoard()"> Reset</a> 
-					<a href="#" onclick="listBoard()"> List </a>
+					<!-- <a href="#" onclick="updateBoard()"> Modfiy </a> -->
+					<input type="submit" value="Modify" class="btn btn-primary btn-sm" />
+					<input type="button" value="Reset" onclick="resetBoard()" class="btn btn-default btn-sm" />
+					<input type="button" value="List" onclick="listBoard()" class="btn btn-default btn-sm" />
 				</div>
 			</div>
 		</form>

@@ -26,20 +26,8 @@
 		frm.action="homeworkAuth.do?no="+no;
 		frm.submit();
 	}
-	function myModal(no) {
-		var html="<div id='item_"+count+"'>"
-		html+="<input type='file' name='fileup' />";
-		html+="<input type='button' value='삭제' onclick='removeForm("+count+")'/></div>";
-		count++;
-		//html=$("#content").html()+html;
-		//$("#content").html(html);
-		$("#fileUpForm").append(html);
-	}
+
 	
-	function pop_up(no){
-		console.log(no);
-	     window.showModalDialog('homeworkAuth.jsp', 'helpwin', 'dialogWidth:300px;dialogHeight:200px; center:yes; help:no; status:no; scroll:yes; resizable:yes'); 
-	}
 	function writeboard() {
 		location.href="insertHomeworkBoardForm.do"
 	}

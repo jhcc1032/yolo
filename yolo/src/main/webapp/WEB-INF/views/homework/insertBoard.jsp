@@ -14,7 +14,7 @@
 	function addFileForm() {
 		var html = "<div class='form-group'><div class='col-lg-10' id='item_"+count+"'>"
 		html += "<input type='file'  class='form-control' name='fileup' />";
-		html += "<input type='button' class='form-control' value='삭제' onclick='removeForm(" + count
+		html += "<input type='button' class='form-control' value='Delete' onclick='removeForm(" + count
 				+ ")'/></div></div>";
 		count++;
 		//html=$("#content").html()+html;
@@ -77,6 +77,7 @@
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</div>
 			</div>
+			</fieldset>
 	</form>
 </body>
 </html>

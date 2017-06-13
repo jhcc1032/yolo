@@ -21,8 +21,8 @@
 		 <typeAlias type="com.yolo.model.domain.HomeworkBoardFile" alias="homeworkboardfile" />
 		 <typeAlias type="com.yolo.model.domain.HomeworkBoardReply" alias="homeworkboardreply" />
 		 <typeAlias type="com.yolo.model.domain.HomeworkBoardReplyFile" alias="homeworkboardreplyfile" />
-		 <!-- <typeAlias type="com.yolo.model.domain.QnaBoard" alias="qnaboard" />
-		 <typeAlias type="com.yolo.model.domain.QnaBoardReply" alias="qnaboardreply" /> -->
+		 <typeAlias type="com.yolo.model.domain.QnaBoard" alias="qnaboard" />
+		 <typeAlias type="com.yolo.model.domain.QnaBoardReply" alias="qnaboardreply" />
 	</typeAliases>
 	<mappers>
 	<!-- sql 쿼리를 작성한 xml 파일 경로 설정 

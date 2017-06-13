@@ -73,12 +73,13 @@ public class NoticeBoardController {
 	}
 	
 	@RequestMapping(value="updateNoticeBoard.do", method=RequestMethod.GET)
-	public String updateNoticeBoard(int no, String content, String returnurl, Model model) {
+	public String updateNoticeBoard(int no, String title, String contents, String returnurl, Model model) {
 		NoticeBoard board = boardService.search(no);
-		board.setContents(content);
+		board.setContents(contents);
+		board.setTitle(title);
 		boardService.update(board);
 		
-		return "redirect:searchBoard.do?"+returnurl;
+		return "redirect:searchNoticeBoard.do?"+returnurl;
 	}
 	
 	@RequestMapping(value="deleteNoticeBoard.do", method=RequestMethod.GET)

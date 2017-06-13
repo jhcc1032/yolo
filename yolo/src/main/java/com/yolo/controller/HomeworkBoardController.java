@@ -58,9 +58,9 @@ public class HomeworkBoardController {
 	
 	@RequestMapping(value="homeworkAuth.do", method=RequestMethod.GET)
 	public String authForm(Model model, int no, HttpSession session) {
-		
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>homeworkAuth.do");
 		if(session.getAttribute("role") != null && 
-				!session.getAttribute("role").equals("교육생")) {
+				!session.getAttribute("role").equals("인턴")) {
 			return "redirect: searchHomeworkBoard.do?no="+no;
 		}
 		
@@ -144,10 +144,14 @@ public class HomeworkBoardController {
 	}
 
 	@RequestMapping(value = "updateHomeworkBoard.do", method = RequestMethod.GET)
-	public String updateNoticeBoard(int no, String content, String returnurl,
+	public String updateNoticeBoard(int no, String title, String contents, String returnurl,
 			Model model) {
+		System.out.println(no);
+		System.out.println(contents);
+		System.out.println(returnurl);
 		HomeworkBoard board = boardService.search(no);
-		board.setContents(content);
+		board.setContents(contents);
+		board.setTitle(title);
 		boardService.update(board);
 
 		return "redirect:searchHomeworkBoard.do?" + returnurl;
@@ -157,7 +161,7 @@ public class HomeworkBoardController {
 	public String deleteNoticeBoard(int no) {
 		System.out.println(no + "======================");
 		boardService.remove(no);
-		return "index";
+		return "redirect: listHomeworkBoard.do";
 	}
 
 

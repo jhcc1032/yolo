@@ -85,6 +85,7 @@
 					</when>
 				</choose>
 			</if>
+			and deleted = 'N'
 		</where>
 		order by no desc
 	</select>
@@ -144,7 +145,7 @@
 	</update> 
 		
 	<delete id="delete" parameterType="int"> 
-		delete from homework where no=#{no} 
+		update homework set deleted='Y' where no=#{no}
 	</delete>
 </mapper>
 
