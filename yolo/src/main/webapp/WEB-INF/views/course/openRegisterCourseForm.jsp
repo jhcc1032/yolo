@@ -80,7 +80,7 @@ function itemChange() {
 					<table class="table table-striped table-hover" style="width:630px;">
 						<tr >
 							<th class='tbasic'>과목이름</th>
-							<td class='tbasic'>${selectedClass.ctitle} </td>
+							<td class='tbasic'> <a href = "createClassDetailedView.do?createcode=${selectedOpenClass.createcode}" >${selectedClass.ctitle} </a></td>
 						</tr>
 						<tr>
 							<th class='tbasic'>수업시간</th>
