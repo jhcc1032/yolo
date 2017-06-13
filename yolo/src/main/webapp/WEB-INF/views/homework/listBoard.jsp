@@ -22,7 +22,7 @@
 		//input 양식의 hidden으로 선언된 no(게시글 번호)에 요청된 게시글 번호를 셋팅
 		document.getElementById("no").value = no;
 		var frm = document.getElementById("frm");
-		/* frm.action="searchHomeworkBoard.do"; */
+		//frm.action="searchHomeworkBoard.do";
 		frm.action="homeworkAuth.do?no="+no;
 		frm.submit();
 	}
@@ -35,6 +35,7 @@
 		//$("#content").html(html);
 		$("#fileUpForm").append(html);
 	}
+	
 	function pop_up(no){
 		console.log(no);
 	     window.showModalDialog('homeworkAuth.jsp', 'helpwin', 'dialogWidth:300px;dialogHeight:200px; center:yes; help:no; status:no; scroll:yes; resizable:yes'); 
@@ -60,15 +61,15 @@
 				type="hidden" id="no" name="no" value="${board.no}" />
 			<table align="center" class="table table-striped table-hover">
 				<tr align="center">
-					<th colspan="3" style="text-align:center"><h4>과제 게시글 목록</h4></th>
+					<th colspan="4" style="text-align:center"><h2 style="padding-left:50px">Homework Board</h2></th>
 				</tr>
 				<tr align="center">
 					<td style="padding-left:30px">
 					 	<select name="key" id="key" class="form-control" style="width:100px;" >
 									<option value="all">-----all-----</option>
-									<option value="id" <%=pageBean.getKey("id")%>>아이디</option>
-									<option value="title" <%=pageBean.getKey("title")%>>제목</option>
-									<option value="contents" <%=pageBean.getKey("contents")%>>내용</option>
+									<option value="id" <%=pageBean.getKey("id")%>>id</option>
+									<option value="title" <%=pageBean.getKey("title")%>>title</option>
+									<option value="contents" <%=pageBean.getKey("contents")%>>contents</option>
 						</select>				
 					</td>
 					<td colspan="3" height="100" align="center">
@@ -76,10 +77,10 @@
 						  <div class="input-group">
 						    <input type="text" class="form-control" id="word" name="word" value="${pageBean.word}">
 						    <span class="input-group-btn">
-						      <button class="btn btn-default" type="button" onclick="pagelist(1)">검색</button>
+						      <button class="btn btn-default" type="button" onclick="pagelist(1)">search</button>
 						    </span>
-						    <span class="input-group-btn" style="padding-left:50px">
-						      <button class="btn btn-default" type="button" onclick="writeboard()" >글쓰기</button>
+						    <span class="input-group-btn" style="padding-left:100px">
+						      <button class="btn btn-default" type="button" onclick="writeboard()" >write</button>
 						    </span>
 						  </div>
 						</div>
@@ -90,16 +91,18 @@
 					
 				</tr>
 				<tr align="center">
-					<th width="100">번호</th>
-					<th width="200">제목</th>
-					<th width="100">게시일</th>
+					<th width="100" style="text-align:center;">No</th>
+					<th width="150">Title</th>
+					<th width="50" style="text-align:right;">Writer</th>
+					<th width="100" style="text-align:center;">RegDate</th>
 					<c:forEach var="board" items="${list}">
 						<tr>
-							<td>${board.no}</td>
+							<td style="text-align:center;">${board.no}</td>
 							<td>
 								<a href="#" onclick="getBoard(${board.no})">${board.title}</a>
 							</td>
-							<td>${board.regdate}</td>
+							<td style="text-align:right;">${board.id}</td>
+							<td style="text-align:center;">${board.regdate}</td>
 						</tr>
 					</c:forEach>
 				</tr>

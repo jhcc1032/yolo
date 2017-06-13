@@ -2,6 +2,7 @@ package com.yolo.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +57,13 @@ public class HomeworkBoardController {
 	}
 	
 	@RequestMapping(value="homeworkAuth.do", method=RequestMethod.GET)
-	public String authForm(Model model, int no) {
+	public String authForm(Model model, int no, HttpSession session) {
+		
+		if(session.getAttribute("role") != null && 
+				!session.getAttribute("role").equals("교육생")) {
+			return "redirect: searchHomeworkBoard.do?no="+no;
+		}
+		
 		model.addAttribute("no", no);
 		model.addAttribute("content", "homework/homeworkAuth.jsp");
 		return "index";
@@ -72,8 +79,9 @@ public class HomeworkBoardController {
 			
 			if(id != null && authId != null && password != null && authPw != null) {
 				if(id.equals(authId) && password.equals(authPw)) {
-					model.addAttribute("board", board);
-					model.addAttribute("content", "homework/searchBoard.jsp");
+//					model.addAttribute("board", board);
+//					model.addAttribute("content", "homework/searchBoard.jsp");
+					return "redirect: searchHomeworkBoard.do?no="+no;
 				}
 				else {
 					System.out.println("게시판 로그인 정보 오류");
@@ -86,15 +94,18 @@ public class HomeworkBoardController {
 		} catch(Exception e) {
 			throw new UpdateException(e.getMessage());
 		}
-		return "index";
 	}
 
 	@RequestMapping(value = "searchHomeworkBoard.do", method = RequestMethod.GET)
 	public String searchBoard(int no, Model model) {
 		
 		HomeworkBoard board = boardService.search(no);
-		String id = board.getId();
-		String pw = board.getPw();
+		
+		String regDate = board.getRegdate();
+		String[] date = regDate.split("-");
+		String day = date[2];
+		Integer dueDay = Integer.parseInt(day) + 7;
+		date[2] = dueDay.toString(); 
 		
 		
 		model.addAttribute("board", board);

@@ -31,8 +31,35 @@
 <body>
 	<form method="post" action="insertHomeworkBoard.do"
 		enctype="multipart/form-data" class="form-horizontal">
+		<%-- <table align="center" width="300">
+			<tr><th colspan="2"> 게시글 작성 </th></tr>
+			<tr height="50"><td><label for="title">제목</label></td>
+			    <td><input type="text" name="title" id="title"/></td>
+			</tr>
+			<tr height="50"><td><label for="title">아이디</label></td>
+			    <td><input type="hidden" name="id" id="id" value="<%= session.getAttribute("id") %>"/><%= session.getAttribute("id") %></td>
+			</tr>
+			<tr height="50"><td><label for="title">비밀번호</label></td>
+			    <td><input type="text" name="pw" id="pw"/></td>
+			</tr>
+			<tr height="50" ><td>업로드할 파일</td>
+			    <td>
+			    	<input type="button" name="addFile" id="addFile" value="파일 추가"/>
+			    </td>
+			</tr>
+			<tr height="50" ><td colspan="2" id="fileUpForm"> </td>
+			</tr>
+			<tr><td colspan="2"><label for="contents">내용</label></td></tr>
+			<tr><td colspan="2" align="center">
+			    <textarea name="contents" id="contents" cols="30" rows="5"></textarea>
+			</td></tr>
+			<tr><td colspan="2" align="center">
+				<input type="submit" value="작성"/>
+				<input type="reset" value="취소"/>
+			</td></tr>
+	</table> --%>
 		<fieldset>
-			<legend style="text-align:center">Write Homework Board</legend>
+			<legend>Write Homework Board</legend>
 			<div class="form-group">
 				<label for="inputTitle" class="col-lg-2 control-label">Title</label>
 				<div class="col-lg-10">
