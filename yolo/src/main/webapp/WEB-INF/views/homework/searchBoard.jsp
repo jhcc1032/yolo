@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.Calendar"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -9,16 +10,30 @@
 <title>Insert title here</title>
 <link  rel="stylesheet" type="text/css" href="css/basic.css"  />
 <script type="text/javascript">
-	function init(){
+
+	function init(dueDate){
+		console.log(dueDate);
+		var date = new Date(dueDate);
+		var today = new Date();
+		console.log(date);
+		console.log(today);
+
+	 	if(today > date) {
+			document.getElementById("submitarea").innerHTML = "과제 제출 기한이 지났습니다.";
+			document.getElementById("replys").style.display="none";
+		}
+		
 		var writeBoard = document.getElementById("writeBoard");
 		writeBoard.style.display="none";
 		var viewBoard = document.getElementById("viewBoard");
 		viewBoard.style.display="";
+		
 	}
 	function updateForm(){
 		var writeBoard = document.getElementById("writeBoard");
 		writeBoard.style.display="";
 		document.getElementById("viewBoard").style.display="none";
+		document.getElementById("replys").style.display="none";
 	}
 	function updateBoard(){
 		var frm = document.getElementById("updatefrm");
@@ -36,16 +51,16 @@
 	function resetBoard(){
 		var frm = document.getElementById("updatefrm");
 		frm.title.value="";
-		frm.content.value="";
+		frm.contents.value="";
 	}
 	$(function(){
 		$("#addFile").click(addFileForm);
 	});
-	var count=0;   //file form index
+	var count=0; //file form index
 	function addFileForm(){
 		var html="<div id='item_"+count+"'>"
-		html+="<input type='file' name='fileup' />";
-		html+="<input type='button' value='삭제' onclick='removeForm("+count+")'/></div>";
+		html+="<input type='file' name='fileup' class='btn btn-default btn-xs' /><br/>";
+		html+="<input type='button' class='btn btn-danger btn-xs' value='삭제' onclick='removeForm("+count+")'/>";
 		count++;
 		//html=$("#content").html()+html;
 		//$("#content").html(html);
@@ -55,9 +70,29 @@
 		var item = document.getElementById('item_'+count);
 		if(item !=null) item.parentNode.removeChild(item);
 	}
+
+	
 </script>
+<style type="text/css">
+	
+	#replys{
+		height: 500px;
+		overflow: scroll;
+	}
+	
+	#viewBoard {
+		width: 80%;
+		align: center;
+		margin-left: 80px;
+	}
+	#replys {
+		width: 80%;
+		align: center;
+		margin-left: 80px;
+	}
+</style>
 </head>
-<body onload="init()">
+<body onload="init(${board.dueDate})">
     <c:if test="${msg != null }"> 
     	<script type="text/javascript">  alert('${msg}');</script>
     </c:if>
@@ -65,33 +100,38 @@
 	 	<form id="frm"  >
 	 	    <input type ="hidden" name="no"  id="no" value="${board.no }" />
 	 	    <input type ="hidden" name="query"  id="query" />
-			<table border="1" align="center" width="250px">
+			<table class="table table-striped" >
 				<tbody>
-					<tr><td><label for="title">제목</label></td>
-					    <td>${board.title}</td>
+					<tr><td style="width:100px;"><h4><label for="title">Title</label></h4></td>
+					    <td colspan="3"><h4>${board.title}</h4></td>
+					</tr>
+					<tr>
+						<th style="text-align:cetner">Writer</th>
+						<td>${board.id}</td>
+						<th style="width:100px;">Date</th>
+						<td>${board.regdate}</td>
 					</tr>
 					<c:if test="${ not empty board.files }">
 						<tr>
-							<td>업로드 파일</td>
-							<td>
+							<th style="text-align:cetner">Upload File</th>
+							<td colspan="3">
 								<c:forEach var="file" items="${ board.files }">
 									<a href="filedown.do?sfilename=${file.sfileName}&rfilename=${file.rfileName}">${file.rfileName}</a><br />
 								</c:forEach>
 							</td>
 						</tr>					
 					</c:if>
-					<tr><td colspan="2">내용 &nbsp;&nbsp;글쓴이:${board.id}
-										&nbsp;&nbsp; 게시일:${board.regdate}</td></tr>
-					<tr><td colspan="2"  valign="top" height="200">
-						<pre>${board.contents }</pre>							
+					<tr><td colspan="4" height="50" ></td></tr>
+					<tr><td colspan="4" height="250">
+						${board.contents }							
 						</td></tr>
 				</tbody>
 				<tfoot>
-					<tr><td colspan="2" align="center">
-						<a href="#" onclick="listBoard('frm')">목록</a>
+					<tr><td colspan="4" align="center">
+						<input type="button" value="List" onclick="listBoard()" class="btn btn-default btn-sm" />
 						<c:if test="${board.id == id }">
-							<a href="#" onclick="updateForm()">수정</a>
-							<a href="#" onclick="deleteBoard()">삭제</a>
+							<input type="button" onclick="updateForm()" value="Modify" class="btn btn-primary btn-sm" />
+							<input type="button" value="Delete" onclick="deleteBoard()" class="btn btn-default btn-sm" />
 						</c:if>
 						</td>
 					</tr>
@@ -100,75 +140,90 @@
 		</form>
 	</div>
 	<br/><br/>
-	<h4 align="center">과제</h4>
+	
 	<div id="replys">
+		<h4 align="center" id="submitarea">Submit Area (Due to ${board.dueDate})</h4>
+		<br/><br/>
 		<form method="post" action="insertHomeworkBoardReply.do" enctype="multipart/form-data" >
 			<input type="hidden" name="no" id="no" value="${board.no}" />
 			<input type="hidden" name="id" id="id" value="<%= session.getAttribute("id") %>" />
 			<input type="hidden" name="returnurl" value="<%=request.getQueryString()%>" />
-			<table align="center" width="250" border="1">
-					<tr height="50"><td>작성자</td>
-					    <td><%= session.getAttribute("id") %></td>
+			<table align="center" class="table table-striped">
+					<tr>
+						<td style="width:300px"><span style="font-weight:bold">Writer</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= session.getAttribute("id") %></td>
+					
+						<th style="width:100px">Date</th>
+						<%
+							Calendar cal = Calendar.getInstance();
+						%>
+						<td><%= cal.get(Calendar.MONTH)+1 %>-<%= cal.get(Calendar.DATE) %></td>
 					</tr>
-					<tr><td colspan="2"><label for="contents">내용</label></td></tr>
-					<tr><td colspan="2" align="center">
-					    <textarea name="contents" id="contents" cols="30" rows="3"></textarea>
-					</td></tr>
-					<tr><td colspan="2"><input type="button" name="addFile" id="addFile" value="파일 추가"/></td></tr>
-					<tr height="25" ><td colspan="2" id="fileUpForm"></td></tr>
-					<tr><td colspan="2" align="center">
-						<input type="submit" value="작성"/>
-						<input type="reset" value="취소"/>
+					<tr>
+						<td id="replyTextArea" align="center" colspan="4" >
+					    	<textarea class="form-control"name="contents" id="contents" rows="3"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="button" name="addFile" id="addFile" value="Add File" class="btn btn-primary btn-xs"/></td>
+					</tr>
+						<td id="fileUpForm"></td>
+					<tr><td colspan="3" align="center">
+						<input type="submit" value="작성" class="btn btn-primary btn-sm" />
+						<input type="reset" value="취소" class="btn btn-default btn-sm" />
 					</td></tr>
 			</table>
 		</form>
-		<table border="1" align="center" width="250px">
-			<c:forEach var="reply" items="${ board.replys }">
-				<tr><td colspan="2">&nbsp;글쓴이:${reply.writer}&nbsp;&nbsp; 게시일:${reply.regdate}</td></tr>
-				<tr><td colspan="2"  valign="top"  height="80px">
-					<pre>${reply.contents}</pre>							
-					</td>
-				</tr>
-				<c:if test="${ not empty reply.files }">
-					<tr>
-						<td>업로드 파일</td>
-						<td>
-							<c:forEach var="file" items="${ reply.files }">
-								<a href="filedown.do?sfilename=${file.sfileName}&rfilename=${file.rfileName}">${file.rfileName}</a><br />
-							</c:forEach>
-						</td>
-					</tr>					
+		<div id="replylist">
+		<c:forEach var="reply" items="${board.replys}">
+			<div class="list-group">
+	    		<h5 class="list-group-item-heading" style="font-weight:bold">${reply.writer}</h5>
+		    	<p class="list-group-item-text">${reply.contents}</p>
+		    	<span class="list-group-item-text">${reply.regdate}</span>
+		    	<c:if test="${reply.writer == id }">
+					<c:if test="${ not empty reply.files}">
+						<c:forEach var="file" items="${ reply.files }">
+							<span style="text-align:right;padding-right:30px">Files: <a href="filedown.do?sfilename=${file.sfileName}&rfilename=${file.rfileName}">${file.rfileName}</a></span>
+						</c:forEach>
+					</c:if>
 				</c:if>
-			</c:forEach>
-		</table>
+				
+				<br/>
+			</div>
+		
+		
+		</c:forEach>
+		</div>
 	</div>
 	<div class="main" id="writeBoard" style="display:none">
-	 	<form  id="updatefrm">
+	 	<form  id="updatefrm" class="form-horizontal" method="get" action="updateHomeworkBoard.do">
 	 	    <input type ="hidden" name="no"  id="no"  value="${board.no}"/>
 	 	    <input type ="hidden" name="id"  id="id"  value="${board.id}"/>
 	 	    <input type="hidden" name="returnurl" id="returnurl" value="<%=request.getQueryString()%>"/>
-			<table border="1" align="center">
-				<caption>게시글 작성</caption>
-				<tbody>
-					<tr><td><label for="title">제목</label></td>
-					    <td><input type="text" name="title" id="title" value="${board.title}"/></td>
-					</tr>
-					<tr><td colspan="2">내용</td></tr>
-					<tr><td colspan="2">
-						<textarea name="content" id="content" cols="30" rows="10">
-							${board.contents}
-						</textarea>
-						</td></tr>
-				</tbody>
-				<tfoot>
-					<tr><td colspan="2" align="center">
-						<a href="#" onclick="updateBoard()"> 수정 </a> 
-						<a href="#" onclick="resetBoard()"> 다시 쓰기</a> 
-						<a href="#" onclick="listBoard()">목 록</a>
-						</td>
-					</tr>
-				</tfoot>
-			</table>
+			
+			<legend style="text-align:center">Modify Homework Board</legend>
+			<div class="form-group">
+				<label for="inputTitle" class="col-lg-2 control-label">Title</label>
+				<div class="col-lg-10">
+					<input type="text" class="form-control" id="title" name="title"
+						value="${board.title}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="textArea" class="col-lg-2 control-label">Contents</label>
+				<div class="col-lg-10">
+					<textarea name="contents" id="contents" class="form-control"
+						rows="3" id="textArea">${board.contents}</textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-10 col-lg-offset-2">
+					<!-- <a href="#" onclick="updateBoard()"> Modfiy </a> -->
+					<input type="submit" value="Modify" class="btn btn-primary btn-sm" />
+					<input type="button" value="Reset" onclick="resetBoard()" class="btn btn-default btn-sm" />
+					<input type="button" value="List" onclick="listBoard()" class="btn btn-default btn-sm" />
+				</div>
+			</div>
 		</form>
 	</div>
 	

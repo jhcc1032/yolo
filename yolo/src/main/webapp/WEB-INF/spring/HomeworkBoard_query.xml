@@ -25,6 +25,7 @@
 		<result column="title" property="title" />
 		<result column="regdate" property="regdate" />
 		<result column="contents" property="contents" />
+		<result column="duedate" property="dueDate" />
 		<!-- join data 처리 1 : 1 association tag 1 : N collection tag property 객체에 
 			매핑되는 속성명 ofType join에 매핑되는 실제 타입 resultMap join에 매핑되는 resultMap id -->
 		<collection property="files" ofType="homeworkboardfile"
@@ -47,9 +48,9 @@
 	</resultMap>
 
 	<select id="search" parameterType="int" resultMap="homeworkmap">
-		select h.no no, pw, id, title, h.contents contents ,regdate, hu.upno fileno, filename, sfilename
+		select h.no no, pw, id, title, h.contents contents ,regdate, duedate, hu.upno fileno, filename, sfilename
 		from homeworkupload hu,
-		(select no, id, pw, title, contents, to_char(regdate,'yy-mm-dd') regdate
+		(select no, id, pw, title, contents, to_char(regdate,'yy-mm-dd') regdate, duedate
 			from homework
 			where no = #{no} 
 		) h
@@ -58,12 +59,13 @@
 	<select id="searchReply" parameterType="int" resultMap="homeworkreplymap">
 		select r.rno, contents, writer, regdate, rupno fileno, filename, sfilename
 		from homeworkreplyupload ru,  
-		( select rno, contents, writer, to_char(regdate, 'yyyy-mm-dd') regdate, no
+		( select rno, contents, writer, to_char(regdate, 'mm-dd') regdate, no
 			from homeworkreply where no = #{no} ) r
 		where r.rno = ru.rno(+)
 	</select>
 	<select id="searchReplyFiles" parameterType="int" resultType="homeworkboardreplyfile">
 		select rupno, filename, sfilename, rno from homeworkreplyupload where rno=#{rno:INTEGER}
+		order by rupno desc
 	</select>
 	
 	<select id="searchAll" parameterType="pagebean" resultType="homeworkboard">
@@ -83,6 +85,7 @@
 					</when>
 				</choose>
 			</if>
+			and deleted = 'N'
 		</where>
 		order by no desc
 	</select>
@@ -142,7 +145,7 @@
 	</update> 
 		
 	<delete id="delete" parameterType="int"> 
-		delete from homework where no=#{no} 
+		update homework set deleted='Y' where no=#{no}
 	</delete>
 </mapper>
 

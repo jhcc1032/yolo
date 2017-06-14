@@ -12,6 +12,13 @@ public class HomeworkBoard implements Serializable{
 	private String title;
 	private String regdate;
 	private String contents;
+	private String dueDate;
+	public String getDueDate() {
+		return dueDate;
+	}
+	public void setDueDate(String dueDate) {
+		this.dueDate = dueDate;
+	}
 	private List<HomeworkBoardReply> replys;
 	
 	private MultipartFile[] fileup;
@@ -28,17 +35,19 @@ public class HomeworkBoard implements Serializable{
 		this.no = no;
 		this.title = title;
 	}
-	public HomeworkBoard(int no, String title, String regdate, String contents) {
+	public HomeworkBoard(int no, String title, String regdate, String contents, String dueDate) {
 		this.no = no;
 		this.title = title;
 		this.regdate = regdate;
 		this.contents = contents;
+		this.dueDate = dueDate;
 	}
-	public HomeworkBoard(int no, String title, String regdate, String contents, List<HomeworkBoardFile> files, List<HomeworkBoardReply> replys) {
+	public HomeworkBoard(int no, String title, String regdate, String contents, String dueDate, List<HomeworkBoardFile> files, List<HomeworkBoardReply> replys) {
 		this.no = no;
 		this.title = title;
 		this.regdate = regdate;
 		this.contents = contents;
+		this.dueDate = dueDate;
 		this.files = files;
 		this.replys = replys;
 	}

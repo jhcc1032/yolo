@@ -140,6 +140,7 @@ public class MemberController {
 	@RequestMapping(value = "logout.do", method = RequestMethod.GET)
 	public String loginout(HttpSession session) {
 		session.removeAttribute("id");
+		session.removeAttribute("role");
 		return "index";
 	}
 
