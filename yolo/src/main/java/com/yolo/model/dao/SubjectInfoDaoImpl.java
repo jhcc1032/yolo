@@ -15,6 +15,7 @@ import com.yolo.model.domain.ClassInfo;
 import com.yolo.model.domain.Course;
 import com.yolo.model.domain.Member;
 import com.yolo.model.domain.PageBean;
+import com.yolo.model.domain.SubRank;
 import com.yolo.model.domain.SubjectInfo;
 import com.yolo.model.domain.SubjectMlist;
 
@@ -41,6 +42,20 @@ public class SubjectInfoDaoImpl implements SubjectInfoDao{
 	@Override
 	public void updateScore(Course course) {
 		session.update("subjectinfo.updateScore", course);
+	}
+
+
+	@Override
+	public List<SubRank> rank(int createcode) {
+		
+		return session.selectList("subjectinfo.rank", createcode);
+	}
+
+
+	@Override
+	public List<SubjectInfo> subjectList() {
+		
+		return session.selectList("subjectinfo.allSubject");
 	}
 
 	

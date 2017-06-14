@@ -28,17 +28,15 @@ button {
  #List {
 	width : 400px;
 	margin-left: 200px;
-} 
+}
+.form-group has-error {
+	position: absolute;
+}
 
 #currentClassInform {
 	width : 100%;
 	display: inline-block;
 }
-
-/* #progress {
-	width: 90%;
-} 
- */
 </style>
 </head>
 
@@ -77,9 +75,9 @@ function itemChange() {
 					</select>
 				</div>
 				<div>
-					<table class="table table-striped table-hover" style="width:630px;">
+					<table class="table table-striped table-hover" style="width:630px; margin-left: 50px;" >
 						<tr >
-							<th class='tbasic'>과목이름</th>
+							<th class='tbasic' style="width: 200px;">과목이름</th>
 							<td class='tbasic'> <a href = "createClassDetailedView.do?createcode=${selectedOpenClass.createcode}" >${selectedClass.ctitle} </a></td>
 						</tr>
 						<tr>
@@ -122,7 +120,7 @@ function itemChange() {
 						<th> 삭제 </th>
 					</tr>		
 					<c:forEach var="courseList" items="${courseList}">
-						<tr>	
+						<tr>
 							<td> ${courseList.ctitle} </td>
 							<td> ${courseList.ccode} </td>
 							<td> ${courseList.chour} </td>
@@ -163,9 +161,11 @@ function itemChange() {
 					<h3 align = center >현재 수강 진행률</h3>
 					
 					<c:forEach var="courseList" items="${courseList}">
-						<h5> ${courseList.ctitle} ${courseList.progressPercentage}</h5>									
-						<div class="progress progress-striped active" >
-		  					<div id="progress" class="progress-bar" style="width: ${courseList.progressPercentage}"> </div>
+						<span>${courseList.ctitle}</span>
+						
+						<div class="progress progress-striped active" style="background-color: #EAD6D6;">
+							<div id="progress" class="progress-bar"
+								style="width: ${courseList.progressPercentage}"></div>&nbsp;&nbsp;<span>${courseList.progressPercentage}</span>
 						</div>
 					</c:forEach>
 				</div>
