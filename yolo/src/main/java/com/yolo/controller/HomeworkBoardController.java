@@ -50,9 +50,14 @@ public class HomeworkBoardController {
 	@RequestMapping(value = "listHomeworkBoard.do", method = RequestMethod.GET)
 	public String listBoard(PageBean bean, Model model, HttpSession session) {
 		
-		List<HomeworkBoard> list = boardService.searchAll(bean);
-		model.addAttribute("list", list);
-		model.addAttribute("content", "homework/listBoard.jsp");
+		if (LoginCheck.check(model, session, "insertBoardForm.do")) {
+			List<HomeworkBoard> list = boardService.searchAll(bean);
+			model.addAttribute("list", list);
+			model.addAttribute("content", "homework/listBoard.jsp");
+		} else {
+			model.addAttribute("content", "member/login.jsp");
+		}
+		
 		return "index";
 	}
 	
@@ -115,9 +120,9 @@ public class HomeworkBoardController {
 
 	@RequestMapping(value = "insertHomeworkBoard.do", method = RequestMethod.POST)
 	public String insertBoard(HomeworkBoard board, HttpServletRequest request) {
-
-		System.out.println(board.getFileup());
-		System.out.println(board.getFiles());
+		
+		System.out.println(board);
+		
 		String dir = request.getRealPath("upload/");
 		boardService.add(board, dir);
 		return "redirect:listHomeworkBoard.do";

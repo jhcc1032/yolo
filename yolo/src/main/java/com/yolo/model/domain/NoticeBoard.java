@@ -6,6 +6,13 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class NoticeBoard implements Serializable{
+	private int roNum;
+	public int getRoNum() {
+		return roNum;
+	}
+	public void setRoNum(int roNum) {
+		this.roNum = roNum;
+	}
 	private int no;
 	private String id;
 	private String title;
@@ -26,14 +33,16 @@ public class NoticeBoard implements Serializable{
 		this.no = no;
 		this.title = title;
 	}
-	public NoticeBoard(int no, String title, String regdate, String contents) {
+	public NoticeBoard(int no, int roNum, String title, String regdate, String contents) {
 		this.no = no;
+		this.roNum = roNum;
 		this.title = title;
 		this.regdate = regdate;
 		this.contents = contents;
 	}
-	public NoticeBoard(int no, String title, String regdate, String contents, List<NoticeBoardFile> files) {
+	public NoticeBoard(int no, int roNum, String title, String regdate, String contents, List<NoticeBoardFile> files) {
 		this.no = no;
+		this.roNum = roNum;
 		this.title = title;
 		this.regdate = regdate;
 		this.contents = contents;
