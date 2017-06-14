@@ -61,7 +61,9 @@
 				<value>/WEB-INF/spring/createClass_query.xml</value>
 				<value>/WEB-INF/spring/NoticeBoard_query.xml</value>
 				<value>/WEB-INF/spring/HomeworkBoard_query.xml</value>				
-				<!-- <value>/WEB-INF/spring/QnaBoard_query.xml</value> -->
+				<value>/WEB-INF/spring/QnaBoard_query.xml</value>
+				<value>/WEB-INF/spring/Grade_query.xml</value>				
+
 			</list>
 		</property>
 	</bean>

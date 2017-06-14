@@ -20,9 +20,12 @@
 		 <typeAlias type="com.yolo.model.domain.HomeworkBoard" alias="homeworkboard" />
 		 <typeAlias type="com.yolo.model.domain.HomeworkBoardFile" alias="homeworkboardfile" />
 		 <typeAlias type="com.yolo.model.domain.HomeworkBoardReply" alias="homeworkboardreply" />
+		 <typeAlias type="com.yolo.model.domain.SubjectInfo" alias="subjectinfo" />
+		 <typeAlias type="com.yolo.model.domain.SubjectMlist" alias="subjectmlist" />
 		 <typeAlias type="com.yolo.model.domain.HomeworkBoardReplyFile" alias="homeworkboardreplyfile" />
-		 <!-- <typeAlias type="com.yolo.model.domain.QnaBoard" alias="qnaboard" />
-		 <typeAlias type="com.yolo.model.domain.QnaBoardReply" alias="qnaboardreply" /> -->
+		 <typeAlias type="com.yolo.model.domain.QnaBoard" alias="qnaboard" />
+		 <typeAlias type="com.yolo.model.domain.QnaBoardReply" alias="qnaboardreply" />
+		 <typeAlias type="com.yolo.model.domain.CourseScore" alias="coursescore" />
 	</typeAliases>
 	<mappers>
 	<!-- sql 쿼리를 작성한 xml 파일 경로 설정 

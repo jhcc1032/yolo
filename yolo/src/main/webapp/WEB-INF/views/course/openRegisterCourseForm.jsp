@@ -34,11 +34,6 @@ button {
 	width : 100%;
 	display: inline-block;
 }
-
-/* #progress {
-	width: 90%;
-} 
- */
 </style>
 </head>
 

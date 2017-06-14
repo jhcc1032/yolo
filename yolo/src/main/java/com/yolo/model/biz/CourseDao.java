@@ -1,10 +1,9 @@
 package com.yolo.model.biz;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 import com.yolo.model.domain.Course;
+import com.yolo.model.domain.CourseScore;
 import com.yolo.model.domain.PageBean;
 
 public interface CourseDao {
@@ -15,6 +14,8 @@ public interface CourseDao {
 	public void update(Course course) ;
 	public void remove(int coursecode)  ;
 	
+	public List<CourseScore> searchScoreInfo(String id);
+	
 	//추가
-	public Course searchByCreatecode(int createcode);
+	public void searchByCreatecode(int createcode);
 }

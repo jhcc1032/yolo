@@ -35,10 +35,10 @@
 		where n.no = nu.no(+)
 	</select> -->
 	
-	<resultMap type="qnareply" id="replymap">
+	<resultMap type="qnaboardreply" id="replymap">
 		<id column="rno" property="rno" />
 		<result column="contents" property="contents" />
-		<result column="no" property="no" />
+		<result column="no" property="bno" />
 		<result column="writer" property="writer" />
 	</resultMap>
 	
@@ -48,7 +48,7 @@
 		<result column="title" property="title" />
 		<result column="regdate" property="regdate" />
 		<result column="contents" property="contents" />
-		<collection property="replys" ofType="qnareply" resultMap="replymap" />
+		<collection property="replys" ofType="qnaboardreply" resultMap="replymap" />
 	</resultMap>
 	
 	<select id="search" parameterType="int" resultMap="qnamap">
@@ -56,10 +56,6 @@
 		FROM QNA q, QNAREPLY r
 		WHERE R.NO=#{no}; 
 	</select>
-	
-	
-	
-	
 	
 	<select id="searchAll" parameterType="pagebean" resultType="qnaboard">
 		select no, id, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate
@@ -103,6 +99,9 @@
 		select
 		qna_no_seq.nextval from dual
 	</select>
+	<select id="getqnaBoardReplyNo" resultType="int">
+		sekect qnaBoardReply_rno_seq.nextval from dual
+	</select>
 
 	<insert id="insert" parameterType="qnaboard">
 		insert into qna(no, id,
@@ -114,18 +113,16 @@
 		, sysdate
 		)
 	</insert>
-	<!-- <insert id="insertFile" parameterType="qnaboardfile">
-		insert into
-		qnaupload(upno, filename, sfilename, no)
-		values(qnaupload_upno_seq.nextval, #{rfileName:VARCHAR},
-		#{sfileName:VARCHAR}, #{bno:INTEGER})
-	</insert> -->
+	<insert id="insertReply" parameterType="qnaboardreply">
+		insert into qnareply(rno, contents, writer, regdate, no)
+		values(#{rno:INTEGER}, #{contents:VARCHAR}, #{writer:VARCHAR}, sysdate, #{no:INTEGER})
+	</insert>
 	<update id="update" parameterType="qnaboard"> update qna 
 		set id=#{id:VARCHAR} , title=#{title:VARCHAR} , contents=#{contents:VARCHAR} 
 		, regdate=sysdate where no=#{no:INTEGER} </update> 
 		
 	<delete id="delete" parameterType="int"> 
-		delete from qna where no=#{no} 
+		update qna set deleted='Y' where no=#{no}
 	</delete>
 </mapper>
 

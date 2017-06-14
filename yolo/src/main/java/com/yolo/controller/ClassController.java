@@ -195,14 +195,5 @@ public class ClassController {
 		return "index";
 	}
 
-	
-	@RequestMapping(value = "insertGradeForm.do", method = RequestMethod.GET)
-	public String insertGradeForm(Model model, HttpSession session) {
-		String cid = (String)session.getAttribute("id");
-		List<ClassInfo> slist = createclassinfoservice.subject(cid);
-		System.out.println(slist);
-		model.addAttribute("slist", slist);
-		model.addAttribute("content", "member/insertGradeForm.jsp");
-		return "index";
-	}
+
 }

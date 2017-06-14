@@ -8,7 +8,7 @@ public class PageBean implements Serializable {
 	 * pagelink : 목록의 페이지 링크를 표시
 	 */
 	private String key, word, pagelink;
-	private int pageNo, interval = 5, start=1 , end=interval ;
+	private int pageNo, interval = 10, start=1 , end=interval ;
 	public String getKey() {
 		return key;
 	}

@@ -7,9 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="/yolo/resources/css/bootstrap.css" rel="stylesheet"
-	type="text/css" />
+<title>모든회원정보</title>
 <style type="text/css">
 #table {
 	padding-top: 300px;

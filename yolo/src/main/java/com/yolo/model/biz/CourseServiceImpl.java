@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.yolo.model.domain.Course;
+import com.yolo.model.domain.CourseScore;
 import com.yolo.model.domain.Member;
 import com.yolo.model.domain.PageBean;
 import com.yolo.model.domain.UpdateException;
@@ -47,7 +48,7 @@ public class CourseServiceImpl implements CourseService {
 	public void add(Course course) {
 		try {
 			Course find= dao.search(course.getCoursecode());
-			find = dao.searchByCreatecode(course.getCreatecode());
+			/*find = dao.searchByCreatecode(course.getCreatecode());*/
 			//createcode와 coursecode 모두 같은것이 존재하지 않아야 등록되지 않은 강의
 			if(find != null){				
 				throw new UpdateException("이미 등록된 강의 입니다.");
@@ -88,7 +89,21 @@ public class CourseServiceImpl implements CourseService {
 			s.printStackTrace();
 			throw new UpdateException("DB 서버 오류");
 		}
-
 	}
-
+	
+	public List<CourseScore> searchScoreInfo(String id) {
+		List<CourseScore> coursescores = null;
+		try {
+			coursescores = dao.searchScoreInfo(id);
+		} catch (Exception e) {
+			throw new UpdateException("DB 서버 오류");
+		}
+		if(coursescores == null) {
+			throw new UpdateException("id에 해당하는 강의점수정보를 찾을 수 없습니다.");
+		}
+		else {
+			return coursescores;
+		}		
+	}
+	
 }

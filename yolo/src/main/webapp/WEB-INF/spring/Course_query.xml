@@ -10,11 +10,37 @@
   ex)sqlSession.selectOne("board.search", paramdata);    
 -->	
 <mapper namespace="course">
+	
+	<resultMap type="coursescore" id="coursescore">
+		<result property="ctitle" column="ctitle"/>
+		<result property="score" column="score"/>		
+	</resultMap>
 		
+	<!-- id(string)에 해당하는 parameter를 가지고 class, course, createclass를 조인한 정보를 리턴 --> 
+	<!-- <select id="searchScoreInfo" parameterType="string" resultType="coursescore">
+		SELECT ctitle, score	
+		FROM CLASS cl, COURSE cou, CREATECLASS cr
+		WHERE  cr.CREATECODE = cou.CREATECODE AND cl.CCODE = cr.CCODE AND id=#{id}
+	</select> -->
+		
+		
+	<select id="searchScoreInfo" parameterType="string" resultType="coursescore">
+		SELECT b.*
+		FROM (SELECT ctitle, score, id,
+				RANK() OVER(PARTITION BY ctitle ORDER by score desc) "RANK"
+	  		  FROM CLASS cl, COURSE cou, CREATECLASS cr
+	  		  WHERE  cr.CREATECODE = cou.CREATECODE AND cl.CCODE = cr.CCODE) b
+		WHERE id = #{id}
+	</select>
 	
 	<select id="search" parameterType="int" resultType="course">
 		select * from course where coursecode=#{coursecode}
 	</select>
+	
+	<select id="searchlank">
+		
+	</select>	
+	
 	
 			
 	<select id="searchAll" parameterType = "pagebean" resultType = "course">
