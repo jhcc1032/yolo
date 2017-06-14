@@ -64,7 +64,7 @@
    <c:if test="${msg != null }"> 
     	<script type="text/javascript">  alert('${msg}');</script>
     </c:if>
-	<div class="main" id="viewBoard" style="display:none">
+	<div class="main" id="viewBoard" style="display:none;padding-left:20px">
 	 	<form id="frm"  >
 	 	    <input type ="hidden" name="no"  id="no" value="${board.no }" />
 	 	    <input type ="hidden" name="query"  id="query" />
@@ -87,7 +87,7 @@
 				<tfoot>
 					<tr><td colspan="4" align="center">
 						<input type="button" value="List" onclick="listBoard()" class="btn btn-default btn-sm" />
-						<c:if test="${board.id == id }">
+						<c:if test="${board.id == id || role =='관리자'}">
 							<input type="button" onclick="updateForm()" value="Modify" class="btn btn-primary btn-sm" />
 							<input type="button" value="Delete" onclick="deleteBoard()" class="btn btn-default btn-sm" />
 						</c:if>
