@@ -5,22 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>파일 업로드</title>
-<<<<<<< HEAD
-	<style type="text/css">
-=======
-<link href="/yolo/resources/css/bootstrap.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
->>>>>>> branch 'master' of https://github.com/jhc1032/yolo.git
-	
-	h1 {
-	text-align: center;
-	}
-	#select {
-	
-	text-align: left;
-	}
-	
-</style>
+
 </head>
 <body>
 	<form class="form-horizontal" method="post" action="insertMember.do">

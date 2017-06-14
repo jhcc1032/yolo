@@ -60,7 +60,11 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	@Override
 	public QnaBoard search(int no) {
 		try {
-			return dao.search(no);
+			QnaBoard board = dao.search(no);
+			List<QnaBoardReply> replys = dao.searchReply(no);
+			board.setReplys(replys);
+			
+			return board;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new UpdateException("게시글 검색 중 오류 발생");
@@ -82,6 +86,12 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 			e.printStackTrace();
 			throw new UpdateException("게시글 검색 중 오류 발생");
 		}
+	}
+
+	@Override
+	public void addReply(QnaBoardReply reply, int no) {
+		reply.setBno(no);
+		dao.addReply(reply);
 	}
 
 }

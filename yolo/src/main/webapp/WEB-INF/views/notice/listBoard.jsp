@@ -65,9 +65,11 @@
 						    <span class="input-group-btn">
 						      <button class="btn btn-default" type="button" onclick="pagelist(1)">search</button>
 						    </span>
+						    <c:if test="${role != '인턴'}">
 						    <span class="input-group-btn" style="padding-left:100px">
 						      <button class="btn btn-default" type="button" onclick="writeboard()" >write</button>
 						    </span>
+						    </c:if>
 						  </div>
 						</div>
 					<%-- <input type="text" id="word" name="word" value="${pageBean.word}" />
@@ -83,7 +85,7 @@
 					<th width="100" style="text-align:center;">RegDate</th>
 					<c:forEach var="board" items="${list}">
 						<tr>
-							<td style="text-align:center;">${board.no}</td>
+							<td style="text-align:center;">${board.roNum}</td>
 							<td>
 								<a href="#" onclick="getBoard(${board.no})">${board.title}</a>
 							</td>

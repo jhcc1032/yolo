@@ -85,7 +85,7 @@
 					<th width="100" style="text-align:center;">RegDate</th>
 					<c:forEach var="board" items="${list}">
 						<tr>
-							<td style="text-align:center;">${board.no}</td>
+							<td style="text-align:center;">${board.roNum}</td>
 							<td>
 								<a href="#" onclick="getBoard(${board.no})">${board.title}</a>
 							</td>

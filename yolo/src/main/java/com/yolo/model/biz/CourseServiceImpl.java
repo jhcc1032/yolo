@@ -106,4 +106,49 @@ public class CourseServiceImpl implements CourseService {
 		}		
 	}
 	
+	@Override
+	public List<String> searchMyClass(String cid) {
+		try {
+			return dao.searchMyClass(cid);
+		} catch(Exception  s){
+			throw new UpdateException("DB 서버 오류");
+		}
+
+	}
+
+	@Override
+	public List<String> searchMyStudent(String ctitle) {
+		try {
+			return dao.searchMyStudent(ctitle);
+		} catch(Exception  s){
+			throw new UpdateException("DB 서버 오류");
+		}
+	}
+
+	@Override
+	public void insertAbsence(String aname) {
+		try {
+			dao.insertAbsence(aname);
+		} catch(Exception  s){
+			throw new UpdateException("DB 서버 오류");
+		}	
+	}
+
+	@Override
+	public void insertLateness(String aname) {
+		try {
+			dao.insertLateness(aname);
+		} catch(Exception  s){
+			throw new UpdateException("DB 서버 오류");
+		}	
+	}
+
+	@Override
+	public List<String> searchAname(String date) {
+		try {
+			return dao.searchAname(date);
+		} catch(Exception  s){
+			throw new UpdateException("DB 서버 오류");
+		}	
+	}
 }

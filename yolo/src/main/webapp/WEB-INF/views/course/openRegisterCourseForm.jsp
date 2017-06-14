@@ -161,9 +161,11 @@ function itemChange() {
 					<h3 align = center >현재 수강 진행률</h3>
 					
 					<c:forEach var="courseList" items="${courseList}">
-						<h5> ${courseList.ctitle} ${courseList.progressPercentage}</h5>									
-						<div class="progress progress-striped active" style="background-color: #EAD6D6">
-		  					<div id="progress" class="progress-bar" style="width: ${courseList.progressPercentage}"> </div>
+						<span>${courseList.ctitle}</span>
+						
+						<div class="progress progress-striped active" style="background-color: #EAD6D6;">
+							<div id="progress" class="progress-bar"
+								style="width: ${courseList.progressPercentage}"></div>&nbsp;&nbsp;<span>${courseList.progressPercentage}</span>
 						</div>
 					</c:forEach>
 				</div>

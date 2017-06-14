@@ -200,8 +200,7 @@ public class CourseController {
 	
 	//로그인시에 인턴일 경우에 showBriefCourse.jsp를 보여줌
 	@RequestMapping(value = "showBriefCourse.do", method = RequestMethod.GET )
-	public String showBriefCourse(Model model, PageBean bean, 
-			HttpSession session, HttpServletRequest request) {
+	public String showBriefCourse(Model model, PageBean bean, HttpSession session, HttpServletRequest request) {
 		
 		List<ClassInfo> listClass = classInfoService.searchAll(bean);
 		List<CreateClassInfo> listOpenClass = createClassInfoService
@@ -315,6 +314,88 @@ public class CourseController {
 		}
 
 		model.addAttribute("content", "course/showBriefCourse.jsp");
+		return "index";
+	}	
+	
+	
+	
+	
+	
+	/*
+	 * 	여기는 출석체크 파트
+	 * 
+	 * */
+	
+	// 출석체크 클릭
+	@RequestMapping(value = "checkAbasenceForm.do", method = RequestMethod.GET)
+	public String checkAbasenceForm(Model model, HttpSession session) {
+		List<String> classList = courseService.searchMyClass(session.getAttribute("id").toString());
+		model.addAttribute("classList", classList);
+		model.addAttribute("content", "course/checkAbsenceForm.jsp");
+		return "index";
+	}		
+	// 강의중인 과목 선택
+	@RequestMapping(value = "searchMyStudent.do", method = RequestMethod.GET)
+	public String searchMyStudent(Model model, HttpSession session, String ctitle) {
+		List<String> studentList = courseService.searchMyStudent(ctitle);
+		List<String> classList = courseService.searchMyClass(session.getAttribute("id").toString());
+		model.addAttribute("ctitle", ctitle);
+		model.addAttribute("classList", classList);
+		model.addAttribute("studentList", studentList);
+		model.addAttribute("content", "course/checkAbsenceForm.jsp");
+		return "index";
+	}
+
+	// 강의에 결석한 학생 명단
+	@RequestMapping(value = "updateMyStudentAbsence.do", method = RequestMethod.POST)
+	public String updateMyStudentAbsence(Model model, HttpSession session, HttpServletRequest request) {
+	    SimpleDateFormat sdf=new SimpleDateFormat(); 
+	    sdf.applyPattern("yyyy-MM-dd"); 
+  //    System.out.println(sdf.format(new Date()));     
+		List<String> anameList = courseService.searchAname(sdf.format(new Date()).toString());
+		System.out.println("오늘날짜로 등록되어있는 명단 : " + anameList);
+		boolean bret = false;
+		String[] absenceList = request.getParameterValues("absenceList");
+		String[] latenessList = request.getParameterValues("latenessList");
+		for (String string : anameList) {
+			if( absenceList != null ){
+				for (String aname : absenceList) {
+					if( string.equals(aname) ){
+						bret = true;
+					}
+				}
+			}
+			if( latenessList != null ){
+				for (String aname : latenessList) {
+					if( string.equals(aname) ){
+						bret = true;
+					}
+				}
+			}
+		}
+		
+		if( !bret ){
+			if( absenceList != null ){
+				for (String aname : absenceList) {
+					System.out.println("controller absence: " + aname);
+					courseService.insertAbsence(aname);
+				}
+			}
+				
+			if( latenessList != null ){
+				for (String aname : latenessList) {
+					System.out.println("controller lateness: " + aname);
+					courseService.insertLateness(aname);
+				}
+			}
+		}
+		else{
+			System.out.println("이미 등록되었습니다.");
+		}
+
+		List<String> classList = courseService.searchMyClass(session.getAttribute("id").toString());
+		model.addAttribute("classList", classList);
+		model.addAttribute("content", "course/checkAbsenceForm.jsp");
 		return "index";
 	}
 }

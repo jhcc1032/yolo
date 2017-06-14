@@ -4,6 +4,13 @@ import java.io.Serializable;
 import java.util.List;
 
 public class QnaBoard implements Serializable{
+	private int roNum;
+	public int getRoNum() {
+		return roNum;
+	}
+	public void setRoNum(int roNum) {
+		this.roNum = roNum;
+	}
 	private int no;
 	private String id;
 	private String title;
@@ -18,14 +25,16 @@ public class QnaBoard implements Serializable{
 		this.title = title;
 	}
 	
-	public QnaBoard(int no, String title, String regdate, String contents) {
+	public QnaBoard(int no, int roNum, String title, String regdate, String contents) {
 		this.no = no;
+		this.roNum = roNum;
 		this.title = title;
 		this.regdate = regdate;
 		this.contents = contents;
 	}
-	public QnaBoard(int no, String id, String title, String regdate, String contents, List<QnaBoardReply> replys) {
+	public QnaBoard(int no, int roNum, String id, String title, String regdate, String contents, List<QnaBoardReply> replys) {
 		this.no = no;
+		this.roNum = roNum;
 		this.id = id;
 		this.title = title;
 		this.regdate = regdate;

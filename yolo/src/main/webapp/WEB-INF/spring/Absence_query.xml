@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+	
+<!--여러 도메인을 위한 쿼리 xml를 작성할 때  도메인을 식별하기 위해 
+    namespace 부여 
+=> sqlSession.쿼리메서드("식별자", paramdata);
+    식별자 =>  namespace.id
+  ex)sqlSession.selectOne("board.search", paramdata);    
+-->	
+<mapper namespace="absence">
+	<insert id="insertAbsence" parameterType="string">
+		INSERT INTO ABSENCEINFORMATION(ANO, ANAME, ADATE)
+		VALUES(ABSENCE_CLASS_SEQ.NEXTVAL, #{aname:VARCHAR}, to_char(sysdate, 'yyyy-mm-dd')	
+		)
+	</insert>
+	
+	<insert id="insertLateness" parameterType="string">
+		INSERT INTO ABSENCEINFORMATION(ANO, ANAME, LDATE)
+		VALUES(ABSENCE_CLASS_SEQ.NEXTVAL, #{aname:VARCHAR}, to_char(sysdate, 'yyyy-mm-dd')	
+		)
+	</insert>
+	
+	<!-- 해당 날짜에 이름들 List로 추출 -->
+	<select id="searchAname" parameterType="string" resultType="string">
+		select aname
+		from ABSENCEINFORMATION
+		where ADATE = #{date} or LDATE = #{date} or ELDATE = #{date}
+	</select>
+	
+</mapper>
+
+
+

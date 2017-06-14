@@ -15,6 +15,8 @@ public interface QnaBoardDao {
 
 	public QnaBoard search(int no);
 
+	public List<QnaBoardReply> searchReply(int no);
+	
 	public List<QnaBoard> searchAll(PageBean bean);
 
 	public int getCount(PageBean bean);
@@ -24,4 +26,7 @@ public interface QnaBoardDao {
 	public void addFiles(List<QnaBoardReply> replys, int bno);
 
 	public void removeFiles(int bno);
+	
+	public void addReply(QnaBoardReply reply);
+	
 }

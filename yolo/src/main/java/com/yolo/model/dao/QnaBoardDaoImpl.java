@@ -33,6 +33,10 @@ public class QnaBoardDaoImpl implements QnaBoardDao {
 	public QnaBoard search(int no) {
 		return session.selectOne("qnaboard.search", no);
 	}
+	
+	public List<QnaBoardReply> searchReply(int no) {
+		return session.selectList("qnaboard.searchReply", no);
+	}
 
 	public List<QnaBoard> searchAll(PageBean bean) {
 		
@@ -63,6 +67,12 @@ public class QnaBoardDaoImpl implements QnaBoardDao {
 
 	public void removeFiles(int bno) {
 		session.delete("qnaboard.delete", bno);
+	}
+
+	@Override
+	public void addReply(QnaBoardReply reply) {
+		session.insert("qnaboard.insertReply", reply);
+		
 	}
 
 }
