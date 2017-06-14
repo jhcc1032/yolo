@@ -10,22 +10,41 @@
 
 
 
+	<select id="allSubject" resultType="subjectinfo">
+		select ctitle, createcode, cscore
+		FROM CLASS c, CREATECLASS cr
+		where c.CCODE = cr.CCODE
+
+
+	</select>
 	<select id="subjectlist" parameterType="string" resultType="subjectinfo">
 		SELECT
 		ctitle, createcode, cscore
 		FROM CLASS c, CREATECLASS cr
-		WHERE c.CCODE =
+		WHERE
+		c.CCODE =
 		cr.CCODE AND cr.CID=#{id:VARCHAR}
 	</select>
+
 	<select id="subject_mlist" parameterType="int" resultType="subjectmlist">
-		SELECT c.id, NAME
+		SELECT c.id, NAME, score
 		FROM COURSE c, MEMBER m
-		WHERE c.id=m.ID AND createcode=#{createcode:INTEGER}
+		WHERE c.id=m.ID AND
+		createcode=#{createcode:INTEGER}
+	</select>
+
+	<select id="rank" parameterType="int" resultType="subrank">
+		SELECT c.id,
+		NAME, score, DENSE_RANK() OVER(ORDER BY score desc) rank
+		FROM COURSE c,
+		MEMBER m
+		WHERE c.id=m.ID AND createcode=#{createcode}
 	</select>
 
 
 	<update id="updateScore" parameterType="course">
-		update course set score=#{score} where id=#{id} and createcode=#{createcode}	
+		update course set
+		score=#{score} where id=#{id} and createcode=#{createcode}
 	</update>
 
 

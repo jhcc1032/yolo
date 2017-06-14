@@ -158,24 +158,24 @@ footer {
 					<c:otherwise>
 					<c:choose>
 						<c:when test="${role == '인턴'}">
-							<div class="panel-heading"><h2 class="panel-title">안녕하세요^^</h2></div>
+							<div class="panel-heading"><h2 class="panel-title">안녕하세요</h2></div>
 							<div class="panel-heading"><h2 class="panel-title">${name} 인턴 님</h2></div>
 							<div class="panel-body"><a href="openRegisterCourseForm.do">수강신청</a></div>
 							<div class="panel-body"><a href="#">성적열람</a></div>
 						</c:when>
 						<c:when test="${role == '강사'}">
-							<div class="panel-heading"><h2 class="panel-title">안녕하세요^^</h2></div>
+							<div class="panel-heading"><h2 class="panel-title">안녕하세요</h2></div>
 							<div class="panel-heading"><h2 class="panel-title">${name} 강사 님</h2></div>	
 							<div class="panel-body"><a href="insertGradeForm.do?createcode=0&cscore=0">성적입력</a></div>
+							<div class="panel-body"><a href="gradeStatisticsForm.do?createcode=0&cscore=0">성적확인</a></div>
 						</c:when>
 						<c:when test="${role == '관리자'}">
-							<div class="panel-heading"><h2 class="panel-title">안녕하세요^^</h2></div>
+							<div class="panel-heading"><h2 class="panel-title">안녕하세요</h2></div>
 							<div class="panel-heading"><h2 class="panel-title">${name} 관리자 님</h2></div>
 							<div class="panel-body"><a href="allMemberList.do">모든회원정보</a></div>
 							<div class="panel-body"><a href="registerForm.do">교육과정 등록</a></div>
 							<div class="panel-body"><a href="createClassForm.do">교육과정 개설</a></div>
-							<div class="panel-body"><a href="insertGradeForm.do">성적입력</a></div>
-							<div class="panel-body"><a href="#">통계</a></div>
+							<div class="panel-body"><a href="totalScoreInfo.do?createcode=0&cscore=0">통계</a></div>
 						</c:when>
 					</c:choose>
 					<div class="panel-body"><a href="pwcheck.do">회원정보 수정</a></div>

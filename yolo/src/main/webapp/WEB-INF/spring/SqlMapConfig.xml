@@ -10,6 +10,7 @@
 		    => org.apache.ibatis.type.TypeAliasRegistry  참조
 		 -->
 		 <typeAlias type="com.yolo.model.domain.Member" alias="member" />
+		 <typeAlias type="com.yolo.model.domain.SubRank" alias="subrank" />
 		 <typeAlias type="com.yolo.model.domain.Course" alias="course" />
 		 <typeAlias type="com.yolo.model.domain.ClassInfo" alias="classinfo" />
 		 <typeAlias type="com.yolo.model.domain.CreateClassInfo" alias="createclassinfo" />
