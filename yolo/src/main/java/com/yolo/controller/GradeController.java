@@ -19,6 +19,7 @@ import com.yolo.model.biz.SubjectInfoService;
 import com.yolo.model.domain.ClassInfo;
 import com.yolo.model.domain.Course;
 import com.yolo.model.domain.PageBean;
+import com.yolo.model.domain.SubRank;
 import com.yolo.model.domain.SubjectInfo;
 import com.yolo.model.domain.SubjectMlist;
 
@@ -40,11 +41,12 @@ public class GradeController {
 
 	@RequestMapping(value = "insertGradeForm.do", method = RequestMethod.GET)
 	public String register(Model model, HttpSession session, int createcode,
-			int cscore) {
+			int cscore, String ctitle) {
 		String id = (String) session.getAttribute("id");
 		List<SubjectInfo> sub = subservice.searchSubject(id);
 		model.addAttribute("slist", sub);
 		model.addAttribute("cscore", cscore);
+		model.addAttribute("ctitle", ctitle);
 		model.addAttribute("createcode", createcode);
 
 		if (createcode > 0 && createcode <= 100000) {
@@ -54,7 +56,15 @@ public class GradeController {
 		model.addAttribute("content", "grade/insertGradeForm.jsp");
 		return "index";
 	}
-	
+	@RequestMapping(value="insertGrade.do", method=RequestMethod.GET)
+	public String grade(String id, int createcode, Model model, int cscore){
+		
+		model.addAttribute("content", "grade/insertGrade.jsp");
+		model.addAttribute("userid", id);
+		model.addAttribute("createcode", createcode);
+		
+		return "index";
+	}
 	@RequestMapping(value="insertScore.do", method=RequestMethod.GET)
 	public String score(String id, int createcode, Model model, double score, int cscore){
 		
@@ -67,11 +77,54 @@ public class GradeController {
 		model.addAttribute("cscore", cscore);
 		model.addAttribute("createcode", createcode);
 		subservice.updateScore(course);
-		//model.addAttribute("content", "grade/insertGradeForm.jsp");
 		
 		return "redirect: insertGradeForm.do";
 		
 		
+	}
+	
+	@RequestMapping(value="gradeStatisticsForm.do", method=RequestMethod.GET)
+	public String gradeStatistics(Model model, HttpSession session, int createcode,
+			int cscore, String ctitle){
+	
+		String id = (String) session.getAttribute("id");
+		List<SubjectInfo> sub = subservice.searchSubject(id);
+		model.addAttribute("slist", sub);
+		model.addAttribute("cscore", cscore);
+		model.addAttribute("ctitle", ctitle);
+		model.addAttribute("createcode", createcode);
+
+		if (createcode > 0 && createcode <= 100000) {
+			List<SubRank> list = subservice.rank(createcode);
+			model.addAttribute("list", list);
+			System.out.println(list);
+		}
+		model.addAttribute("content", "grade/gradeStatistics.jsp");
+		
+		
+		return "index";
+	}
+	@RequestMapping(value="totalScoreInfo.do", method=RequestMethod.GET)
+	public String totalScoreInfo(Model model, HttpSession session, int createcode,
+			int cscore, String ctitle){
+		
+
+		List<SubjectInfo> sub = subservice.subjectList();
+		
+		model.addAttribute("slist", sub);
+		model.addAttribute("cscore", cscore);
+		model.addAttribute("ctitle", ctitle);
+		model.addAttribute("createcode", createcode);
+		
+		if (createcode > 0 && createcode <= 100000) {
+			List<SubRank> list = subservice.rank(createcode);
+			model.addAttribute("list", list);
+			System.out.println(list);
+		}
+		model.addAttribute("content", "grade/gradeStatistics.jsp");
+		
+		
+		return "index";
 	}
 
 }

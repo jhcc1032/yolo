@@ -1,36 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>과목별 수강생</title>
-
-
-<style type="text/css">
-.form-control {
-	width: 60px;
-	height: 25px;
-	padding-left: 10px;
-}
-
-.form-group {
-	padding-left: 25px;
-}
-
-th {
-	text-align: center;
-}
-
-td {
-	text-align: center;
-}
-</style>
+<title>Insert title here</title>
 </head>
-
 <body>
-	<form>
+<form>
 
 		<div id="drop">
 			<ul class="nav nav-pills">
@@ -39,8 +17,8 @@ td {
 						class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<c:forEach var="subjects" items="${slist}" varStatus="i" begin="0">
-						<li><a href="insertGradeForm.do?cscore=${subjects.cscore}&createcode=${subjects.createcode }&ctitle=${subjects.ctitle }">${subjects.ctitle}</a></li>
+						<c:forEach var="subjects" items="${slist}">
+						<li><a href="totalScoreInfo.do?cscore=${subjects.cscore}&createcode=${subjects.createcode }&ctitle=${subjects.ctitle }">${subjects.ctitle}</a></li>
 						</c:forEach>
 					</ul>
 				</li>
@@ -56,17 +34,12 @@ td {
 						<th>이름</th>
 						<th>입력여부</th>
 						<th>총점</th>
-						<th></th>
-						<!-- <th>퀴즈</th>
-						<th>과제</th>
-						<th>시험</th>
-						<th>태도</th>
-						<th>총점</th> -->
+						<th>석차</th>
 
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="mlist" items="${mlist}">
+					<c:forEach var="mlist" items="${list}">
 						<tr>
 							<td>${mlist.id }</td>
 							<td>${mlist.name }</td>
@@ -74,16 +47,14 @@ td {
 								<c:when test="${mlist.score != null && mlist.score != 0 }">
 								<td>완료</td> 
 								<td>${mlist.score}</td>
-								<td><a href="insertGrade.do?id=${mlist.id }&createcode=${createcode}&cscore=${cscore}"
-										class="btn btn-primary btn-sm">수정</a></td>
+								
 								</c:when>
 								<c:otherwise>
-								<td>노완료</td>
+								<td>미입력</td>
 								<td>${mlist.score }</td>
-								<td><a href="insertGrade.do?id=${mlist.id }&createcode=${createcode}&cscore=${cscore}"
-										class="btn btn-primary btn-sm">입력</a></td>
 								</c:otherwise>
 							</c:choose>
+							<td>${mlist.rank }</td>
 
 						</tr>
 
