@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yolo.model.biz.ClassInfoService;
 import com.yolo.model.biz.SubjectInfoService;
 import com.yolo.model.domain.ClassInfo;
+import com.yolo.model.domain.Course;
 import com.yolo.model.domain.PageBean;
 import com.yolo.model.domain.SubjectInfo;
 import com.yolo.model.domain.SubjectMlist;
@@ -29,6 +30,7 @@ public class GradeController {
 
 	@ExceptionHandler
 	public ModelAndView handler(Exception e) {
+		e.printStackTrace();
 		System.out.println(e.getMessage());
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("msg", e.getMessage());
@@ -43,6 +45,7 @@ public class GradeController {
 		List<SubjectInfo> sub = subservice.searchSubject(id);
 		model.addAttribute("slist", sub);
 		model.addAttribute("cscore", cscore);
+		model.addAttribute("createcode", createcode);
 
 		if (createcode > 0 && createcode <= 100000) {
 			List<SubjectMlist> mlist = subservice.searchMlist(createcode);
@@ -50,6 +53,25 @@ public class GradeController {
 		}
 		model.addAttribute("content", "grade/insertGradeForm.jsp");
 		return "index";
+	}
+	
+	@RequestMapping(value="insertScore.do", method=RequestMethod.GET)
+	public String score(String id, int createcode, Model model, double score, int cscore){
+		
+		
+		
+		Course course = new Course();
+		course.setId(id);
+		course.setCreatecode(createcode);
+		course.setScore(score);
+		model.addAttribute("cscore", cscore);
+		model.addAttribute("createcode", createcode);
+		subservice.updateScore(course);
+		//model.addAttribute("content", "grade/insertGradeForm.jsp");
+		
+		return "redirect: insertGradeForm.do";
+		
+		
 	}
 
 }

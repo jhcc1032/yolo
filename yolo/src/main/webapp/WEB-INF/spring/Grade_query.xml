@@ -24,6 +24,9 @@
 	</select>
 
 
+	<update id="updateScore" parameterType="course">
+		update course set score=#{score} where id=#{id} and createcode=#{createcode}	
+	</update>
 
 
 </mapper>

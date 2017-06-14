@@ -12,7 +12,7 @@ public interface CourseDao {
 	public List<Course> searchAll(PageBean bean) ;
 	public int getCount(PageBean bean);
 	public void add(Course course);
-	public void update(Course course) ;
+	public void update(Course course);
 	public void remove(int coursecode)  ;
 	
 	//추가

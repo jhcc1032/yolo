@@ -12,6 +12,7 @@ import com.yolo.model.biz.ClassInfoDao;
 import com.yolo.model.biz.MemberDao;
 import com.yolo.model.biz.SubjectInfoDao;
 import com.yolo.model.domain.ClassInfo;
+import com.yolo.model.domain.Course;
 import com.yolo.model.domain.Member;
 import com.yolo.model.domain.PageBean;
 import com.yolo.model.domain.SubjectInfo;
@@ -34,6 +35,12 @@ public class SubjectInfoDaoImpl implements SubjectInfoDao{
 	public List<SubjectMlist> searchMlist(int createcode) {
 		// TODO Auto-generated method stub
 		return session.selectList("subjectinfo.subject_mlist", createcode);
+	}
+
+
+	@Override
+	public void updateScore(Course course) {
+		session.update("subjectinfo.updateScore", course);
 	}
 
 	

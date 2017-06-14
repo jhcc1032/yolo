@@ -2,7 +2,7 @@ package com.yolo.model.domain;
 
 public class Course {
 	private int coursecode;
-	private int score;
+	private double score;
 	private int createcode;
 	private String id;
 	
@@ -29,7 +29,7 @@ public class Course {
 		this.id = id;
 	}
 
-	public Course(int coursecode, int score, int createcode, String id) {
+	public Course(int coursecode, double score, int createcode, String id) {
 		this.coursecode = coursecode;
 		this.score = score;
 		this.createcode = createcode;
@@ -53,11 +53,11 @@ public class Course {
 		this.coursecode = coursecode;
 	}
 
-	public int getScore() {
+	public double getScore() {
 		return score;
 	}
 
-	public void setScore(int score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 

@@ -49,6 +49,5 @@ public class CourseDaoImpl implements CourseDao {
 	public Course searchByCreatecode(int createcode) {
 		return session.selectOne("course.searchByCreatecode", createcode);
 	}
-	
 
 }
