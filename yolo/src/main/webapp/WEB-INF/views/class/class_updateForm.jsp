@@ -28,15 +28,15 @@ function cancel(){
 	<!--  							-->
 	<form method="get" action="classUpdate.do">
 		<div class="form-group has-error">
-			<label class="control-label" for="inputError">Class Code(과목코드)</label> 
+			<label class="control-label" for="inputError">과정코드</label> 
 			<input type="text" class="form-control" name='ccode' id='ccode' value='${classinfo.ccode}' readonly="readonly">
 		</div>
 		<div class="form-group has-error">
-			<label class="control-label" for="inputError">Class Name(과목명) </label> 
+			<label class="control-label" for="inputError">교육과정</label> 
 			<input type="text" class="form-control" name='ctitle' id='ctitle' value='${classinfo.ctitle}'>
 		</div>
 		<div class="form-group has-error">
-			<label class="control-label" for="inputError">Class Hour (과목총 수업시간:hour)</label> 
+			<label class="control-label" for="inputError">교육기간</label> 
 			<select class="form-control" name='chour' id='chour'>
 				<option>8</option>
 				<option>16</option>
@@ -53,7 +53,7 @@ function cancel(){
 			</select>
 		</div>
 		<div class="form-group has-error">
-			<label class="control-label" for="inputError">Class Credit(과목 배점:weeks)</label> 
+			<label class="control-label" for="inputError">과목 배점(weeks)</label> 
 			<select class="form-control" name='cscore' id='cscore'>
 				<option>1</option>
 				<option>2</option>
@@ -63,8 +63,8 @@ function cancel(){
 		</div>
 		<div class="form-group">
 			<div class="col-lg-10">
-				<button type="reset" class="btn btn-default" onclick="cancel()">Cancel</button>
-				<button type="submit" class="btn btn-primary">Update</button>
+				<button type="reset" class="btn btn-default" onclick="cancel()">취소</button>
+				<button type="submit" class="btn btn-primary">확인</button>
 			</div>
 		</div>
 	</form>

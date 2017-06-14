@@ -69,6 +69,29 @@
 		select * from course where createcode=#{createcode}
 	</select>
 	
+	<!-- 출석체크 -->
+	<!-- 출석체크 -->
+	<!-- 출석체크 -->
+	<!-- 출석체크 -->
+	
+	<!-- 내가 강의중인 수업 추출 -->
+	<select id="searchMyClass" parameterType="string" resultType="string">
+		SELECT ctitle
+		FROM CREATECLASS cr, CLASS c
+		WHERE cr.ccode = c.CCODE 
+		AND cid = #{cid:VARCHAR}
+	</select>
+	
+	<!-- 내가 강의중인 수업을 듣고 있는 학생이름 추출 -->
+	<select id="searchMyStudent" parameterType="string" resultType="string">
+		SELECT m.NAME
+		FROM COURSE cou, CREATECLASS cre, CLASS cla, MEMBER m
+		WHERE cou.CREATECODE = cre.CREATECODE AND cre.CCODE = cla.CCODE AND m.id = cou.id
+		AND cla.CTITLE = #{ctitle:VARCHAR}
+	</select>
+	
+	
+	
 </mapper>
 
 
