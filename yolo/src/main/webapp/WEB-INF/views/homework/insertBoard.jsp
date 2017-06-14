@@ -14,8 +14,8 @@
 	function addFileForm() {
 		var html = "<div class='form-group'><div class='col-lg-10' id='item_"+count+"'>"
 		html += "<input type='file'  class='form-control' name='fileup' />";
-		html += "<input type='button' class='form-control' value='Delete' onclick='removeForm(" + count
-				+ ")'/></div></div>";
+		html += "<input type='button' class='form-control' value='Delete' onclick='removeForm("
+				+ count + ")'/></div></div>";
 		count++;
 		//html=$("#content").html()+html;
 		//$("#content").html(html);
@@ -32,7 +32,7 @@
 	<form method="post" action="insertHomeworkBoard.do"
 		enctype="multipart/form-data" class="form-horizontal">
 		<fieldset>
-			<legend style="text-align:center">Write Homework Board</legend>
+			<legend style="text-align: center">Write Homework Board</legend>
 			<div class="form-group">
 				<label for="inputTitle" class="col-lg-2 control-label">Title</label>
 				<div class="col-lg-10">
@@ -42,10 +42,10 @@
 			</div>
 			<div class="form-group">
 				<label for="inputId" class="col-lg-2 control-label">ID</label>
-				<div class="col-lg-10" style="padding-top:8px">
+				<div class="col-lg-10" style="padding-top: 8px">
 					<input type="hidden" class="form-control" id="id" name="id"
-						value="<%=session.getAttribute("id")%>" />
-					<span style="padding-top:5px;"><%=session.getAttribute("id")%></span>
+						value="<%=session.getAttribute("id")%>" /> <span
+						style="padding-top: 5px;"><%=session.getAttribute("id")%></span>
 				</div>
 			</div>
 			<div class="form-group">
@@ -72,12 +72,23 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label for="select" class="col-lg-2 control-label">Due Date</label>
+				<span class="col-lg-10"  style="width:90px">
+					<select class="form-control" id="week" name="week">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+					</select>  
+				</span>
+				<span style="font-size:19pt">week</span>
+			</div>
+			<div class="form-group">
 				<div class="col-lg-10 col-lg-offset-2">
 					<button type="reset" class="btn btn-default">Cancel</button>
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</div>
 			</div>
-			</fieldset>
+		</fieldset>
 	</form>
 </body>
 </html>

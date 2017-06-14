@@ -13,7 +13,7 @@
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 	margin-left: 100px;
-	width: 600px; 
+	width: 500px; 
 	color: inherit;
 	background-color: #eeeeee;
 }
@@ -22,7 +22,7 @@
 </head>
 <body>
 	<div class="jumbotron">
-	 	<h1 style="text-align: center;">교육관리시스템</h1>
+	 	<h2 style="text-align: center;">교육관리시스템</h2>
 		<p style="text-align: center;">교육생의 원활한 교육을 지원합니다.</p>
 	</div>
 </body>

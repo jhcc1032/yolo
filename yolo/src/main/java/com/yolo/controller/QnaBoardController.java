@@ -16,9 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yolo.model.biz.QnaBoardService;
 import com.yolo.model.biz.NoticeBoardService;
+import com.yolo.model.domain.HomeworkBoard;
 import com.yolo.model.domain.QnaBoard;
 import com.yolo.model.domain.NoticeBoard;
 import com.yolo.model.domain.PageBean;
+import com.yolo.model.domain.QnaBoardReply;
 import com.yolo.util.LoginCheck;
 
 @Controller
@@ -41,10 +43,17 @@ public class QnaBoardController {
 	private QnaBoardService  boardService;
 	
 	@RequestMapping(value="listQnaBoard.do", method=RequestMethod.GET)
-	public String listBoard(PageBean bean, Model model ){
-		List<QnaBoard> list = boardService.searchAll(bean);
-		model.addAttribute("list", list);
-		model.addAttribute("content", "qna/listBoard.jsp");
+	public String listBoard(PageBean bean, Model model, HttpSession session ){
+		
+		if (LoginCheck.check(model, session, "insertBoardForm.do")) {
+			List<QnaBoard> list = boardService.searchAll(bean);
+			model.addAttribute("list", list);
+			model.addAttribute("content", "qna/listBoard.jsp");
+		} else {
+			model.addAttribute("content", "member/login.jsp");
+		}
+		
+		
 		return "index";
 	}
 	
@@ -66,9 +75,9 @@ public class QnaBoardController {
 		return "redirect:listQnaBoard.do";
 	}
 	
-	@RequestMapping(value="insertReply.do", method=RequestMethod.POST)
-	public String insertReply(String returnurl, int no, String id, String contents) {
-		
+	@RequestMapping(value="insertQnaBoardReply.do", method=RequestMethod.POST)
+	public String insertReply(String returnurl, int no, QnaBoardReply reply) {
+		boardService.addReply(reply, no);
 		return"redirect:searchQnaBoard.do?"+returnurl;
 	}
 	
@@ -83,9 +92,10 @@ public class QnaBoardController {
 	}
 	
 	@RequestMapping(value="updateQnaBoard.do", method=RequestMethod.GET)
-	public String updateNoticeBoard(int no, String content, String returnurl, Model model) {
+	public String updateNoticeBoard(int no, String contents, String title, String returnurl, Model model) {
 		QnaBoard board = boardService.search(no);
-		board.setContents(content);
+		board.setContents(contents);
+		board.setTitle(title);
 		boardService.update(board);
 		
 		return "redirect:searchQnaBoard.do?"+returnurl;

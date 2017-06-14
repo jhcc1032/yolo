@@ -50,7 +50,7 @@
 	<select id="search" parameterType="int" resultMap="homeworkmap">
 		select h.no no, pw, id, title, h.contents contents ,regdate, duedate, hu.upno fileno, filename, sfilename
 		from homeworkupload hu,
-		(select no, id, pw, title, contents, to_char(regdate,'yy-mm-dd') regdate, duedate
+		(select no, id, pw, title, contents, to_char(regdate,'yyyy-mm-dd') regdate, to_char(duedate, 'yyyy-mm-dd') duedate
 			from homework
 			where no = #{no} 
 		) h
@@ -69,25 +69,26 @@
 	</select>
 	
 	<select id="searchAll" parameterType="pagebean" resultType="homeworkboard">
-		select no, id, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate
-		from homework
-		<where>
-			<if test="word != null">
-				<choose>
-					<when test="key == 'id'">
-						id = #{word}
-					</when>
-					<when test="key == 'title'">
-						title like '%'||#{word}||'%'
-					</when>
-					<when test="key == 'contents'">
-						contents like '%'||#{word}||'%'
-					</when>
-				</choose>
-			</if>
-			and deleted = 'N'
-		</where>
-		order by no desc
+		select rownum roNum, no, id, title, contents, regdate
+		from (select no, id, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate
+				from homework
+				<where>
+					<if test="word != null">
+						<choose>
+							<when test="key == 'id'">
+								id = #{word}
+							</when>
+							<when test="key == 'title'">
+								title like '%'||#{word}||'%'
+							</when>
+							<when test="key == 'contents'">
+								contents like '%'||#{word}||'%'
+							</when>
+						</choose>
+					</if>
+					and deleted = 'N'
+				</where>
+				order by no desc)
 	</select>
 	<select id="getCount" parameterType="pagebean" resultType="int">
 		select count(*) from homework
@@ -116,7 +117,7 @@
 	</select>
 
 	<insert id="insert" parameterType="homeworkboard">
-		insert into homework(no, id, pw, title, contents, regdate) 
+		insert into homework(no, id, pw, title, contents, regdate, duedate) 
 		values(
 				#{no:INTEGER}
 				, #{id:VARCHAR}
@@ -124,6 +125,7 @@
 				, #{title:VARCHAR}
 				, #{contents:VARCHAR}
 				, sysdate
+				, sysdate + (#{week}*7)
 		)
 	</insert>
 	<insert id="insertReply" parameterType="homeworkboardreply">

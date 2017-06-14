@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yolo.model.biz.NoticeBoardService;
+import com.yolo.model.domain.HomeworkBoard;
 import com.yolo.model.domain.NoticeBoard;
 import com.yolo.model.domain.PageBean;
 import com.yolo.util.LoginCheck;
@@ -39,11 +40,16 @@ public class NoticeBoardController {
 	private NoticeBoardService  boardService;
 	
 	@RequestMapping(value="listNoticeBoard.do", method=RequestMethod.GET)
-	public String listBoard(PageBean bean, Model model ){
-		System.out.println(bean);
-		List<NoticeBoard> list = boardService.searchAll(bean);
-		model.addAttribute("list", list);
-		model.addAttribute("content", "notice/listBoard.jsp");
+	public String listBoard(PageBean bean, Model model, HttpSession session ){
+		if (LoginCheck.check(model, session, "insertBoardForm.do")) {
+			List<NoticeBoard> list = boardService.searchAll(bean);
+			model.addAttribute("list", list);
+			model.addAttribute("content", "notice/listBoard.jsp");
+		} else {
+			model.addAttribute("content", "member/login.jsp");
+		}
+		
+		
 		return "index";
 	}
 	@RequestMapping(value="searchNoticeBoard.do", method=RequestMethod.GET)
