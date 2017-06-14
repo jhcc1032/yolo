@@ -102,6 +102,12 @@ footer {
 	padding-left: 10px;
 	padding-right: 10px;
 }
+
+#aside{
+	position:absolute;
+	position:fixed;
+	top: 100px;
+}
 </style>
 
 <script type="text/javascript" src="/yolo/resources/js/jquery-2.1.1.js"></script>
@@ -116,14 +122,14 @@ footer {
 <body>
 	<div id="head">
 		<div id="logo"><a href="home.do"><img src="/yolo/resources/images/logo.gif"
-			style="height: 40px"></a></div>
+			style="height: 40px;padding-bottom:11px"></a></div>
 		<div id="welcome">
 			<c:choose>
 					<c:when test="${empty id}">
 						로그인 해주세요
 					</c:when>
 					<c:otherwise>
-						${id}(${role})님 환영합니다.
+						${id}(${name} ${role})님 환영합니다.
 					</c:otherwise>
 				</c:choose>
 		</div>
@@ -145,7 +151,7 @@ footer {
 		</div>
 	</div>
 	<article id="content">
-		<aside class="sidemenu">
+		<aside class="sidemenu" style="position:absolute;top:200px;width:180px">
 			<div class="panel panel-danger" style="text-align: center;">		
 				<c:choose>
 					<c:when test="${empty id}">
@@ -174,7 +180,6 @@ footer {
 							<div class="panel-body"><a href="allMemberList.do">모든회원정보</a></div>
 							<div class="panel-body"><a href="registerForm.do">교육과정 등록</a></div>
 							<div class="panel-body"><a href="createClassForm.do">교육과정 개설</a></div>
-							<div class="panel-body"><a href="insertGradeForm.do">성적입력</a></div>
 							<div class="panel-body"><a href="#">통계</a></div>
 						</c:when>
 					</c:choose>
@@ -185,7 +190,7 @@ footer {
 				</c:choose>
 			</div>
 		</aside>
-		<article id="mainContent">
+		<article id="mainContent" style="padding-top:45px;">
 			<c:choose>
 				<c:when test="${!empty content}">
 					<jsp:include page="${content}" />
