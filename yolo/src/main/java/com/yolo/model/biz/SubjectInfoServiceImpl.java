@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.yolo.model.dao.MemberDaoImpl;
 import com.yolo.model.domain.ClassInfo;
+import com.yolo.model.domain.Course;
 import com.yolo.model.domain.Member;
 import com.yolo.model.domain.SubjectInfo;
 import com.yolo.model.domain.SubjectMlist;
@@ -42,6 +43,17 @@ public class SubjectInfoServiceImpl implements SubjectInfoService {
 			return dao.searchMlist(createcode);
 		} catch(Exception  s){
 			s.printStackTrace();
+			throw new UpdateException("DB 서버 오류");
+		}
+	}
+
+
+
+	@Override
+	public void updateScore(Course course) {
+		try {
+			dao.updateScore(course);
+		} catch (Exception s) {
 			throw new UpdateException("DB 서버 오류");
 		}
 	}

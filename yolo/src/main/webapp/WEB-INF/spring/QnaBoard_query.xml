@@ -7,75 +7,37 @@
 	paramdata); 식별자 => namespace.id ex)sqlSession.selectOne("qnaboard.search", 
 	paramdata); -->
 <mapper namespace="qnaboard">
-	<!-- resultMap column명과 속성명이 다를 경우 매칭 join시 -->
-	<!-- <resultMap type="qnaboardfile" id="filemap">
-		<id column="upno" property="upno" />
-		<result column="filename" property="rfileName" />
-		<result column="sfilename" property="sfileName" />
-		<result column="no" property="bno" />
-	</resultMap>
-
-	<resultMap type="qnaboard" id="qnamap">
-		<id column="no" property="no" />
-		<result column="id" property="id" />
-		<result column="title" property="title" />
-		<result column="regdate" property="regdate" />
-		<result column="contents" property="contents" />
-		<collection property="files" ofType="qnaboardfile"
-			resultMap="filemap" />
-	</resultMap>  -->
-
-<!-- 	<select id="search" parameterType="int" resultMap="qnamap">
-		select n.no no, id, title, contents ,regdate, nu.no fileno, filename, sfilename
-		from qnaupload nu,
-		(select no, id, title, contents
-		, to_char(regdate,'yy-mm-dd') regdate
-		from qna
-		where no = #{no} ) n
-		where n.no = nu.no(+)
-	</select> -->
+	<select id="search" parameterType="int" resultType="qnaboard">
+		select no, id, title, to_char(regdate, 'mm-dd') regdate, contents
+		from qna where no=#{no}
+	</select>
 	
-	<resultMap type="qnaboardreply" id="replymap">
-		<id column="rno" property="rno" />
-		<result column="contents" property="contents" />
-		<result column="no" property="bno" />
-		<result column="writer" property="writer" />
-	</resultMap>
-	
-	<resultMap type="qnaboard" id="qnamap">
-		<id column="no" property="no" />
-		<result column="id" property="id" />
-		<result column="title" property="title" />
-		<result column="regdate" property="regdate" />
-		<result column="contents" property="contents" />
-		<collection property="replys" ofType="qnaboardreply" resultMap="replymap" />
-	</resultMap>
-	
-	<select id="search" parameterType="int" resultMap="qnamap">
-		SELECT rno, R.CONTENTS CONTENTS, writer
-		FROM QNA q, QNAREPLY r
-		WHERE R.NO=#{no}; 
+	<select id="searchReply" parameterType="int" resultType="qnaboardreply">
+		select rno, contents, no, writer, to_char(regdate, 'mm-dd') regdate
+		from qnareply where no=#{no}
 	</select>
 	
 	<select id="searchAll" parameterType="pagebean" resultType="qnaboard">
-		select no, id, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate
-		from qna
-		<where>
-			<if test="word != null">
-				<choose>
-					<when test="key == 'id'">
-						id = #{word}
-					</when>
-					<when test="key == 'title'">
-						title like '%'||#{word}||'%'
-					</when>
-					<when test="key == 'contents'">
-						contents like '%'||#{word}||'%'
-					</when>
-				</choose>
-			</if>
-		</where>
-		order by no desc
+		select rownum roNum, no, id, title, contents, regdate
+		from ( select no, id, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate
+				from qna
+				<where>
+					<if test="word != null">
+						<choose>
+							<when test="key == 'id'">
+								id = #{word}
+							</when>
+							<when test="key == 'title'">
+								title like '%'||#{word}||'%'
+							</when>
+							<when test="key == 'contents'">
+								contents like '%'||#{word}||'%'
+							</when>
+						</choose>
+					</if>
+					and deleted='N'
+				</where>
+				order by no desc)
 	</select>
 	<select id="getCount" parameterType="pagebean" resultType="int">
 		select count(*) from qna
@@ -115,7 +77,7 @@
 	</insert>
 	<insert id="insertReply" parameterType="qnaboardreply">
 		insert into qnareply(rno, contents, writer, regdate, no)
-		values(#{rno:INTEGER}, #{contents:VARCHAR}, #{writer:VARCHAR}, sysdate, #{no:INTEGER})
+		values(qnareply_rno_seq.nextval, #{contents:VARCHAR}, #{writer:VARCHAR}, sysdate, #{bno:INTEGER})
 	</insert>
 	<update id="update" parameterType="qnaboard"> update qna 
 		set id=#{id:VARCHAR} , title=#{title:VARCHAR} , contents=#{contents:VARCHAR} 
