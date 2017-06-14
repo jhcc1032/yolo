@@ -28,7 +28,10 @@ button {
  #List {
 	width : 400px;
 	margin-left: 200px;
-} 
+}
+.form-group has-error {
+	position: absolute;
+}
 
 #currentClassInform {
 	width : 100%;
@@ -72,9 +75,9 @@ function itemChange() {
 					</select>
 				</div>
 				<div>
-					<table class="table table-striped table-hover" style="width:630px;">
+					<table class="table table-striped table-hover" style="width:630px; margin-left: 50px;" >
 						<tr >
-							<th class='tbasic'>과목이름</th>
+							<th class='tbasic' style="width: 200px;">과목이름</th>
 							<td class='tbasic'> <a href = "createClassDetailedView.do?createcode=${selectedOpenClass.createcode}" >${selectedClass.ctitle} </a></td>
 						</tr>
 						<tr>
@@ -159,7 +162,7 @@ function itemChange() {
 					
 					<c:forEach var="courseList" items="${courseList}">
 						<h5> ${courseList.ctitle} ${courseList.progressPercentage}</h5>									
-						<div class="progress progress-striped active" >
+						<div class="progress progress-striped active" style="background-color: #EAD6D6">
 		  					<div id="progress" class="progress-bar" style="width: ${courseList.progressPercentage}"> </div>
 						</div>
 					</c:forEach>

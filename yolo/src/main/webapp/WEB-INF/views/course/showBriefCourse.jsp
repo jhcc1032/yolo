@@ -39,8 +39,8 @@ button {
 		<!-- 수강정보 보여줄곳 -->
 		<!-- 수강정보 보여줄곳 -->
 		<!-- 수강정보 보여줄곳 -->
-		<h1>현재 수강정보</h1>
-				<div id="currentClassInform">
+		<%--<h1>현재 수강정보</h1>
+				 <div id="currentClassInform">
 					<h3 align=center>현재 수강 정보</h3>
 					<table class="table table-striped table-hover ">
 						<tr id="thead">
@@ -61,14 +61,15 @@ button {
 							</tr>
 						</c:forEach>
 					</table>
-				<div>
+				<div> --%>
 					<h3 align=center>현재 수강 진행률</h3>
 
 					<c:forEach var="courseList" items="${courseList}">
-						<h5>${courseList.ctitle}${courseList.progressPercentage}</h5>
-						<div class="progress progress-striped active">
+						<span>${courseList.ctitle}</span>
+						
+						<div class="progress progress-striped active" style="background-color: #EAD6D6;">
 							<div id="progress" class="progress-bar"
-								style="width: ${courseList.progressPercentage}"></div>
+								style="width: ${courseList.progressPercentage}"></div>&nbsp;&nbsp;<span>${courseList.progressPercentage}</span>
 						</div>
 					</c:forEach>
 				</div>
