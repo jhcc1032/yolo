@@ -39,25 +39,26 @@
 		where n.no = nu.no(+)
 	</select>
 	<select id="searchAll" parameterType="pagebean" resultType="noticeboard">
-		select no, id, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate
-		from notice
-		<where>
-			<if test="word != null">
-				<choose>
-					<when test="key == 'id'">
-						id = #{word}
-					</when>
-					<when test="key == 'title'">
-						title like '%'||#{word}||'%'
-					</when>
-					<when test="key == 'contents'">
-						contents like '%'||#{word}||'%'
-					</when>
-				</choose>
-			</if>
-			and deleted='N'
-		</where>
-		order by no desc
+		select rownum roNum, no, id, title, contents, regdate
+		from ( select no, id, title, contents, to_char(regdate, 'yyyy-mm-dd') regdate
+				from notice
+				<where>
+					<if test="word != null">
+						<choose>
+							<when test="key == 'id'">
+								id = #{word}
+							</when>
+							<when test="key == 'title'">
+								title like '%'||#{word}||'%'
+							</when>
+							<when test="key == 'contents'">
+								contents like '%'||#{word}||'%'
+							</when>
+						</choose>
+					</if>
+					and deleted='N'
+				</where>
+				order by no desc)
 	</select>
 	<select id="getCount" parameterType="pagebean" resultType="int">
 		select count(*) from notice

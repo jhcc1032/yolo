@@ -12,6 +12,9 @@
 <script type="text/javascript">
 
 	function init(dueDate){
+		console.log(new Date("2017-06-06"));
+		
+		
 		console.log(dueDate);
 		var date = new Date(dueDate);
 		var today = new Date();
@@ -92,7 +95,7 @@
 	}
 </style>
 </head>
-<body onload="init(${board.dueDate})">
+<body onload="init('${board.dueDate}')">
     <c:if test="${msg != null }"> 
     	<script type="text/javascript">  alert('${msg}');</script>
     </c:if>
@@ -123,7 +126,8 @@
 					</c:if>
 					<tr><td colspan="4" height="50" ></td></tr>
 					<tr><td colspan="4" height="250">
-						${board.contents }							
+						${board.contents }
+						${board.dueDate }							
 						</td></tr>
 				</tbody>
 				<tfoot>
@@ -141,8 +145,8 @@
 	</div>
 	<br/><br/>
 	
+	<h4 align="center" id="submitarea">Submit Area (Due to ${board.dueDate})</h4>
 	<div id="replys">
-		<h4 align="center" id="submitarea">Submit Area (Due to ${board.dueDate})</h4>
 		<br/><br/>
 		<form method="post" action="insertHomeworkBoardReply.do" enctype="multipart/form-data" >
 			<input type="hidden" name="no" id="no" value="${board.no}" />

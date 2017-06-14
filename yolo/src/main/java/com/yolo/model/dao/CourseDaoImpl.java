@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.yolo.model.biz.CourseDao;
 import com.yolo.model.domain.Course;
+import com.yolo.model.domain.CourseScore;
 import com.yolo.model.domain.PageBean;
 @Repository("courseDao")
 public class CourseDaoImpl implements CourseDao {
@@ -45,9 +46,43 @@ public class CourseDaoImpl implements CourseDao {
 		session.delete("course.delete", coursecode);
 	}
 	
+	public List<CourseScore> searchScoreInfo(String id) {
+		return session.selectList("course.searchScoreInfo", id);
+	}
+	
 	//추가
-	public Course searchByCreatecode(int createcode) {
-		return session.selectOne("course.searchByCreatecode", createcode);
+	public void searchByCreatecode(int createcode) {
+		session.selectOne("course.searchByCreatecode", createcode);
 	}
 
+	@Override
+	/*
+	 * 강사 아이디로 강의중인 클라스 추출
+	 * */
+	public List<String> searchMyClass(String cid) {
+		return session.selectList("course.searchMyClass", cid);
+	}
+
+	@Override
+	/*
+	 * 수강중인 학생 이름 추출
+	 * */
+	public List<String> searchMyStudent(String ctitle) {
+		return session.selectList("course.searchMyStudent", ctitle);
+	}
+
+	@Override
+	public void insertAbsence(String aname) {
+		session.insert("absence.insertAbsence", aname);	
+	}
+
+	@Override
+	public void insertLateness(String aname) {
+		session.insert("absence.insertLateness", aname);	
+	}
+
+	@Override
+	public List<String> searchAname(String date) {
+		return session.selectList("absence.searchAname", date);	
+	}
 }

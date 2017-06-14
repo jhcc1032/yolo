@@ -50,6 +50,12 @@ body {
 	height: 700px;
 }
 
+.sidemenu{
+	position: static;
+	left: 450px;
+	width: 200px;
+}
+
 #menu {
 	display: table-cell;
 	width: 20%;
@@ -161,13 +167,14 @@ footer {
 							<div class="panel-heading"><h2 class="panel-title">안녕하세요</h2></div>
 							<div class="panel-heading"><h2 class="panel-title">${name} 인턴 님</h2></div>
 							<div class="panel-body"><a href="openRegisterCourseForm.do">수강신청</a></div>
-							<div class="panel-body"><a href="#">성적열람</a></div>
+							<div class="panel-body"><a href="confirmGrade.do">성적열람</a></div>
 						</c:when>
 						<c:when test="${role == '강사'}">
 							<div class="panel-heading"><h2 class="panel-title">안녕하세요</h2></div>
 							<div class="panel-heading"><h2 class="panel-title">${name} 강사 님</h2></div>	
 							<div class="panel-body"><a href="insertGradeForm.do?createcode=0&cscore=0">성적입력</a></div>
 							<div class="panel-body"><a href="gradeStatisticsForm.do?createcode=0&cscore=0">성적확인</a></div>
+							<div class="panel-body"><a href="checkAbasenceForm.do">출석체크</a></div>
 						</c:when>
 						<c:when test="${role == '관리자'}">
 							<div class="panel-heading"><h2 class="panel-title">안녕하세요</h2></div>

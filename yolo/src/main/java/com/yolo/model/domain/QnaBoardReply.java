@@ -3,29 +3,32 @@ package com.yolo.model.domain;
 import java.io.Serializable;
 public class QnaBoardReply implements Serializable {
 	private int rno;
-	private String rfileName;
-	private String sfileName;
 	private String contents;
+	private String writer;
+	private String regdate;
+	public String getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
 	private int bno;
 	public QnaBoardReply(){}
-	public QnaBoardReply(int no, String rfileName, String sfileName, int bno) {
 	
-		this.rno = no;
-		this.rfileName = rfileName;
-		this.sfileName = sfileName;
+	public QnaBoardReply(int rno, String contents, String writer,
+			String regdate, int bno) {
+		super();
+		this.rno = rno;
+		this.contents = contents;
+		this.writer = writer;
+		this.regdate = regdate;
 		this.bno = bno;
-	}
-	public QnaBoardReply(String rfileName, String sfileName) {
-		this.rfileName = rfileName;
-		this.sfileName = sfileName;
-	}
-	@Override
-	public String toString() {
-		return  new StringBuilder().append("HomeworkBoardFile [rno=")
-				.append(rno).append(", rfileName=")
-				.append(rfileName).append(", fileName=")
-				.append(sfileName).append(", bno=")
-				.append(bno).append("]").toString();
 	}
 	public int getRno() {
 		return rno;
@@ -34,18 +37,6 @@ public class QnaBoardReply implements Serializable {
 		this.rno = rno;
 	}
 
-	public String getRfileName() {
-		return rfileName;
-	}
-	public void setRfileName(String rfileName) {
-		this.rfileName = rfileName;
-	}
-	public String getSfileName() {
-		return sfileName;
-	}
-	public void setSfileName(String sfileName) {
-		this.sfileName = sfileName;
-	}
 	public String getContents() {
 		return contents;
 	}
