@@ -67,9 +67,11 @@
 						    <span class="input-group-btn">
 						      <button class="btn btn-default" type="button" onclick="pagelist(1)">search</button>
 						    </span>
-						    <span class="input-group-btn" style="padding-left:100px">
-						      <button class="btn btn-default" type="button" onclick="writeboard()" >write</button>
-						    </span>
+						    <c:if test="${role != '인턴'}">
+							    <span class="input-group-btn" style="padding-left:100px">
+							      <button class="btn btn-default" type="button" onclick="writeboard()" >write</button>
+							    </span>
+						    </c:if>
 						  </div>
 						</div>
 					<%-- <input type="text" id="word" name="word" value="${pageBean.word}" />
@@ -87,7 +89,7 @@
 						<tr>
 							<td style="text-align:center;">${board.roNum}</td>
 							<td>
-								<a href="#" onclick="getBoard(${board.no})">${board.title}</a>
+								<a href="#" onclick="getBoard(${board.no})">${board.title} (${board.replyCnt})</a>
 							</td>
 							<td style="text-align:right;">${board.id}</td>
 							<td style="text-align:center;">${board.regdate}</td>

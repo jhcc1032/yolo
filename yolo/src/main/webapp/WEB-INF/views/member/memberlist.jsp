@@ -28,24 +28,48 @@ th, td {
 body {
 	margin: 0 auto;
 }
+
+.frame {
+	width: 100px;
+	display: inline-block;
+}
 </style>
 
 </head>
 <body>
 	<div id="memberlist">
 		<form id="frm">
-			<div id="drop">
-				<ul class="nav nav-pills">
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#" aria-expanded="false"> 선택 <span
-							class="caret"></span>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a href="allMemberList.do">모두</a></li>
-							<li><a href="allMemberList.do?key=auth&word=2">강사</a></li>
-							<li><a href="allMemberList.do?key=auth&word=1">교육생</a></li>
-						</ul></li>
-				</ul>
+
+			<div class="form-group has-error frame">
+				<select class="form-control" name='mlist' id='mlist'
+					onchange="location.href=this.value">
+					<c:choose>
+						<c:when test="${word != 1 && word !=2 }">
+							<option value="allMemberList.do" selected="selected">모두</option>
+						</c:when>
+						<c:otherwise>
+							<option value="allMemberList.do">모두</option>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${word == 2 }">
+							<option value="allMemberList.do?key=auth&word=2"
+								selected="selected">강사</option>
+						</c:when>
+						<c:otherwise>
+							<option value="allMemberList.do?key=auth&word=2">강사</option>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${word == 1 }">
+							<option value="allMemberList.do?key=auth&word=1"
+								selected="selected">교육생</option>
+						</c:when>
+						<c:otherwise>
+							<option value="allMemberList.do?key=auth&word=1">교육생</option>
+						</c:otherwise>
+					</c:choose>
+				</select>
 			</div>
 			<table class="table table-striped table-hover ">
 				<thead>

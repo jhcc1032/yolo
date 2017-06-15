@@ -47,6 +47,9 @@ public class QnaBoardController {
 		
 		if (LoginCheck.check(model, session, "insertBoardForm.do")) {
 			List<QnaBoard> list = boardService.searchAll(bean);
+			for(QnaBoard board : list) {
+				board.setReplyCnt(boardService.getReplyCount(board.getNo()));
+			}
 			model.addAttribute("list", list);
 			model.addAttribute("content", "qna/listBoard.jsp");
 		} else {

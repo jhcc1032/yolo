@@ -84,6 +84,18 @@
 					<th width="50" style="text-align:right;">Writer</th>
 					<th width="100" style="text-align:center;">RegDate</th>
 					<c:forEach var="board" items="${list}">
+						<c:if test="${board.id == 'admin'}">
+							<tr>
+								<td style="text-align:center;">${board.roNum}</td>
+								<td>
+									<a href="#" onclick="getBoard(${board.no})" style="font-weight:bold;font-size:12pt">${board.title}</a>
+								</td>
+								<td style="text-align:right;">${board.id}</td>
+								<td style="text-align:center;">${board.regdate}</td>
+							</tr>
+						</c:if>
+					</c:forEach>
+					<c:forEach var="board" items="${list}">
 						<tr>
 							<td style="text-align:center;">${board.roNum}</td>
 							<td>

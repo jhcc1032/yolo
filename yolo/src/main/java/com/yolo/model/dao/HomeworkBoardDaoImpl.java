@@ -97,4 +97,9 @@ public class HomeworkBoardDaoImpl implements HomeworkBoardDao {
 		
 	}
 
+	@Override
+	public int getReplyCount(int no) {
+		return session.selectOne("homeworkboard.getReplyCount", no);
+	}
+
 }

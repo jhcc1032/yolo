@@ -1,5 +1,6 @@
 package com.yolo.controller;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -56,20 +57,21 @@ public class GradeController {
 		model.addAttribute("content", "grade/insertGradeForm.jsp");
 		return "index";
 	}
-	@RequestMapping(value="insertGrade.do", method=RequestMethod.GET)
-	public String grade(String id, int createcode, Model model, int cscore){
-		
+
+	@RequestMapping(value = "insertGrade.do", method = RequestMethod.GET)
+	public String grade(String id, int createcode, Model model, int cscore) {
+
 		model.addAttribute("content", "grade/insertGrade.jsp");
 		model.addAttribute("userid", id);
 		model.addAttribute("createcode", createcode);
-		
+
 		return "index";
 	}
-	@RequestMapping(value="insertScore.do", method=RequestMethod.GET)
-	public String score(String id, int createcode, Model model, double score, int cscore){
-		
-		
-		
+
+	@RequestMapping(value = "insertScore.do", method = RequestMethod.GET)
+	public String score(String id, int createcode, Model model, double score,
+			int cscore) {
+
 		Course course = new Course();
 		course.setId(id);
 		course.setCreatecode(createcode);
@@ -77,16 +79,15 @@ public class GradeController {
 		model.addAttribute("cscore", cscore);
 		model.addAttribute("createcode", createcode);
 		subservice.updateScore(course);
-		
+
 		return "redirect: insertGradeForm.do";
-		
-		
+
 	}
-	
-	@RequestMapping(value="gradeStatisticsForm.do", method=RequestMethod.GET)
-	public String gradeStatistics(Model model, HttpSession session, int createcode,
-			int cscore, String ctitle){
-	
+
+	@RequestMapping(value = "gradeStatisticsForm.do", method = RequestMethod.GET)
+	public String gradeStatistics(Model model, HttpSession session,
+			int createcode, int cscore, String ctitle) {
+
 		String id = (String) session.getAttribute("id");
 		List<SubjectInfo> sub = subservice.searchSubject(id);
 		model.addAttribute("slist", sub);
@@ -94,36 +95,67 @@ public class GradeController {
 		model.addAttribute("ctitle", ctitle);
 		model.addAttribute("createcode", createcode);
 
+		double total = 0;
+		int cnt = 0;
+		double avg = 0;
+		String newAvg = "";
 		if (createcode > 0 && createcode <= 100000) {
 			List<SubRank> list = subservice.rank(createcode);
+			if (list.isEmpty()) {
+				newAvg = "0";
+
+			} else {
+				for (SubRank rank : list) {
+					total += rank.getScore();
+					cnt++;
+				}
+				avg = total / cnt;
+				newAvg = String.format("%.2f", avg);
+			}
+
+			model.addAttribute("avg", newAvg);
 			model.addAttribute("list", list);
-			System.out.println(list);
+
 		}
 		model.addAttribute("content", "grade/gradeStatistics.jsp");
-		
-		
+
 		return "index";
 	}
-	@RequestMapping(value="totalScoreInfo.do", method=RequestMethod.GET)
-	public String totalScoreInfo(Model model, HttpSession session, int createcode,
-			int cscore, String ctitle){
-		
+
+	@RequestMapping(value = "totalScoreInfo.do", method = RequestMethod.GET)
+	public String totalScoreInfo(Model model, HttpSession session,
+			int createcode, int cscore, String ctitle) {
 
 		List<SubjectInfo> sub = subservice.subjectList();
-		
+
 		model.addAttribute("slist", sub);
 		model.addAttribute("cscore", cscore);
 		model.addAttribute("ctitle", ctitle);
 		model.addAttribute("createcode", createcode);
-		
+		double total = 0;
+		int cnt = 0;
+		double avg;
+		String newAvg = "";
 		if (createcode > 0 && createcode <= 100000) {
 			List<SubRank> list = subservice.rank(createcode);
+			if (list.isEmpty()) {
+				newAvg = "0";
+
+			} else {
+				for (SubRank rank : list) {
+					total += rank.getScore();
+					cnt++;
+				}
+				avg = total / cnt;
+				newAvg = String.format("%.2f", avg);
+			}
+
+			model.addAttribute("avg", newAvg);
 			model.addAttribute("list", list);
-			System.out.println(list);
+
 		}
 		model.addAttribute("content", "grade/gradeStatistics.jsp");
-		
-		
+
 		return "index";
 	}
 

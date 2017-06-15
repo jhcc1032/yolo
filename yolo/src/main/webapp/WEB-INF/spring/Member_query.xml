@@ -45,7 +45,7 @@
 		enteryear, email, auth from member
 
 		<where>
-			withdraw='N'
+			withdraw='N' and auth != '3'
 			<if test=" word != null">
 				<choose>
 					<when test=" key == 'auth' "> and auth = #{word} </when>
