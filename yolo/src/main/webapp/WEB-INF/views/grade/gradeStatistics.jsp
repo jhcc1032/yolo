@@ -94,8 +94,8 @@
 
 				</tbody>
 				<tfoot>
-					<tr>
-						<td colspan="3">평균</td>
+					<tr class="danger">
+						<th colspan="3">평균</th>
 						<td colspan="2">${avg }</td>
 					</tr>
 				</tfoot>
