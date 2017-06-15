@@ -122,14 +122,9 @@ public class Member implements Serializable {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Member [empno=").append(empno).append(", mno=")
-				.append(mno).append(", id=").append(id).append(", password=")
-				.append(password).append(", name=").append(name)
-				.append(", mgroup=").append(mgroup).append(", email=")
-				.append(email).append(", enteryear=").append(enteryear)
-				.append(", withdraw=").append(withdraw).append("]");
-		return builder.toString();
+		return "Member [empno=" + empno + ", mno=" + mno + ", id=" + id
+				+ ", password=" + password + ", auth=" + auth + ", name="
+				+ name + ", mgroup=" + mgroup + ", email=" + email
+				+ ", enteryear=" + enteryear + ", withdraw=" + withdraw + "]";
 	}
-
 }

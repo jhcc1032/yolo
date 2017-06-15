@@ -35,6 +35,11 @@
 		)
 	</insert>
 
+	<select id="searchIdByName" parameterType="string" resultType="string">
+		select id from member
+		where name = #{cinstructor}
+	</select>
+
 	<select resultType="member" parameterType="pagebean" id="searchAll">
 		select name, id, mgroup, empno, to_char(enteryear, 'yyyy-mm-dd')
 		enteryear, email, auth from member

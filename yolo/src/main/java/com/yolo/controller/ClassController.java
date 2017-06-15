@@ -16,9 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yolo.model.biz.ClassInfoService;
 import com.yolo.model.biz.CreateClassInfoService;
+import com.yolo.model.biz.MemberService;
 import com.yolo.model.domain.ClassInfo;
 import com.yolo.model.domain.ClassTotalInfo;
 import com.yolo.model.domain.CreateClassInfo;
+import com.yolo.model.domain.Member;
 import com.yolo.model.domain.PageBean;
 
 @Controller
@@ -29,6 +31,9 @@ public class ClassController {
 	
 	@Autowired
 	private CreateClassInfoService createclassinfoservice;
+	
+	@Autowired
+	private MemberService memberservice;
 	
 	@ExceptionHandler
 	public ModelAndView handler(Exception e){
@@ -123,7 +128,18 @@ public class ClassController {
 	public String createClassForm(Model model, PageBean bean){
 		// 등록되어 있는 과목 코드를 보여주기 위해 추출.
 		List<ClassInfo> classinfo = classinfoservice.searchAll(bean);
-				
+		
+		// 등록되어 있는 강사 목록을 보여주기 위해 추출.
+		List<Member> list = memberservice.searchAll(bean);
+		List<String> instructorList = new ArrayList<String>();
+		for (Member member : list) {
+			if( member.getAuth().equals("2") ){
+				instructorList.add(member.getName());
+			}
+		}
+		if( instructorList != null ){
+			model.addAttribute("instructorList", instructorList);	
+		}
 		model.addAttribute("classinfo", classinfo);
 		model.addAttribute("content", "class/create_class_register.jsp");
 		return "index";
@@ -147,6 +163,8 @@ public class ClassController {
 	@RequestMapping(value = "createClassRegister.do", method = RequestMethod.GET)
 	public String createClassRegister(Model model, CreateClassInfo createclassinfo){
 		// 과목 개설을 위한 add
+		System.out.println("강사 ID : " + memberservice.searchIdByName(createclassinfo.getCinstructor()));
+		createclassinfo.setCid(memberservice.searchIdByName(createclassinfo.getCinstructor()));
 		createclassinfoservice.add(createclassinfo);
 		
 		return "redirect:createClassCheck.do";

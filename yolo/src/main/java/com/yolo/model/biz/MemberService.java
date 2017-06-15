@@ -13,5 +13,8 @@ public interface MemberService {
 	public void withdraw(String id);
 	public void update(Member member);
 	public void add(Member member);
+	
+	// 강사이름으로 ID 찾기
+	public String searchIdByName(String name);
 
 }
