@@ -5,6 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보수정</title>
+<style type="text/css">
+
+.form-control {
+	width: 380px;
+
+}
+</style>
 </head>
 <body>
 	<form class="form-horizontal" action="memberUpdateForm.do"

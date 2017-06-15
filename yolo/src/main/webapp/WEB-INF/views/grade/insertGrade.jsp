@@ -70,7 +70,8 @@
 		}
 
 		var avg = ((((parseInt(score) * 0.01))) * ((((parseInt(cscore)) * 10)) / (parseInt(qzcount - 1))));
-		if (cscore == 2 || cscore == '2#addQuiz' || cscore == '2#addHw' || cscore == '2#')
+		if (cscore == 2 || cscore == '2#addQuiz' || cscore == '2#addHw'
+				|| cscore == '2#')
 			avg = avg / 2;
 
 		$("#quiz_" + id).val(score);
@@ -93,7 +94,8 @@
 
 		var avg = ((((parseInt(score) * 0.01))) * ((((parseInt(cscore)) * 10)) / (parseInt(hwcount - 1))));
 
-		if (cscore == 2 || cscore == '2#addQuiz' || cscore == '2#addHw' || cscore == '2#')
+		if (cscore == 2 || cscore == '2#addQuiz' || cscore == '2#addHw'
+				|| cscore == '2#')
 			avg = avg / 2;
 
 		$("#hw_" + id).val(score);
@@ -133,131 +135,154 @@
 				.toFixed(2);
 
 		location.href = "insertScore.do?createcode=" + createcode + "&id=" + id
-				+ "&score=" + total+ "&cscore=" + cscore;
-	
+				+ "&score=" + total + "&cscore=" + cscore;
 
 	}
 </script>
 <style type="text/css">
+.input-group{
+	width: 150px;
+}
+
 .form-control {
-	width: 200px;
+	width: 100px;
 }
 </style>
 </head>
 <body>
-	<form class="form-horizontal">
-		<div class="form-group">
-			<label for="quiz_${userid }" class="col-lg-2 control-label">퀴
-				&nbsp;즈</label>
-			<div class="col-lg-10">
-				<input class="form-control" id="quizscore_${userid }" type="text"
-					disabled=""> <a href="#"
-					onclick="openquizmodal('${userid}')" data-toggle="modal"
-					class="btn btn-primary btn-sm">입력</a>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="hw_${userid }" class="col-lg-2 control-label">과
-				&nbsp;제</label>
-			<div class="col-lg-10">
-				<input class="form-control"
-					id="hwscore_${userid }" type="text" disabled=""> <a
-					href="#" onclick="openhwmodal('${userid}')" data-toggle="modal"
-					class="btn btn-primary btn-sm">입력</a>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="exam_${userid }" class="col-lg-2 control-label">시
-				&nbsp;험</label>
-			<div class="col-lg-10">
-				<input type="text" class="form-control" id="exam_${userid }"
-					name="exam">
-			</div>
-		</div>
 
-		<div class="form-group">
-			<label for="attitude_${userid }" class="col-lg-2 control-label">태
-				&nbsp;도</label>
-			<div class="col-lg-10">
-				<input type="text" class="form-control" id="attitude_${userid }"
-					name="attitude" value="20">
-			</div>
-		</div>
+	<table class="table table-striped table-hover">
 
-		<a href="#" onclick="calTotal('${userid}' ,'${createcode }')"
-			data-toggle="modal" class="btn btn-primary btn-sm">입력</a>
-
-
-
-
-
-		<div class="modal" id="quizmodal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Quiz Score</h4>
+		<tr>
+			<th>퀴즈</th>
+			<td><div class="form-group">
+					<div class="input-group">
+						<input type="text" id="quizscore_${userid }"
+							class="form-control" disabled=""> <span class="input-group-btn">
+							<a href="#" onclick="openquizmodal('${userid}')"
+							data-toggle="modal" class="btn btn-default">입력</a>
+						</span>
 					</div>
+				</div></td>
+			<%-- <td><input class="form-control" id="quizscore_${userid }"
+				type="text" disabled=""></td>
+			<td><a href="#" onclick="openquizmodal('${userid}')"
+				data-toggle="modal" class="btn btn-primary btn-sm">입력</a></td> --%>
+		</tr>
 
 
-					<div class="modal-body">
+		<tr>
+			<th>과제</th>
 
-						<a href="#addQuiz" id="addQuiz" class="btn btn-primary btn-sm">퀴즈추가</a>
-						<a href='#' class='btn btn-default' id="deletequiz"
-							onclick="removeqzForm()">삭제</a>
-
-
-						<table>
-							<tr height="50">
-								<td colspan="2" id="quizUpForm"></td>
-							</tr>
-						</table>
-
+			<td><div class="form-group">
+					<div class="input-group">
+						<input type="text" id="hwscore_${userid }"
+							class="form-control" disabled=""> <span class="input-group-btn">
+							<a href="#" onclick="openhwmodal('${userid}')"
+							data-toggle="modal" class="btn btn-default">입력</a>
+						</span>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary"
-							onclick="quizScore()" data-dismiss="modal">Save</button>
-					</div>
+				</div></td>
+			<%-- <td><input class="form-control" id="hwscore_${userid }"
+				type="text" disabled=""></td>
+			<td><a href="#" onclick="openhwmodal('${userid}')"
+				data-toggle="modal" class="btn btn-primary btn-sm">입력</a></td> --%>
+		</tr>
+
+		<tr>
+			<th>시험</th>
+
+			<td><input type="text" class="form-control" id="exam_${userid }"
+				name="exam"></td>
+		</tr>
+
+
+		<tr>
+			<th>태도</th>
+
+			<td><input type="text" class="form-control"
+				id="attitude_${userid }" name="attitude" value="20"></td>
+		</tr>
+		<tr>
+			<td colspan="3"><a href="#"
+				onclick="calTotal('${userid}' ,'${createcode }')"
+				data-toggle="modal" class="btn btn-primary">전송</a></td>
+		</tr>
+	</table>
+
+
+
+
+
+
+
+	<div class="modal" id="quizmodal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Quiz Score</h4>
+				</div>
+
+
+				<div class="modal-body">
+
+					<a href="#addQuiz" id="addQuiz" class="btn btn-primary btn-sm">퀴즈추가</a>
+					<a href='#' class='btn btn-default' id="deletequiz"
+						onclick="removeqzForm()">삭제</a>
+
+
+					<table>
+						<tr height="50">
+							<td colspan="2" id="quizUpForm"></td>
+						</tr>
+					</table>
 
 				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="quizScore()"
+						data-dismiss="modal">Save</button>
+				</div>
+
 			</div>
 		</div>
+	</div>
 
-		<div class="modal" id="hwmodal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title">HomeWork Score</h4>
-					</div>
-
-
-					<div class="modal-body">
-
-						<a href="#addHw" id="addHw" class="btn btn-primary btn-sm">과제추가</a>
-						<a href='#' class='btn btn-default' id="deletehw"
-							onclick="removehwForm()">삭제</a>
+	<div class="modal" id="hwmodal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title">HomeWork Score</h4>
+				</div>
 
 
-						<table>
-							<tr height="50">
-								<td colspan="2" id="hwUpForm"></td>
-							</tr>
-						</table>
+				<div class="modal-body">
 
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" onclick="hwScore()"
-							data-dismiss="modal">Save</button>
-					</div>
+					<a href="#addHw" id="addHw" class="btn btn-primary btn-sm">과제추가</a>
+					<a href='#' class='btn btn-default' id="deletehw"
+						onclick="removehwForm()">삭제</a>
+
+
+					<table>
+						<tr height="50">
+							<td colspan="2" id="hwUpForm"></td>
+						</tr>
+					</table>
 
 				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="hwScore()"
+						data-dismiss="modal">Save</button>
+				</div>
+
 			</div>
 		</div>
-	</form>
+	</div>
+
 </body>
 </html>
