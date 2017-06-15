@@ -94,4 +94,10 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		dao.addReply(reply);
 	}
 
+	@Override
+	public int getReplyCount(int no) {
+		int replyCnt = dao.getReplyCount(no);
+		return replyCnt;
+	}
+
 }

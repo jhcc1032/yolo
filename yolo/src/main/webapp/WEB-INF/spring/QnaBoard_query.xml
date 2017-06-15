@@ -57,6 +57,9 @@
 			</if>
 		</where>
 	</select>
+	<select id="getReplyCount" parameterType="int" resultType="int">
+		select count(*) replyCnt from qnareply where no=#{no}
+	</select>
 	<select id="getqnaBoardNo" resultType="int">
 		select
 		qna_no_seq.nextval from dual

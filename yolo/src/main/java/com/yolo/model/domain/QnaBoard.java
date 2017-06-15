@@ -16,7 +16,14 @@ public class QnaBoard implements Serializable{
 	private String title;
 	private String regdate;
 	private String contents;
+	private int replyCnt;
 	
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
 	private List<QnaBoardReply> replys;
 	
 	public QnaBoard(){}
@@ -25,12 +32,13 @@ public class QnaBoard implements Serializable{
 		this.title = title;
 	}
 	
-	public QnaBoard(int no, int roNum, String title, String regdate, String contents) {
+	public QnaBoard(int no, int roNum, String title, String regdate, String contents, int replyCnt) {
 		this.no = no;
 		this.roNum = roNum;
 		this.title = title;
 		this.regdate = regdate;
 		this.contents = contents;
+		this.replyCnt = replyCnt;
 	}
 	public QnaBoard(int no, int roNum, String id, String title, String regdate, String contents, List<QnaBoardReply> replys) {
 		this.no = no;

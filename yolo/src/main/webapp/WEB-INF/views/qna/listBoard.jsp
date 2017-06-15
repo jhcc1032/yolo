@@ -84,7 +84,7 @@
 						<tr>
 							<td style="text-align:center;">${board.roNum}</td>
 							<td>
-								<a href="#" onclick="getBoard(${board.no})">${board.title}</a>
+								<a href="#" onclick="getBoard(${board.no})">${board.title} (${board.replyCnt})</a>
 							</td>
 							<td style="text-align:right;">${board.id}</td>
 							<td style="text-align:center;">${board.regdate}</td>
