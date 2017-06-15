@@ -25,17 +25,17 @@
 
 	function addQuizForm() {
 
-		var html = "<div id='quiz_"+qzcount+"'><div class='form-group'><label for='quizup' class='col-lg-2 control-label'>Quiz "
+		var html = "<div class='form-group' id='quiz_"+qzcount+"'><label for='quizup'_"+qzcount+ "class='col-lg-2 control-label'>Quiz "
 				+ qzcount + "</label><div class='col-lg-10'>"
-		html += "<input type='text' class='form-control' name='quizup_"+qzcount+"' id='quizup_"+qzcount+"' /></div></div></div>";
+		html += "<input type='text' class='form-control' name='quizup_"+qzcount+"' id='quizup_"+qzcount+"' placeholder='0~100'/></div></div>";
 		$("#quizUpForm").append(html);
 
 		qzcount++;
 	}
 	function addHwForm() {
-		var html = "<div id='hw_"+hwcount+"'><div class='form-group'><label for='hwup' class='col-lg-2 control-label'>HW "
+		var html = "<div class='form-group' id='hw_"+hwcount+"'><label for='hwup_"+hwcount+" class='col-lg-2 control-label'>HW "
 				+ hwcount + "</label><div class='col-lg-10'>"
-		html += "<input type='text' class='form-control' name='hwup_"+hwcount+"' id='hwup_"+hwcount+"' /></div></div></div>";
+		html += "<input type='text' class='form-control' name='hwup_"+hwcount+"' id='hwup_"+hwcount+"' placeholder='0~100'/></div></div>";
 		$("#hwUpForm").append(html);
 
 		hwcount++;
@@ -140,77 +140,75 @@
 	}
 </script>
 <style type="text/css">
-.input-group{
+.input-group {
 	width: 150px;
 }
 
 .form-control {
-	width: 100px;
+	width: 80px;
 }
 </style>
 </head>
 <body>
-
-	<table class="table table-striped table-hover">
-
-		<tr>
-			<th>퀴즈</th>
-			<td><div class="form-group">
-					<div class="input-group">
-						<input type="text" id="quizscore_${userid }"
-							class="form-control" disabled=""> <span class="input-group-btn">
-							<a href="#" onclick="openquizmodal('${userid}')"
-							data-toggle="modal" class="btn btn-default">입력</a>
-						</span>
-					</div>
-				</div></td>
-			<%-- <td><input class="form-control" id="quizscore_${userid }"
+	<h3 style="padding-left: 360px;">성적입력</h3>
+	<form class="form-horizontal">
+		<br />
+		<div class="form-group" style="padding-left: 280px;">
+			<label for="quizscore_${userid }" class="col-lg-2 control-label">퀴
+				&nbsp;즈</label>
+			<div class="input-group" style="padding-left: 15px;">
+				<input type="text" id="quizscore_${userid }" class="form-control"
+					disabled="" placeholder="0~10"> <span
+					class="input-group-btn"> <a href="#"
+					onclick="openquizmodal('${userid}')" data-toggle="modal"
+					class="btn btn-default">입력</a>
+				</span>
+			</div>
+		</div>
+		<%-- <td><input class="form-control" id="quizscore_${userid }"
 				type="text" disabled=""></td>
-			<td><a href="#" onclick="openquizmodal('${userid}')"
-				data-toggle="modal" class="btn btn-primary btn-sm">입력</a></td> --%>
-		</tr>
+			<td><a href="#" onclick="openquizmodal('${userid}')"--%>
 
-
-		<tr>
-			<th>과제</th>
-
-			<td><div class="form-group">
-					<div class="input-group">
-						<input type="text" id="hwscore_${userid }"
-							class="form-control" disabled=""> <span class="input-group-btn">
-							<a href="#" onclick="openhwmodal('${userid}')"
-							data-toggle="modal" class="btn btn-default">입력</a>
-						</span>
-					</div>
-				</div></td>
-			<%-- <td><input class="form-control" id="hwscore_${userid }"
+		<div class="form-group" style="padding-left: 280px;">
+			<label for="hwscore_${userid }" class="col-lg-2 control-label">과
+				&nbsp;제</label>
+			<div class="input-group" style="padding-left: 15px;">
+				<input type="text" id="hwscore_${userid }" class="form-control"
+					disabled="" placeholder="0~10"> <span
+					class="input-group-btn"> <a href="#"
+					onclick="openhwmodal('${userid}')" data-toggle="modal"
+					class="btn btn-default">입력</a>
+				</span>
+			</div>
+		</div>
+		<%-- <td><input class="form-control" id="hwscore_${userid }"
 				type="text" disabled=""></td>
 			<td><a href="#" onclick="openhwmodal('${userid}')"
 				data-toggle="modal" class="btn btn-primary btn-sm">입력</a></td> --%>
-		</tr>
 
-		<tr>
-			<th>시험</th>
+		<div class="form-group" style="padding-left: 280px;">
+			<label for="exam_${userid }" class="col-lg-2 control-label">시
+				&nbsp;험</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" id="exam_${userid }"
+					name="exam" placeholder="0~60" />
+			</div>
+		</div>
 
-			<td><input type="text" class="form-control" id="exam_${userid }"
-				name="exam"></td>
-		</tr>
+		<div class="form-group" style="padding-left: 280px;">
+			<label for="attitude_${userid }" class="col-lg-2 control-label">태
+				&nbsp;도</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" id="attitude_${userid }"
+					name="attitude" value="20" placeholder="0~20">
+			</div>
+		</div>
+		<div class="form-group" style="padding-left: 400px;">
+			<a href="#" onclick="calTotal('${userid}' ,'${createcode }')"
+				data-toggle="modal" class="btn btn-primary">전송</a>
+		</div>
 
-
-		<tr>
-			<th>태도</th>
-
-			<td><input type="text" class="form-control"
-				id="attitude_${userid }" name="attitude" value="20"></td>
-		</tr>
-		<tr>
-			<td colspan="3"><a href="#"
-				onclick="calTotal('${userid}' ,'${createcode }')"
-				data-toggle="modal" class="btn btn-primary">전송</a></td>
-		</tr>
-	</table>
-
-
+	</form>
 
 
 
@@ -228,7 +226,7 @@
 
 				<div class="modal-body">
 
-					<a href="#addQuiz" id="addQuiz" class="btn btn-primary btn-sm">퀴즈추가</a>
+					<a href="#addQuiz" id="addQuiz" class="btn btn-primary">추가</a>
 					<a href='#' class='btn btn-default' id="deletequiz"
 						onclick="removeqzForm()">삭제</a>
 
@@ -262,7 +260,7 @@
 
 				<div class="modal-body">
 
-					<a href="#addHw" id="addHw" class="btn btn-primary btn-sm">과제추가</a>
+					<a href="#addHw" id="addHw" class="btn btn-primary">추가</a>
 					<a href='#' class='btn btn-default' id="deletehw"
 						onclick="removehwForm()">삭제</a>
 
