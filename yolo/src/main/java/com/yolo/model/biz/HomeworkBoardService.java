@@ -13,4 +13,5 @@ public interface HomeworkBoardService {
 	public void add(HomeworkBoard board, String dir);
 	public List<HomeworkBoard> searchAll(PageBean bean);
 	public void addReply(HomeworkBoardReply replys, String dir);
+	public int getReplyCount(int no);
 }

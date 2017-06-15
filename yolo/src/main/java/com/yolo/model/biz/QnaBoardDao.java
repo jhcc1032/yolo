@@ -29,4 +29,6 @@ public interface QnaBoardDao {
 	
 	public void addReply(QnaBoardReply reply);
 	
+	public int getReplyCount(int no);
+	
 }

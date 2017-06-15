@@ -21,6 +21,11 @@ public class MemberDaoImpl implements MemberDao{
 	public Member search(String id) {
 		return session.selectOne("member.search", id);
 	}
+	
+	@Override
+	public String searchIdByName(String name) {
+		return session.selectOne("member.searchIdByName", name);
+	}
 
 	@Override
 	public List<Member> searchAll(PageBean bean) {

@@ -22,6 +22,13 @@ public class HomeworkBoard implements Serializable{
 	private String contents;
 	private String dueDate;
 	private int week;
+	private int replyCnt;
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
 	public int getWeek() {
 		return week;
 	}
@@ -50,13 +57,14 @@ public class HomeworkBoard implements Serializable{
 		this.no = no;
 		this.title = title;
 	}
-	public HomeworkBoard(int no, int roNum, String title, String regdate, String contents, String dueDate) {
+	public HomeworkBoard(int no, int roNum, String title, String regdate, String contents, String dueDate, int replyCnt) {
 		this.no = no;
 		this.roNum = roNum;
 		this.title = title;
 		this.regdate = regdate;
 		this.contents = contents;
 		this.dueDate = dueDate;
+		this.replyCnt = replyCnt;
 	}
 	public HomeworkBoard(int no, String title, String regdate, String contents, String dueDate, List<HomeworkBoardFile> files, List<HomeworkBoardReply> replys) {
 		this.no = no;

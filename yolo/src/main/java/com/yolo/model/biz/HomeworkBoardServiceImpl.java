@@ -160,6 +160,11 @@ public class HomeworkBoardServiceImpl implements HomeworkBoardService {
 		}
 	}
 
+	@Override
+	public int getReplyCount(int no) {
+		return dao.getReplyCount(no);
+	}
+
 
 	
 

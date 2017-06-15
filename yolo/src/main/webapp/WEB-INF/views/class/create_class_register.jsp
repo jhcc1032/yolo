@@ -167,7 +167,19 @@
 					</div>
 					<div class="form-group has-error frame">
 						<label class="control-label" for="inputError">강사</label> 
-						<input type="text" class="form-control" name='cinstructor' id='cintructor'>
+						<select class="form-control" name='cinstructor' id='cinstructor'>
+							<!--  이곳에 등록된 강사를 추출해서 select창에 보여줄 수 있어야 함. -->
+							<c:choose>
+								<c:when test="${!empty instructorList}">
+									<c:forEach var="instructorList" items="${instructorList}">
+										<option value="${instructorList}">${instructorList}</option>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<option>등록된 강사가 존재하지 않습니다.</option>
+								</c:otherwise>
+							</c:choose>
+						</select>
 					</div>
 					<div class="form-group has-error frame">
 						<label class="control-label" for="inputError">교재</label> 

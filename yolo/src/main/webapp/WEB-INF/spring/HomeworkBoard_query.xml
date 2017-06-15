@@ -108,6 +108,9 @@
 			</if>
 		</where>
 	</select>
+	<select id="getReplyCount" parameterType="int" resultType="int">
+		select count(*) replyCnt from homeworkreply where no=#{no}
+	</select>
 	<select id="gethomeworkBoardNo" resultType="int">
 		select
 		homework_no_seq.nextval from dual

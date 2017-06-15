@@ -13,5 +13,6 @@ public interface QnaBoardService {
 	public void add(QnaBoard board, String dir);
 	public List<QnaBoard> searchAll(PageBean bean);
 	public void addReply(QnaBoardReply reply, int no);
+	public int getReplyCount(int no);
 
 }

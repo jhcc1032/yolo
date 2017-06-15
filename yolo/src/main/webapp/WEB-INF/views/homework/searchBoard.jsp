@@ -11,7 +11,7 @@
 <link  rel="stylesheet" type="text/css" href="css/basic.css"  />
 <script type="text/javascript">
 
-	function init(dueDate){
+	function init(dueDate, role){
 		console.log(new Date("2017-06-06"));
 		
 		
@@ -21,9 +21,10 @@
 		console.log(date);
 		console.log(today);
 
-	 	if(today > date) {
-			document.getElementById("submitarea").innerHTML = "과제 제출 기한이 지났습니다.";
+	 	if(today > date && role == '인턴') {
+			document.getElementById("submitarea").innerHTML = "과제 제출 기한이 지났습니다.<br/><br/>Due to "+dueDate;
 			document.getElementById("replys").style.display="none";
+			
 		}
 		
 		var writeBoard = document.getElementById("writeBoard");
@@ -37,6 +38,7 @@
 		writeBoard.style.display="";
 		document.getElementById("viewBoard").style.display="none";
 		document.getElementById("replys").style.display="none";
+		document.getelementById("dueinfo").style.display="none";
 	}
 	function updateBoard(){
 		var frm = document.getElementById("updatefrm");
@@ -95,7 +97,7 @@
 	}
 </style>
 </head>
-<body onload="init('${board.dueDate}')">
+<body onload="init('${board.dueDate}', '${role}')">
     <c:if test="${msg != null }"> 
     	<script type="text/javascript">  alert('${msg}');</script>
     </c:if>
@@ -127,7 +129,6 @@
 					<tr><td colspan="4" height="50" ></td></tr>
 					<tr><td colspan="4" height="250">
 						${board.contents }
-						${board.dueDate }							
 						</td></tr>
 				</tbody>
 				<tfoot>
@@ -142,10 +143,13 @@
 				</tfoot>
 			</table>
 		</form>
+		<div id="dueinfo">
+		<h4 align="center" id="submitarea">Submit Area (Due to ${board.dueDate})</h4>
+		</div>
 	</div>
 	<br/><br/>
 	
-	<h4 align="center" id="submitarea">Submit Area (Due to ${board.dueDate})</h4>
+	
 	<div id="replys">
 		<br/><br/>
 		<form method="post" action="insertHomeworkBoardReply.do" enctype="multipart/form-data" >
@@ -184,7 +188,7 @@
 	    		<h5 class="list-group-item-heading" style="font-weight:bold">${reply.writer}</h5>
 		    	<p class="list-group-item-text">${reply.contents}</p>
 		    	<span class="list-group-item-text">${reply.regdate}</span>
-		    	<c:if test="${reply.writer == id }">
+		    	<c:if test="${reply.writer == id || role == '강사' || role == '관리자'}">
 					<c:if test="${ not empty reply.files}">
 						<c:forEach var="file" items="${ reply.files }">
 							<span style="text-align:right;padding-right:30px">Files: <a href="filedown.do?sfilename=${file.sfileName}&rfilename=${file.rfileName}">${file.rfileName}</a></span>
@@ -211,6 +215,25 @@
 				<div class="col-lg-10">
 					<input type="text" class="form-control" id="title" name="title"
 						value="${board.title}">
+				</div>
+			</div>
+			<div class="form-group">
+			<label for="inputFile" class="col-lg-2 control-label">Upload File</label>
+				<div class="col-lg-10">
+					<c:if test="${ not empty board.files }">
+						<c:forEach var="file" items="${ board.files }">
+							<a href="filedown.do?sfilename=${file.sfileName}&rfilename=${file.rfileName}">${file.rfileName}</a>
+						</c:forEach>
+					</c:if>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputFile" class="col-lg-2 control-label">File
+					Upload</label>
+				<div class="col-lg-10">
+					<input type="button" class="form-control" name="updateAddFile"
+						id="updateAddFile" value="Add File" />
+					<div id="updateFileUpForm"></div>
 				</div>
 			</div>
 			<div class="form-group">

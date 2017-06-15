@@ -15,4 +15,7 @@ public interface MemberDao {
 	/** withdraw를 Y로 update해야 한다.*/
 	public void update(String id)  ;
 	public void update(Member member) ;
+	
+	// 강사이름으로 ID 찾기
+	public String searchIdByName(String name);
 }

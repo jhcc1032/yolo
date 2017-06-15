@@ -52,6 +52,9 @@ public class HomeworkBoardController {
 		
 		if (LoginCheck.check(model, session, "insertBoardForm.do")) {
 			List<HomeworkBoard> list = boardService.searchAll(bean);
+			for(HomeworkBoard board : list) {
+				board.setReplyCnt(boardService.getReplyCount(board.getNo()));
+			}
 			model.addAttribute("list", list);
 			model.addAttribute("content", "homework/listBoard.jsp");
 		} else {

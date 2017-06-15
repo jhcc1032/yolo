@@ -34,6 +34,14 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 	}
+	
+	public String searchIdByName(String name) {
+		try {
+			return dao.searchIdByName(name);
+		} catch(Exception  s){
+			throw new UpdateException("DB 서버 오류");
+		} 
+	}
 
 	public List<Member> searchAll(PageBean bean) {
 		List<Member> members= null;

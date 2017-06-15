@@ -37,4 +37,6 @@ public interface HomeworkBoardDao {
 	
 	public List<HomeworkBoardReplyFile> selectReplyFiles(int rno);
 	
+	public int getReplyCount(int no);
+	
 }

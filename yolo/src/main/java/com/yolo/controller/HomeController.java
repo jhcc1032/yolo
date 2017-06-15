@@ -22,7 +22,7 @@ public class HomeController {
 
 	@RequestMapping(value = { "/", "home.do"}, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		model.addAttribute("content", "main.jsp");
+		model.addAttribute("content", "home.jsp");
 		return "index";
 	}
 }

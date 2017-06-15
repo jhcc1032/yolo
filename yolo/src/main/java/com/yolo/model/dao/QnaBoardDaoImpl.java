@@ -75,4 +75,9 @@ public class QnaBoardDaoImpl implements QnaBoardDao {
 		
 	}
 
+	@Override
+	public int getReplyCount(int no) {
+		return session.selectOne("qnaboard.getReplyCount", no);
+	}
+
 }
